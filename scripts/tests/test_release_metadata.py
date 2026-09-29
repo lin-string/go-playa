@@ -97,20 +97,32 @@ updates:
   - package-ecosystem: gomod
     directory: /
     schedule:
-      interval: weekly
-    open-pull-requests-limit: 5
+      interval: monthly
+    open-pull-requests-limit: 2
+    groups:
+      go-dependencies:
+        patterns:
+          - "*"
 
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
-    open-pull-requests-limit: 5
+      interval: monthly
+    open-pull-requests-limit: 2
+    groups:
+      github-actions:
+        patterns:
+          - "*"
 
   - package-ecosystem: pip
     directory: /compat
     schedule:
-      interval: weekly
-    open-pull-requests-limit: 5
+      interval: monthly
+    open-pull-requests-limit: 2
+    groups:
+      python-dependencies:
+        patterns:
+          - "*"
 """
 
 def repository_files() -> list[Path]:
@@ -622,7 +634,7 @@ class ReleaseMetadataTests(unittest.TestCase):
         path = ROOT / ".github/dependabot.yml"
         actual = path.read_text() if path.is_file() else ""
         self.assertEqual(actual, DEPENDABOT_CONFIG,
-                         "Dependabot must match the approved three-ecosystem weekly policy")
+                         "Dependabot must match the approved grouped monthly policy")
 
 
 if __name__ == "__main__":
