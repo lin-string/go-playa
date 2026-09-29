@@ -121,16 +121,16 @@ pdfa-issue-status:
 api-audit:
 	@set -eu; api="$$(go doc -all github.com/lin-string/go-playa/document)"; \
 		root_api="$$(go doc -all github.com/lin-string/go-playa)"; \
-		if printf '%s\n' "$$api" | rg '^(type PageConcurrencyOptions([[:space:]]|=)|func DefaultPageConcurrencyOptions\(|func \([^)]*\) ForEachPageConcurrentWithOptions\()'; then \
+		if printf '%s\n' "$$api" | grep -E '^(type PageConcurrencyOptions([[:space:]]|=)|func DefaultPageConcurrencyOptions\(|func \([^)]*\) ForEachPageConcurrentWithOptions\()'; then \
 			echo "legacy public page concurrency declarations must be absent" >&2; exit 1; \
 		fi; \
-		if printf '%s\n' "$$root_api" | rg '^(type PageConcurrencyOptions([[:space:]]|=)|func DefaultPageConcurrencyOptions\()'; then \
+		if printf '%s\n' "$$root_api" | grep -E '^(type PageConcurrencyOptions([[:space:]]|=)|func DefaultPageConcurrencyOptions\()'; then \
 			echo "legacy root page concurrency declarations must be absent" >&2; exit 1; \
 		fi
 	@test ! -e concurrency || { echo "public concurrency package must be absent" >&2; exit 1; }
-	! go doc github.com/lin-string/go-playa | rg 'Compatibility|ExtractOptions|PageObjects'
-	! go doc github.com/lin-string/go-playa/content | rg 'ExtractOptions|PageObjects'
-	! go doc github.com/lin-string/go-playa/page | rg 'PageResult'
+	! go doc github.com/lin-string/go-playa | grep -E 'Compatibility|ExtractOptions|PageObjects'
+	! go doc github.com/lin-string/go-playa/content | grep -E 'ExtractOptions|PageObjects'
+	! go doc github.com/lin-string/go-playa/page | grep -E 'PageResult'
 	! go doc github.com/lin-string/go-playa/font.Font.ApplyEncoding >/dev/null 2>&1
 	! go doc github.com/lin-string/go-playa/font.Font.ApplyDifferences >/dev/null 2>&1
 	! go doc github.com/lin-string/go-playa.GraphicState >/dev/null 2>&1
@@ -146,7 +146,7 @@ api-audit:
 	! go doc github.com/lin-string/go-playa/structure.StructureContentKind >/dev/null 2>&1
 	! go doc github.com/lin-string/go-playa/document.StructElement.Alt >/dev/null 2>&1
 	! go doc github.com/lin-string/go-playa/document.StructElement.Abbreviation >/dev/null 2>&1
-	! python3 scripts/generate_cff_resources.py --help | rg '^[[:space:]]+--source-dir([[:space:]]|$$)'
+	! python3 scripts/generate_cff_resources.py --help | grep -E '^[[:space:]]+--source-dir([[:space:]]|$$)'
 
 release-metadata-test:
 	python3 -m unittest scripts/tests/test_release_metadata.py -v

@@ -301,6 +301,9 @@ class ReleaseMetadataTests(unittest.TestCase):
             ["release-metadata-test", "check-fmt", "tidy-check", "engineering-check",
              "vet", "lint", "test", "api-audit"],
         )
+        api_audit = makefile.split("\napi-audit:\n", 1)[1].split("\nrelease-metadata-test:\n", 1)[0]
+        self.assertNotRegex(api_audit, r"\brg\b")
+        self.assertIn("grep -E", api_audit)
         workflow = (ROOT / ".github/workflows/ci.yml").read_text()
         self.assertEqual(
             re.findall(r"(?m)^  ([A-Za-z0-9_-]+):\s*$", workflow.split("jobs:\n", 1)[1]),
