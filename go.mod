@@ -1,8 +1,8 @@
 module github.com/lin-string/go-playa
 
-go 1.25.0
+go 1.26.0
 
-require golang.org/x/text v0.41.0
+require golang.org/x/text v0.42.0
 
 require golang.org/x/image v0.45.0
 
