@@ -1,0 +1,9 @@
+[playa]
+package = "playa-pdf"
+version = "1.1.0"
+tag = "v1.1.0"
+commit = "85a9c1e22e327bf873e4282d66ed1dba89fa7575"
+coordinate_space = "page"
+
+[python]
+requires = ">=3.10"

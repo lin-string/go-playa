@@ -1,0 +1,12 @@
+# Small generated PDF fixtures are regular Git blobs. Large public documents
+# are downloaded into the ignored local corpus cache.
+/testdata/files/*.pdf -filter -diff -merge -text
+
+# Preserve pinned upstream inputs byte-for-byte, including original whitespace.
+/scripts/data/pdfbox/*.java -text -whitespace
+/scripts/data/pdfbox/LICENSE.txt -text -whitespace
+/scripts/data/pdfbox/NOTICE.txt -text -whitespace
+
+# Adobe CMaps and bundled license quotations retain upstream whitespace.
+/fontdata/cmapdata/*.cmap -text -whitespace
+/THIRD_PARTY_LICENSES -whitespace

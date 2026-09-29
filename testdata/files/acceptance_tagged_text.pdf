@@ -1,0 +1,52 @@
+%PDF-1.5
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R /StructTreeRoot 10 0 R /MarkInfo << /Marked true >> >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /StructParents 0 /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<<  /Length 58 >>
+stream
+/P << /MCID 0 >> BDC BT /F1 18 Tf 72 740 Td (AB) Tj ET EMC
+endstream
+endobj
+10 0 obj
+<< /Type /StructTreeRoot /K 11 0 R /ParentTree 12 0 R >>
+endobj
+11 0 obj
+<< /Type /StructElem /S /P /P 10 0 R /Pg 3 0 R /K 13 0 R /T (Financial summary) >>
+endobj
+12 0 obj
+<< /Nums [0 [11 0 R]] >>
+endobj
+13 0 obj
+<< /Type /MCR /Pg 3 0 R /MCID 0 >>
+endobj
+xref
+0 14
+0000000000 65535 f 
+0000000009 00000 n 
+0000000110 00000 n 
+0000000167 00000 n 
+0000000310 00000 n 
+0000000380 00000 n 
+0000000000 00000 f 
+0000000000 00000 f 
+0000000000 00000 f 
+0000000000 00000 f 
+0000000489 00000 n 
+0000000562 00000 n 
+0000000661 00000 n 
+0000000702 00000 n 
+trailer
+<< /Size 14 /Root 1 0 R >>
+startxref
+753
+%%EOF

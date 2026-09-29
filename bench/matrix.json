@@ -1,0 +1,50 @@
+{
+  "schema_version": 1,
+  "local_fixtures": [
+    {
+      "id": "smoke-text",
+      "path": "testdata/files/acceptance_adjacent_glyphs.pdf",
+      "pages": 1,
+      "bytes": 600,
+      "sha256": "e4103e3062051d59a6e5cf1c195dc63710e95d78d50b478c55ac4fdfab61632c",
+      "document_type": "born-digital-text",
+      "languages": ["en"],
+      "features": ["text", "fonts", "native-pages"]
+    },
+    {
+      "id": "smoke-image",
+      "path": "testdata/files/acceptance_rgb_image.pdf",
+      "pages": 1,
+      "bytes": 660,
+      "sha256": "de02ac61b4110e38c002128942673bfdee16660b5db9cec33f8289db6f9ba516",
+      "document_type": "born-digital-graphics",
+      "languages": ["en"],
+      "features": ["images", "native-pages"]
+    }
+  ],
+  "presets": {
+    "smoke": {
+      "source": "local",
+      "repeats": 1,
+      "workers": [1, 2],
+      "tasks": ["open-pages", "objects", "text-glyphs", "layout-items", "image-digests", "text-glyph-jsonl"],
+      "selectors": {}
+    },
+    "reference": {
+      "source": "public",
+      "repeats": 5,
+      "workers": [1, 4],
+      "tasks": ["open-pages", "objects", "text-glyphs", "layout-items", "image-digests", "text-glyph-jsonl"],
+      "selectors": {}
+    },
+    "scaling": {
+      "source": "public",
+      "repeats": 5,
+      "workers": [1, 2, 4, 8],
+      "tasks": ["open-pages", "objects", "text-glyphs", "layout-items", "image-digests", "text-glyph-jsonl"],
+      "selectors": {
+        "ids": ["gnu-emacs", "riscv-unprivileged", "openintro-statistics", "muqaddimah-1900", "korean-school-reader"]
+      }
+    }
+  }
+}

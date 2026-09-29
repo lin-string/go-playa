@@ -1,0 +1,267 @@
+Third-party provenance index
+============================
+
+Original go-playa code is licensed under LICENSE. Bundled third-party
+materials remain subject to the full terms in THIRD_PARTY_LICENSES and the
+retained upstream notices identified below. Include LICENSE, NOTICE, and
+THIRD_PARTY_LICENSES with source and binary redistributions as applicable.
+
+An authoritative local snapshot below identifies the inputs or generated
+outputs retained in this repository; it is not a claim of an upstream commit
+pin. Where a synchronizer follows a moving branch without recording a commit,
+that limitation is stated explicitly.
+
+Playa
+-----
+
+Source: https://github.com/dhdaines/playa
+Oracle identity: compat/upstream.toml is the sole authoritative definition
+of the oracle package, version, tag, and source commit.
+Relationship and files: portions of the Go implementation derive from Playa,
+with Go adaptations across document/, parser/, fontdata/, the public domain
+packages, and cmd/playa/. compat/manifest.toml and docs/api-audit.md map the
+compared behavior and public APIs to their Playa counterparts. The oracle is
+a development/compatibility dependency, not a Python runtime requirement for
+the Go library.
+License: MIT. Full terms are retained in LICENSE and mirrored in
+THIRD_PARTY_LICENSES, "Playa license".
+Retained attribution: David Huggins-Daines <dhd@ecolingui.ca>.
+
+pdfminer.six
+-----------
+
+Source: https://github.com/pdfminer/pdfminer.six
+Authority: the pdfminer.six notice carried by the Playa source identified in
+compat/upstream.toml; no separate pdfminer.six source revision is recorded for
+these inherited portions.
+Relationship and files: Playa includes pdfminer.six-derived code; the inherited
+notice applies to corresponding translated/adapted PDF parsing, font, content,
+and layout implementation in the Go source tree. The repository does not
+claim a separate direct pdfminer.six dependency.
+License: MIT. Full terms are retained in LICENSE and mirrored in
+THIRD_PARTY_LICENSES, "pdfminer.six license".
+Retained attribution: Yusuke Shinyama <yusuke at shinyama dot jp>.
+
+Apache PDFBox / FontBox expert encoding inputs
+---------------------------------------------
+
+Source: https://github.com/apache/pdfbox
+Pin: scripts/sync_macexpert_encoding.py and scripts/data/pdfbox/README.md
+record the source commit, upstream paths, and SHA-256 hashes.
+Retained files: scripts/data/pdfbox/MacExpertEncoding.java,
+CFFExpertEncoding.java, LICENSE.txt, and NOTICE.txt are unmodified inputs.
+Relationship and outputs: scripts/generate_macexpert_encoding.py translates
+PDF MacExpertEncoding to fontdata/macexpert_encoding_generated.go;
+scripts/generate_cff_resources.py translates the distinct CFF ExpertEncoding
+to the expert table in fontdata/cff_encoding_generated.go.
+License: Apache-2.0 and the retained original PDFBox/FontBox BSD-style terms.
+Full terms: THIRD_PARTY_LICENSES, "Apache PDFBox expert encoding license",
+"Original PDFBox and FontBox contributions", and "Apache PDFBox applicable
+upstream NOTICE". The full upstream legal files remain in scripts/data/pdfbox/.
+No Ghostscript source is used or redistributed.
+Specification reference: Adobe Technical Note #5176 Appendix B,
+https://adobe-type-tools.github.io/font-tech-notes/pdfs/5176.CFF.pdf
+
+Adobe Glyph List and ITC Zapf Dingbats Glyph List
+----------------------------------------------
+
+Source: https://github.com/adobe-type-tools/agl-aglfn
+Authoritative local inputs: scripts/data/glyphlist.txt and
+scripts/data/zapfdingbats.txt, including their table-version, date, and legal
+headers. scripts/sync_glyphlist_sources.py refreshes from upstream master
+without recording an immutable upstream commit.
+Relationship and outputs: the retained lists supply Unicode assignments for
+fontdata/glyphlist_generated.go, fontdata/symbol_encoding_generated.go,
+fontdata/zapfdingbats_encoding_generated.go, and
+fontdata/standard_metrics_generated.go through the respective generators.
+The Symbol mapping preserves the Adobe assignments for mu (U+00B5), Delta
+(U+2206), and Omega (U+2126); related AFM inputs are described below.
+License: BSD-3-Clause. Full terms: THIRD_PARTY_LICENSES, "Adobe Glyph List and
+ITC Zapf Dingbats Glyph List license", and the retained source headers.
+
+Adobe CMap Resources
+-------------------
+
+Source: https://github.com/adobe-type-tools/cmap-resources
+Authoritative local inputs: fontdata/cmapdata/*.cmap, with per-resource
+version and copyright headers. scripts/sync_cmap_resources.py refreshes from
+upstream master without recording an immutable upstream commit.
+Relationship and files: the synchronized CMap resources are retained with
+their upstream headers and embedded by fontdata/cmap_resources.go for
+predefined character-code/CID mappings; they are not translated source code.
+License: BSD-3-Clause. Full terms: THIRD_PARTY_LICENSES, "Adobe CMap Resources
+license", and each retained resource header.
+
+fontTools
+---------
+
+Source: https://github.com/fonttools/fonttools
+Authority: scripts/generate_cff_resources.py selects
+Lib/fontTools/cffLib/__init__.py and Lib/fontTools/encodings/StandardEncoding.py
+from upstream main (or a caller-supplied local checkout); it does not record
+an immutable upstream commit. The authoritative local generated snapshot is
+fontdata/cff_standard_strings.go, fontdata/cff_predefined_charsets.go, and the
+StandardEncoding table in fontdata/cff_encoding_generated.go.
+Relationship: selected CFF strings, predefined charsets, and encoding data are
+translated into Go tables; fontTools is not a Go runtime dependency. The CFF
+ExpertEncoding table in the same generated file comes from PDFBox above.
+License: MIT. Full terms: THIRD_PARTY_LICENSES, "fontTools license".
+
+Go module dependencies
+----------------------
+
+Sources:
+https://cs.opensource.google/go/x/image
+https://cs.opensource.google/go/x/text
+https://cs.opensource.google/go/x/sys
+Pins: go.mod records module versions; go.sum records module integrity hashes.
+Relationship and files: golang.org/x/image, golang.org/x/text, and the indirect
+golang.org/x/sys dependency are Go modules whose code may be linked into
+executables. In addition,
+scripts/generate_ccitt_tables.py translates golang.org/x/image/ccitt/table.go
+into parser/ccitt_tables_generated.go. Dependency source is retrieved by Go,
+not vendored in this repository.
+License: BSD-3-Clause. Full terms: THIRD_PARTY_LICENSES, "Go module dependency
+license", "Historical Go dependency license", and "Go CCITT copyright notice";
+the dependency distributions retain their LICENSE files and source headers.
+
+Core 14 AFM inputs
+-----------------
+
+Original source: https://www.adobe.com/devnet/font/pdfs/Core14_AFMs.zip
+Mirror: https://github.com/tecnickcom/tc-font-core14-afms
+Authoritative local inputs: the 14 *.afm files and LICENSE under
+scripts/data/core14/. scripts/sync_core14_afm.py refreshes from mirror main
+without recording an immutable upstream commit.
+Relationship and outputs: synchronization normalizes line endings and
+trailing whitespace while preserving AFM semantics and notices. Each
+synchronized AFM prominently records that normalization in a Comment.
+Generators translate the metrics into fontdata/standard_metrics_generated.go and the
+Symbol/ZapfDingbats data into fontdata/symbol_encoding_generated.go and
+fontdata/zapfdingbats_encoding_generated.go. Per-file source notices and the
+accompanying distribution terms remain in scripts/data/core14/.
+License identifier: custom Adobe Core 14 AFM distribution terms (not MIT).
+Full terms: THIRD_PARTY_LICENSES, "Core 14 AFM distribution terms" and
+"Core 14 AFM per-font notices"; scripts/data/core14/LICENSE accompanies the
+14 retained AFM files.
+Specification reference: Adobe Technical Note #5004,
+https://adobe-type-tools.github.io/font-tech-notes/pdfs/5004.AFM_Spec.pdf
+
+PDF WinAnsi and MacRoman mapping references
+------------------------------------------
+
+Reference: ISO 32000-1:2008 Annex D.2,
+https://opensource.adobe.com/dc-acrobat-sdk-docs/standards/pdfstandards/pdf/PDF32000_2008.pdf
+Authority and outputs: scripts/generate_winansi_encoding.py and
+scripts/generate_macroman_encoding.py generate
+fontdata/winansi_encoding_generated.go and
+fontdata/macroman_encoding_generated.go from Python codec mappings and PDF
+glyph-assignment rules for space, hyphen, unused-code bullets, and currency.
+No specification text or Python codec implementation is redistributed.
+These generators use the reference to determine mapping behavior; the
+project's original generator code is covered by LICENSE.
+
+Optional public PDF corpora
+--------------------------
+
+The downloaded public PDFs are explicitly outside the distributed Go module.
+They are fetched without content modification for compatibility tests and
+benchmarks into .compat-cache/. They retain their own licenses, embedded
+notices, and third-party credits; the project MIT license does not cover them.
+
+Large-document sources:
+- RISC-V Unprivileged Architecture, CC-BY-4.0:
+  https://docs.riscv.org/
+- OpenIntro Statistics, CC-BY-SA-3.0:
+  https://www.openintro.org/book/os/
+- GNU Emacs Manual, GFDL-1.3-or-later with invariant sections and cover texts:
+  https://www.gnu.org/software/emacs/manual/
+Authority: compat/public_corpus.json records publisher/download URLs,
+document editions, exact sizes and SHA-256 hashes, attribution, license URLs,
+and embedded-notice evidence. Preserve the GNU manual's identified invariant
+sections and front/back-cover notices when redistributing that document.
+Full terms: the per-document license_url entries and the downloaded documents'
+embedded notices; these optional documents are not bundled here.
+
+PDF Association sources:
+- pdf20examples, CC-BY-SA-4.0:
+  https://github.com/pdf-association/pdf20examples
+- pdf-differences test files, CC-BY-4.0:
+  https://github.com/pdf-association/pdf-differences
+- SafeDocs, Apache-2.0:
+  https://github.com/pdf-association/safedocs
+- techniques-for-accessible-pdf, CC-BY-4.0:
+  https://github.com/pdf-association/techniques-for-accessible-pdf
+Authority: internal/testfixture/pdf_association_fixtures.json records source
+commits, fixture paths, content hashes, evidence, and full-license links.
+cmd/playa-fixtures fetches those pinned sources; the PDFs are not redistributed
+in the module. Full terms: the manifest's license_url entries and each
+downloaded source's original notices.
+
+Benchmark-only public PDFs
+--------------------------
+
+These nine unmodified PDFs are benchmark inputs, not distributed with the Go module.
+They are downloaded only by an explicit command into .compat-cache/benchmark-corpus.
+bench/corpus.json is the authority for editions, download URLs, byte lengths,
+SHA-256, parsed page counts, source/license evidence, and retained attribution.
+The benchmark manifest is independent of compat/public_corpus.json even when
+a source is also used for compatibility tests. The project MIT license does
+not cover these PDFs. Full license terms are linked below and retained within
+the original documents where applicable; no duplicate license text is bundled.
+Keep author, image, collection, invariant-section, and cover notices when
+redistributing a document.
+
+- riscv-unprivileged: The RISC-V Instruction Set Manual, Volume I: Unprivileged Architecture, Version 20260120
+  Source: https://docs.riscv.org/reference/isa/v20260120/unpriv/unpriv-index.html
+  License: CC-BY-4.0
+  Full terms: https://creativecommons.org/licenses/by/4.0/
+  Attribution: RISC-V International and credited contributors; preserve page 20 author/license notices.
+
+- gnu-emacs: GNU Emacs Manual, Emacs 31.1.50
+  Source: https://www.gnu.org/software/emacs/manual/
+  License: GFDL-1.3-or-later with invariant sections and cover texts
+  Full terms: https://www.gnu.org/licenses/fdl-1.3.html
+  Attribution: Free Software Foundation, 1985-2026; preserve embedded GFDL, GNU Manifesto, Distribution, GPL and cover notices.
+
+- openintro-statistics: OpenIntro Statistics, Fourth Edition, screen-reader edition (2022-10-21)
+  Source: https://www.openintro.org/book/os/
+  License: CC-BY-SA-3.0
+  Full terms: https://github.com/OpenIntroStat/openintro-statistics/blob/master/LICENSE.md
+  Attribution: David Diez, Mine Cetinkaya-Rundel, Christopher D. Barr / OpenIntro, 2019; retain original author/image credits and ShareAlike notices.
+
+- shuying-siku-quanshu: Shuying, Siku Quanshu manuscript (1800)
+  Source: https://commons.wikimedia.org/wiki/File:%E6%9B%B8%E5%BD%B1%E5%9B%9B%E5%BA%AB%E5%85%A8%E6%9B%B8%E6%9C%AC.pdf
+  License: CC0-1.0
+  Full terms: https://creativecommons.org/publicdomain/zero/1.0/
+  Attribution: Zhou Lianggong; Siku Quanshu manuscript; Chinese University of Hong Kong Library / Shuge; Commons upload by Ghren.
+
+- muqaddimah-1900: Ibn Khaldun, Muqaddimah (al-Matbaah al-adabiyah, 1900)
+  Source: https://commons.wikimedia.org/wiki/File:%D9%85%D9%82%D8%AF%D9%85%D8%A9_%D8%A7%D8%A8%D9%86_%D8%AE%D9%84%D8%AF%D9%88%D9%86_(%D8%A7%D9%84%D9%85%D8%B7%D8%A8%D8%B9%D8%A9_%D8%A7%D9%84%D8%A3%D8%AF%D8%A8%D9%8A%D8%A9%D8%8C_1900).pdf
+  License: Public domain (PD-Lebanon / PD-old-100; pre-1931 publication)
+  Full terms: https://creativecommons.org/publicdomain/mark/1.0/
+  Attribution: Ibn Khaldun (1332-1406), al-Matbaah al-adabiyah 1900 edition; digitization/source credited on Commons.
+
+- iroha-jiruisho-japanese: Iroha Jiruisho, volume 1, 1827 manuscript of the historical Japanese dictionary
+  Source: https://commons.wikimedia.org/wiki/File:WUL-ho02_00596_%E8%89%B2%E8%91%89%E5%AD%97%E9%A1%9E%E6%8A%84_1.pdf
+  License: Public domain (PD-old-70; 1827 manuscript of a medieval work)
+  Full terms: https://creativecommons.org/publicdomain/mark/1.0/
+  Attribution: Tachibana Tadakane; Mitsutomi's 1827 Kyoto manuscript; Waseda University Library ho02/ho02_00596; retain original collection notices.
+
+- korean-school-reader: Gukmin Sohak Dokbon / National Primary School Reader (1895)
+  Source: https://commons.wikimedia.org/wiki/File:%E5%9C%8B%E6%B0%91%E5%B0%8F%E5%AD%B8%E8%AE%80%E6%9C%AC.pdf
+  License: Public domain (PD-Art / PD-old-70)
+  Full terms: https://creativecommons.org/publicdomain/mark/1.0/
+  Attribution: Joseon Ministry of Education editorial bureau (1895); National Library of Korea; Commons upload by AstrobluePeter (2016).
+
+- murat-coeur-fervent: Amelie Murat, D'un coeur fervent (1908), OCR scan
+  Source: https://commons.wikimedia.org/wiki/File:Murat_-_D%E2%80%99un_c%C5%93ur_fervent%2C_1908.pdf
+  License: Public domain (PD-US-expired / PD-old-80; author died 1940)
+  Full terms: https://creativecommons.org/publicdomain/mark/1.0/
+  Attribution: Amelie Murat (1882-1940), E. Sansot et Cie, Paris 1908; LeDeuxiemeTexte collection; OCR/crop by Commons contributor Cunegonde1 (2024).
+
+- gnu-libc-manual: GNU C Library Reference Manual, version 2.44 development snapshot (2026-07-27)
+  Source: https://sourceware.org/glibc/manual/latest/html_node/index.html
+  License: GFDL-1.3-or-later with invariant sections and cover texts
+  Full terms: https://www.gnu.org/licenses/fdl-1.3.html
+  Attribution: Free Software Foundation and GNU C Library manual contributors.

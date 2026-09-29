@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "fixtures": [
+    {
+      "id": "riscv-unprivileged",
+      "title": "The RISC-V Instruction Set Manual, Volume I: Unprivileged Architecture, Version 20260120",
+      "url": "https://docs.riscv.org/reference/isa/v20260120/_attachments/riscv-unprivileged.pdf",
+      "pages": 696,
+      "license": "CC-BY-4.0",
+      "license_url": "https://creativecommons.org/licenses/by/4.0/",
+      "source_url": "https://docs.riscv.org/reference/isa/v20260120/unpriv/unpriv-index.html",
+      "notes": "RISC-V International and credited contributors. Preserve the author/license notices on PDF page 20. Asciidoctor PDF/Prawn, many tables, instruction diagrams, formulas, hyperlinks and fonts.",
+      "bytes": 4580174,
+      "sha256": "06bb3c23074f72060a0ec061a80933af948cae7ceafdcd9d1fe177b05fd150bc"
+    },
+    {
+      "id": "gnu-emacs",
+      "title": "GNU Emacs Manual, Emacs 31.1.50",
+      "url": "https://www.gnu.org/software/emacs/manual/pdf/emacs.pdf",
+      "pages": 804,
+      "license": "GFDL-1.3-or-later with invariant sections and cover texts",
+      "license_url": "https://www.gnu.org/licenses/fdl-1.3.html",
+      "source_url": "https://www.gnu.org/software/emacs/manual/",
+      "notes": "Free Software Foundation, 1985–2026. The downloaded development manual identifies 31.1.50 on PDF page 4. Preserve the embedded license, invariant sections (The GNU Manifesto, Distribution, GNU GENERAL PUBLIC LICENSE) and front/back-cover notices. This moving official URL is guarded by exact SHA-256; updates require explicit manifest review. TeX/pdfTeX, long outline, indexes, code and internal destinations.",
+      "bytes": 3084965,
+      "sha256": "c9ca029caf39189d596f4a4d262eec93fd2cee05e5742476caa17a8eda0e48b5"
+    },
+    {
+      "id": "openintro-statistics",
+      "title": "OpenIntro Statistics, Fourth Edition, screen-reader edition (2022-10-21)",
+      "url": "https://www.openintro.org/go/?id=os4_for_screen_reader",
+      "pages": 465,
+      "license": "CC-BY-SA-3.0",
+      "license_url": "https://github.com/OpenIntroStat/openintro-statistics/blob/master/LICENSE.md",
+      "source_url": "https://www.openintro.org/book/os/",
+      "notes": "David Diez, Mine Çetinkaya-Rundel, Christopher D. Barr / OpenIntro, 2019; PDF revision 2022-10-21. Preserve original author and image credits and ShareAlike license. Official screen-reader edition has no PDF Tagged flag; producer macOS Quartz PDFContext with appended LaTeX content, formulas, colored statistical figures and navigation.",
+      "bytes": 20947445,
+      "sha256": "e261e4aea0eb4f0fd2b9d340604918ee7145e1a98e00313575c88977b671cb40"
+    }
+  ]
+}

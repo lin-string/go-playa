@@ -1,0 +1,88 @@
+%PDF-1.5
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R /Names 11 0 R /Outlines 13 0 R /OpenAction [3 0 R /FitH 760] /PageLabels 15 0 R /Metadata 16 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Annots [17 0 R 20 0 R 21 0 R 22 0 R] /Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>
+endobj
+4 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+5 0 obj
+<<  /Length 47 >>
+stream
+BT /F1 18 Tf 72 740 Td (Quarterly report) Tj ET
+endstream
+endobj
+11 0 obj
+<< /Dests 12 0 R >>
+endobj
+12 0 obj
+<< /Names [(chapter) [3 0 R /FitH 760]] >>
+endobj
+13 0 obj
+<< /Type /Outlines /First 18 0 R /Last 18 0 R /Count 1 >>
+endobj
+14 0 obj
+<< /Type /Action /S /GoTo /D [3 0 R /FitH 760] >>
+endobj
+15 0 obj
+<< /Nums [0 19 0 R] >>
+endobj
+16 0 obj
+<< /Type /Metadata /Subtype /XML /Length 60 >>
+stream
+<x:xmpmeta><dc:title>Quarterly report</dc:title></x:xmpmeta>
+endstream
+endobj
+17 0 obj
+<< /Type /Annot /Subtype /Link /Rect [72 680 220 700] /Border [0 0 0] /A << /S /URI /URI (https://example.com/report) >> >>
+endobj
+18 0 obj
+<< /Title (Chapter 1) /Parent 13 0 R /A << /S /URI /URI (https://outline.example) /Next [<< /S /Named /N /NextPage >> << /S /Launch /F (report.pdf) >> << /S /JavaScript /JS (app.alert) >> << /S /GoTo /D [3 0 R /Fit] >>] >> >>
+endobj
+19 0 obj
+<< /S /D /P (Section ) /St 3 >>
+endobj
+20 0 obj
+<< /Type /Annot /Subtype /Text /Rect [240 680 260 700] /Contents (Review note) /NM (note-1) /M (D:20240826090000Z) /C [1 0 0] /Border [0 0 2] /Popup 21 0 R /IRT 22 0 R >>
+endobj
+21 0 obj
+<< /Type /Annot /Subtype /Popup /Rect [260 680 420 760] /Parent 20 0 R /Open true >>
+endobj
+22 0 obj
+<< /Type /Annot /Subtype /Text /Rect [240 640 260 660] /Contents (Parent note) /NM (parent-note) >>
+endobj
+xref
+0 23
+0000000000 65535 f 
+0000000009 00000 n 
+0000000155 00000 n 
+0000000212 00000 n 
+0000000376 00000 n 
+0000000446 00000 n 
+0000000000 00000 f 
+0000000000 00000 f 
+0000000000 00000 f 
+0000000000 00000 f 
+0000000000 00000 f 
+0000000544 00000 n 
+0000000580 00000 n 
+0000000639 00000 n 
+0000000713 00000 n 
+0000000779 00000 n 
+0000000818 00000 n 
+0000000959 00000 n 
+0000001099 00000 n 
+0000001341 00000 n 
+0000001389 00000 n 
+0000001576 00000 n 
+0000001677 00000 n 
+trailer
+<< /Size 23 /Root 1 0 R >>
+startxref
+1793
+%%EOF

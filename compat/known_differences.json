@@ -1,0 +1,376 @@
+{
+  "schema_version": 1,
+  "records": [
+    {
+      "id": "acceptance-form-xobject-nested-fonts",
+      "fixture": "acceptance_form_xobject.pdf",
+      "fixture_sha256": "a2b7bf4224c2b9c925b33726c3e4514afbcec55290e005da9c9a9c020543b556",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "sections": [
+        "document",
+        "document.objects",
+        "document.mapping",
+        "document.tokens",
+        "document.buffer",
+        "document.xrefs",
+        "pages",
+        "content.text",
+        "content.extract_text",
+        "content.extract_text.tagged",
+        "content.extract_text.untagged",
+        "content.glyphs",
+        "content.flatten",
+        "content.interp",
+        "content.streams",
+        "content.tokens",
+        "content.xobjects",
+        "content.contents",
+        "layout",
+        "annotations",
+        "outline",
+        "destinations",
+        "forms",
+        "structure",
+        "content.structure",
+        "fonts",
+        "content.paths",
+        "content.images",
+        "content.tags",
+        "content.marked"
+      ],
+      "alternate_sections": [
+        [
+          "fonts"
+        ]
+      ],
+      "path_pattern": "^document_fonts(?:\\[[0-9]+\\](?:\\..*)?)?$",
+      "difference_count": 1,
+      "differences_sha256": "54fb5cd20679759592b68b432209aac2081698a2ba30f0695e3821c1eeef8e2e",
+      "upstream_issue": "document-fonts-nested-resources",
+      "reason": "Playa only scans page-level Font resources, while document-wide discovery correctly includes the font reachable through the Form XObject resource dictionary."
+    },
+    {
+      "id": "acceptance-visual-clipping-state",
+      "fixture": "acceptance_visual_semantics.pdf",
+      "fixture_sha256": "702d00492442dad87713a4efa91e18a0b232eb468dd4450e7ce34585d870eda1",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "sections": [
+        "document",
+        "document.objects",
+        "document.mapping",
+        "document.tokens",
+        "document.buffer",
+        "document.xrefs",
+        "pages",
+        "content.text",
+        "content.extract_text",
+        "content.extract_text.tagged",
+        "content.extract_text.untagged",
+        "content.glyphs",
+        "content.flatten",
+        "content.interp",
+        "content.streams",
+        "content.tokens",
+        "content.xobjects",
+        "content.contents",
+        "layout",
+        "annotations",
+        "outline",
+        "destinations",
+        "forms",
+        "structure",
+        "content.structure",
+        "fonts",
+        "content.paths",
+        "content.images",
+        "content.tags",
+        "content.marked"
+      ],
+      "path_pattern": "^pages\\[[0-9]+\\]\\.(?:paths|flatten|interp)\\[[0-9]+\\]\\.state\\.has_clip$",
+      "difference_count": 3,
+      "differences_sha256": "10a409458e10bcefb0abb01249b67725ac06dac78536a17b938e05211ae70333",
+      "upstream_issue": "clipping-path-state",
+      "reason": "Playa leaves GraphicState.clipping_path unset, while the fixture applies a clipping path before painting later content."
+    },
+    {
+      "id": "riscv-clipping-state",
+      "fixture": "riscv-unprivileged.pdf",
+      "fixture_sha256": "06bb3c23074f72060a0ec061a80933af948cae7ceafdcd9d1fe177b05fd150bc",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "sections": [
+        "document",
+        "document.objects",
+        "document.mapping",
+        "document.tokens",
+        "document.buffer",
+        "document.xrefs",
+        "pages",
+        "content.text",
+        "content.extract_text",
+        "content.extract_text.tagged",
+        "content.extract_text.untagged",
+        "content.glyphs",
+        "content.flatten",
+        "content.interp",
+        "content.streams",
+        "content.tokens",
+        "content.xobjects",
+        "content.contents",
+        "layout",
+        "annotations",
+        "outline",
+        "destinations",
+        "forms",
+        "structure",
+        "content.structure",
+        "fonts",
+        "content.paths",
+        "content.images",
+        "content.tags",
+        "content.marked"
+      ],
+      "path_pattern": "^pages\\[[0-9]+\\]\\.(?:paths|flatten|interp)\\[[0-9]+\\]\\.state\\.has_clip$",
+      "difference_count": 62685,
+      "differences_sha256": "a92ef78f644592917074fdf76dbd883cc388c1ddff5b9b471a350c235dc6baf4",
+      "upstream_issue": "clipping-path-state",
+      "reason": "The pinned Playa GraphicState leaves clipping_path unset and its W/W* handlers do not update it. Go retains the clipping path applied before the RISC-V manual's later paths and interpreted content; the same behavior is covered by acceptance_visual_semantics.pdf."
+    },
+    {
+      "fixture": "openintro-statistics.pdf",
+      "fixture_sha256": "e261e4aea0eb4f0fd2b9d340604918ee7145e1a98e00313575c88977b671cb40",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "id": "openintro-flatten-clipping-state",
+      "sections": [
+        "content.flatten"
+      ],
+      "path_pattern": "^pages\\[[0-9]+\\]\\.flatten\\[[0-9]+\\]\\.state\\.has_clip$",
+      "difference_count": 162156,
+      "differences_sha256": "28a46f7b0d4dd477f2e8c9e4118c89966278bebb9046cbd664a0b91c0ed71a97",
+      "upstream_issue": "clipping-path-state",
+      "reason": "The pinned Playa GraphicState leaves clipping_path unset and its W/W* handlers do not update it. Go retains clipping state on the OpenIntro textbook content after a clipping path is applied; acceptance_visual_semantics.pdf isolates the same behavior."
+    },
+    {
+      "fixture": "openintro-statistics.pdf",
+      "fixture_sha256": "e261e4aea0eb4f0fd2b9d340604918ee7145e1a98e00313575c88977b671cb40",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "id": "openintro-paths-clipping-state",
+      "sections": [
+        "content.paths"
+      ],
+      "path_pattern": "^pages\\[[0-9]+\\]\\.paths\\[[0-9]+\\]\\.state\\.has_clip$",
+      "difference_count": 162156,
+      "differences_sha256": "94f499ceb685cce7956d9f99c7ea98589f943f4cb413606fdc1fc63a2c3e63a8",
+      "upstream_issue": "clipping-path-state",
+      "reason": "The pinned Playa GraphicState leaves clipping_path unset and its W/W* handlers do not update it. Go retains clipping state on the OpenIntro textbook content after a clipping path is applied; acceptance_visual_semantics.pdf isolates the same behavior."
+    },
+    {
+      "id": "openintro-form-xobject-nested-fonts",
+      "fixture": "openintro-statistics.pdf",
+      "fixture_sha256": "e261e4aea0eb4f0fd2b9d340604918ee7145e1a98e00313575c88977b671cb40",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "sections": [
+        "document",
+        "document.objects",
+        "document.mapping",
+        "document.tokens",
+        "document.buffer",
+        "document.xrefs",
+        "outline",
+        "destinations",
+        "forms",
+        "fonts"
+      ],
+      "path_pattern": "^document_fonts(?:\\[[0-9]+\\](?:\\..*)?)?$",
+      "difference_count": 909,
+      "differences_sha256": "fe22f9667b4db870a7f82f0c4a5835bf36dc4d29cbd1467c7c565099db3410da",
+      "upstream_issue": "document-fonts-nested-resources",
+      "reason": "Playa only scans page-level Font resources, while Go discovers 13 additional fonts reachable through nested Form XObject resources in OpenIntro. All 45 shared font projections match exactly when aligned by resource name; the raw list-index differences arise from this expanded document font inventory."
+    },
+    {
+      "id": "riscv-png-average-native-overflow",
+      "fixture": "riscv-unprivileged.pdf",
+      "fixture_sha256": "06bb3c23074f72060a0ec061a80933af948cae7ceafdcd9d1fe177b05fd150bc",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "sections": [
+        "document",
+        "document.objects",
+        "document.mapping",
+        "document.tokens",
+        "document.buffer",
+        "document.xrefs",
+        "pages",
+        "content.text",
+        "content.extract_text",
+        "content.extract_text.tagged",
+        "content.extract_text.untagged",
+        "content.glyphs",
+        "content.flatten",
+        "content.interp",
+        "content.streams",
+        "content.tokens",
+        "content.xobjects",
+        "content.contents",
+        "layout",
+        "annotations",
+        "outline",
+        "destinations",
+        "forms",
+        "structure",
+        "content.structure",
+        "fonts",
+        "content.paths",
+        "content.images",
+        "content.tags",
+        "content.marked"
+      ],
+      "path_pattern": "^(?:mapping\\[303\\]\\.stream\\.sha256|mapping\\[4978\\]\\.stream\\.sha256|mapping\\[4979\\]\\.stream\\.sha256|mapping\\[4984\\]\\.stream\\.sha256|mapping\\[4985\\]\\.stream\\.sha256|mapping\\[5038\\]\\.stream\\.sha256|mapping\\[5039\\]\\.stream\\.sha256|mapping\\[5051\\]\\.stream\\.sha256|mapping\\[5052\\]\\.stream\\.sha256|mapping\\[5058\\]\\.stream\\.sha256|mapping\\[5059\\]\\.stream\\.sha256|objects\\[5039 0 R\\]\\.object\\.stream\\.sha256|objects\\[304 0 R\\]\\.object\\.stream\\.sha256|objects\\[5040 0 R\\]\\.object\\.stream\\.sha256|objects\\[5052 0 R\\]\\.object\\.stream\\.sha256|objects\\[5053 0 R\\]\\.object\\.stream\\.sha256|objects\\[5059 0 R\\]\\.object\\.stream\\.sha256|objects\\[5060 0 R\\]\\.object\\.stream\\.sha256|objects\\[4979 0 R\\]\\.object\\.stream\\.sha256|objects\\[4980 0 R\\]\\.object\\.stream\\.sha256|objects\\[4985 0 R\\]\\.object\\.stream\\.sha256|objects\\[4986 0 R\\]\\.object\\.stream\\.sha256|pages\\[626\\]\\.images\\[0\\]\\.stream_sha256|pages\\[627\\]\\.images\\[0\\]\\.stream_sha256|pages\\[632\\]\\.images\\[0\\]\\.stream_sha256|pages\\[633\\]\\.images\\[0\\]\\.stream_sha256|pages\\[633\\]\\.images\\[1\\]\\.stream_sha256)$",
+      "difference_count": 27,
+      "differences_sha256": "caacec56196c99957f4f39ebc53d03601022525f82cf6b325066d8b252f6df5a",
+      "upstream_issue": "png-average-predictor-native-overflow",
+      "reason": "The pinned native Playa PNG Average predictor adds uint8 left/above values before dividing by two, overflowing the intermediate sum. Go matches the shipped pure Python utils.py and PNG predictor arithmetic for all 11 affected streams; these 27 mapping/object/image digests refer to those streams."
+    },
+    {
+      "id": "openintro-zapf-pages",
+      "fixture": "openintro-statistics.pdf",
+      "fixture_sha256": "e261e4aea0eb4f0fd2b9d340604918ee7145e1a98e00313575c88977b671cb40",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "sections": [
+        "pages",
+        "content.text",
+        "content.extract_text",
+        "content.extract_text.tagged",
+        "content.extract_text.untagged"
+      ],
+      "path_pattern": "^pages\\[[0-9]+\\]\\.(?:text\\[[0-9]+\\]\\.chars|extract_text|extract_text_untagged)$",
+      "difference_count": 5934,
+      "differences_sha256": "97c79e368f53b884be72031acc863545f52f4e27bacc90f48d39e133cefe268a",
+      "upstream_issue": "zapfdingbats-built-in-font-data",
+      "reason": "The pinned Playa AGL-only lookup omits ITC ZapfDingbats a71 (U+25CF), making affected text objects lose that glyph and causing its Unicode-keyed Core 14 width lookup to use the fallback width. All 5872 raw object differences are empty versus U+25CF. Correcting only a71 mapping and Adobe AFM widths (a71=791, space=278) in an isolated oracle process reproduces all 62 Go aggregate strings exactly, including six width-dependent whitespace differences."
+    },
+    {
+      "id": "openintro-zapf-glyphs",
+      "fixture": "openintro-statistics.pdf",
+      "fixture_sha256": "e261e4aea0eb4f0fd2b9d340604918ee7145e1a98e00313575c88977b671cb40",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "sections": [
+        "content.glyphs"
+      ],
+      "path_pattern": "^pages\\[[0-9]+\\]\\.glyphs\\[[0-9]+\\]\\.text$",
+      "difference_count": 5872,
+      "differences_sha256": "6d4cc543659085ee6d5d526f4c61f97b780c5b5d5e389c335ccf36ca0c716ea6",
+      "upstream_issue": "zapfdingbats-built-in-font-data",
+      "reason": "The pinned Playa AGL-only lookup omits ITC ZapfDingbats a71 (U+25CF). Every glyph text difference is empty versus U+25CF."
+    },
+    {
+      "id": "openintro-zapf-flatten",
+      "fixture": "openintro-statistics.pdf",
+      "fixture_sha256": "e261e4aea0eb4f0fd2b9d340604918ee7145e1a98e00313575c88977b671cb40",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "sections": [
+        "content.flatten"
+      ],
+      "path_pattern": "^pages\\[[0-9]+\\]\\.flatten\\[[0-9]+\\]\\.bbox\\[2\\]$",
+      "difference_count": 5872,
+      "differences_sha256": "a1901007a279efbf16ec6c5974934460d9bc394cc845e99a280c268190cd9bbe",
+      "upstream_issue": "zapfdingbats-built-in-font-data",
+      "reason": "The pinned Playa AGL-only lookup omits ITC ZapfDingbats a71 (U+25CF), so its Unicode-keyed Core 14 width lookup falls back to 1000 instead of the Adobe AFM a71 width791. Every affected text object uses ZapfDingbats code108; correcting only the mapping and width reproduces all 5872 Go bbox right edges within 5.69e-14."
+    },
+    {
+      "id": "openintro-zapf-xobjects",
+      "fixture": "openintro-statistics.pdf",
+      "fixture_sha256": "e261e4aea0eb4f0fd2b9d340604918ee7145e1a98e00313575c88977b671cb40",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "sections": [
+        "content.xobjects"
+      ],
+      "path_pattern": "^pages\\[[0-9]+\\]\\.xobjects\\[[0-9]+\\]\\.fonts\\[0\\]\\.metrics\\[2\\]\\.hdisp$",
+      "difference_count": 48,
+      "differences_sha256": "654e640b5edc86dfc7f7091b6d365264078dd2c39211d933276be7dded04f3ec",
+      "upstream_issue": "zapfdingbats-built-in-font-data",
+      "reason": "The pinned Playa ZapfDingbats Core 14 table assigns space width 790 rather than the Adobe AFM width 278. Every affected Form font metric reports hdisp(32)=0.790 rather than 0.278."
+    }
+  ],
+  "upstream_issues": [
+    {
+      "id": "zapfdingbats-built-in-font-data",
+      "difference_ids": [
+        "openintro-zapf-pages",
+        "openintro-zapf-glyphs",
+        "openintro-zapf-flatten",
+        "openintro-zapf-xobjects"
+      ],
+      "state": "submitted",
+      "repository": "dhdaines/playa",
+      "checked_commit": "9496dfea5150343c9dc05544d9c004bbcccf17e6",
+      "checked_at": "2026-09-28",
+      "url": "https://github.com/dhdaines/playa/issues/245",
+      "title": "ZapfDingbats built-in encoding loses ITC glyph mappings and reports incorrect advances",
+      "summary": "The built-in ZapfDingbats font loses ITC Unicode mappings and reports incorrect glyph advances: code 108 (`a71`) decodes to an empty string with horizontal displacement 1.000 instead of U+25CF with advance 0.791; code 32 (`space`) advances by 0.790 rather than the Adobe AFM value 0.278.",
+      "reproduction": "```python\nfrom playa.font import Type1Font\nfrom playa.parser import LIT\n\nfont = Type1Font({\n    \"Type\": LIT(\"Font\"),\n    \"Subtype\": LIT(\"Type1\"),\n    \"BaseFont\": LIT(\"ZapfDingbats\"),\n})\nprint(font.encoding[108])\nprint(list(font.decode(b\"l\")))\nprint(font.hdisp(108))\nprint(font.hdisp(32))\n```",
+      "actual_behavior": "Code 108 loses U+25CF and advances by 1.000; space advances by 0.790.",
+      "expected_behavior": "Adobe ITC maps a71 to U+25CF; Adobe AFM gives advances 0.791 and 0.278.",
+      "relevant_implementation": "AGL-only name lookup omits ITC names, and the Unicode-keyed Core 14 metrics contain an incorrect space width."
+    },
+    {
+      "id": "png-average-predictor-native-overflow",
+      "difference_ids": [
+        "riscv-png-average-native-overflow"
+      ],
+      "state": "submitted",
+      "repository": "dhdaines/playa",
+      "checked_commit": "85a9c1e22e327bf873e4282d66ed1dba89fa7575",
+      "checked_at": "2026-09-28",
+      "url": "https://github.com/dhdaines/playa/issues/246",
+      "title": "Compiled PNG Average predictor overflows before division and differs from the Python source",
+      "summary": "The compiled `playa.utils.apply_png_predictor` produces a different decoded byte from the Python source shipped in the same installed package. A six-byte input reproduces the problem without an external PDF.",
+      "reproduction": "```python\nimport importlib.util\nfrom pathlib import Path\nimport playa.utils\n\nencoded = bytes([0, 200, 200, 3, 100, 0])\nprint(list(playa.utils.apply_png_predictor(15, 1, 2, 8, encoded)))\n\n# Load the Python source included beside the compiled extension.\nsource = Path(playa.utils.__file__).with_name(\"utils.py\")\nspec = importlib.util.spec_from_file_location(\"playa._pure_utils\", source)\npure = importlib.util.module_from_spec(spec)\nspec.loader.exec_module(pure)\nprint(list(pure.apply_png_predictor(15, 1, 2, 8, encoded)))\n```",
+      "actual_behavior": "The native decoder returns [200, 200, 200, 72].",
+      "expected_behavior": "The same shipped Python source and the PNG specification yield [200, 200, 200, 200].",
+      "relevant_implementation": "The compiled Average predictor narrows the left-plus-above sum before division rather than preserving at least nine bits."
+    }
+  ]
+}

@@ -1,0 +1,182 @@
+# Every section is compared by default once it is required. Pending sections are
+# migration debt: they are reported by the oracle and make --release fail.
+
+[[section]]
+name = "document"
+status = "required"
+go_api = "Document, Document.OpenAction, Action"
+playa_api = "Document"
+
+[[section]]
+name = "document.objects"
+status = "required"
+go_api = "Document.Objects"
+playa_api = "Document.objects"
+
+[[section]]
+name = "document.mapping"
+status = "required"
+go_api = "Document.Len, Document.Get, Document.Keys, Document.Values, Document.Items"
+playa_api = "Document Mapping (len/get/keys/values/items)"
+
+[[section]]
+name = "document.tokens"
+status = "required"
+go_api = "Document.Tokens"
+playa_api = "Document.tokens"
+
+[[section]]
+name = "document.buffer"
+status = "required"
+go_api = "Document.Buffer"
+playa_api = "Document.buffer"
+
+[[section]]
+name = "document.xrefs"
+status = "required"
+go_api = "Document.XRefs"
+playa_api = "Document.xrefs"
+
+[[section]]
+name = "pages"
+status = "required"
+go_api = "Document.Pages, Page"
+playa_api = "Document.pages, Page"
+
+[[section]]
+name = "content.text"
+status = "required"
+go_api = "Document.PageTextExpanded"
+playa_api = "Page.texts"
+
+[[section]]
+name = "content.extract_text"
+status = "required"
+go_api = "Page.ExtractText"
+playa_api = "Page.extract_text"
+
+[[section]]
+name = "content.extract_text.tagged"
+status = "required"
+go_api = "Page.ExtractTextTagged"
+playa_api = "Page.extract_text_tagged"
+
+[[section]]
+name = "content.extract_text.untagged"
+status = "required"
+go_api = "Page.ExtractTextUntagged"
+playa_api = "Page.extract_text_untagged"
+
+[[section]]
+name = "content.glyphs"
+status = "required"
+go_api = "Page.Glyphs"
+playa_api = "Page.glyphs"
+
+[[section]]
+name = "content.flatten"
+status = "required"
+go_api = "Page.Flatten"
+playa_api = "Page.flatten"
+
+[[section]]
+name = "content.interp"
+status = "required"
+go_api = "Page.Interp"
+playa_api = "Page.interp"
+
+[[section]]
+name = "content.streams"
+status = "required"
+go_api = "Page.Streams"
+playa_api = "Page.streams"
+
+[[section]]
+name = "content.tokens"
+status = "required"
+go_api = "Page.Tokens"
+playa_api = "Page.tokens"
+
+[[section]]
+name = "content.xobjects"
+status = "required"
+go_api = "Page.XObjects"
+playa_api = "Page.xobjects"
+
+[[section]]
+name = "content.contents"
+status = "required"
+go_api = "Page.Contents"
+playa_api = "Page.contents"
+
+[[section]]
+name = "layout"
+status = "required"
+go_api = "Page.Layout"
+playa_api = "miner.extract_page(Page, LAParams)"
+
+[[section]]
+name = "annotations"
+status = "required"
+go_api = "Document.Annotations, Annotation.ActionValueCopy, Action"
+playa_api = "Page.annotations"
+
+[[section]]
+name = "outline"
+status = "required"
+go_api = "Document.Outline, OutlineNode.ActionValueCopy, Action"
+playa_api = "Document.outline"
+
+[[section]]
+name = "destinations"
+status = "required"
+go_api = "Document.Destinations"
+playa_api = "Document.destinations"
+
+[[section]]
+name = "forms"
+status = "required"
+go_api = "Document.FormFields"
+playa_api = "Document.catalog[AcroForm].Fields"
+
+[[section]]
+name = "structure"
+status = "required"
+go_api = "Document.StructureTree"
+playa_api = "Document.structure"
+
+[[section]]
+name = "content.structure"
+status = "required"
+go_api = "Page.StructureSeq, Page.Structure"
+playa_api = "Page.structure"
+
+[[section]]
+name = "fonts"
+status = "required"
+go_api = "Document.PageFonts"
+playa_api = "Page.fonts, Document.fonts"
+
+[[section]]
+name = "content.paths"
+status = "required"
+go_api = "Document.PagePaths"
+playa_api = "Page.paths"
+
+[[section]]
+name = "content.images"
+status = "required"
+go_api = "Document.PageImages"
+playa_api = "Page.images"
+
+[[section]]
+name = "content.tags"
+status = "required"
+go_api = "Document.PageTags"
+playa_api = "Page"
+
+[[section]]
+name = "content.marked"
+status = "required"
+go_api = "Document.PageMarkedContent"
+playa_api = "Page.marked_content"

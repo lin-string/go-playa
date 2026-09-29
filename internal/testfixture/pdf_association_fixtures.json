@@ -1,0 +1,2487 @@
+{
+  "schema_version": 2,
+  "sources": [
+    {
+      "name": "pdf20examples",
+      "repository": "https://github.com/pdf-association/pdf20examples.git",
+      "commit": "c20f2c17bfcc4baab7cfe62e70fae64caf14d5fa",
+      "license": "CC-BY-SA-4.0",
+      "license_url": "https://github.com/pdf-association/pdf20examples/blob/c20f2c17bfcc4baab7cfe62e70fae64caf14d5fa/LICENSE.md"
+    },
+    {
+      "name": "pdf-differences",
+      "repository": "https://github.com/pdf-association/pdf-differences.git",
+      "commit": "907fe96e52b73e491489eee545c47b119bf9989b",
+      "license": "CC-BY-4.0",
+      "license_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/README.md#the-pdf-test-files"
+    },
+    {
+      "name": "safedocs",
+      "repository": "https://github.com/pdf-association/safedocs.git",
+      "commit": "68f730ab8c39204844112c499c5707b79878533b",
+      "license": "Apache-2.0",
+      "license_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/LICENSE"
+    },
+    {
+      "name": "techniques-for-accessible-pdf",
+      "repository": "https://github.com/pdf-association/techniques-for-accessible-pdf.git",
+      "commit": "3e31095d8aeea941eccbbb766a23369374c2e9a6",
+      "license": "CC-BY-4.0",
+      "license_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/LICENSE"
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "pdf20-utf8",
+      "source": "pdf20examples",
+      "path": "pdf20-utf8-test.pdf",
+      "sha256": "a7ca717ef062df0a65e58487d26358c81424b76084a2000ca1c74b9e5776b7a1",
+      "behavior": "PDF 2.0 UTF-8 strings in document information and outlines decode without legacy-string corruption",
+      "evidence_url": "https://github.com/pdf-association/pdf20examples/blob/c20f2c17bfcc4baab7cfe62e70fae64caf14d5fa/README.md#pdf20-utf8-testpdf",
+      "compatibility": true,
+      "sections": ["document", "outline"]
+    },
+    {
+      "id": "pdf20-utf8-annotation",
+      "source": "pdf20examples",
+      "path": "PDF 2.0 UTF-8 string and annotation.pdf",
+      "sha256": "f3a018213564a420db81062a0e584fbcc5f705e353ed477da43bab6222f137b6",
+      "behavior": "PDF 2.0 UTF-8 annotation contents decode as Thai Unicode text",
+      "evidence_url": "https://github.com/pdf-association/pdf20examples/blob/c20f2c17bfcc4baab7cfe62e70fae64caf14d5fa/README.md#pdf-20-utf-8-string-and-annotationpdf",
+      "compatibility": true,
+      "sections": ["document", "pages", "annotations"]
+    },
+    {
+      "id": "pdf20-incremental",
+      "source": "pdf20examples",
+      "path": "PDF 2.0 via incremental save.pdf",
+      "sha256": "9b25d59d07034634a990e79db6ef82b9f86769d9b94d8d8635f20d06aaec9d18",
+      "behavior": "an incremental PDF 1.7 to PDF 2.0 update selects the newest revision and visible text",
+      "evidence_url": "https://github.com/pdf-association/pdf20examples/blob/c20f2c17bfcc4baab7cfe62e70fae64caf14d5fa/README.md#simple-20-via-incremental-and-offset-startpdf",
+      "compatibility": true,
+      "sections": ["document", "document.xrefs", "pages", "content.extract_text"]
+    },
+    {
+      "id": "pdf20-offset-start",
+      "source": "pdf20examples",
+      "path": "PDF 2.0 with offset start.pdf",
+      "sha256": "a5b92313770f16ba1db649ccdc97d42f7744659c691897538734eebdc1bc9e9a",
+      "behavior": "cross-reference offsets are relative to the PDF header when non-PDF bytes precede it",
+      "evidence_url": "https://github.com/pdf-association/pdf20examples/blob/c20f2c17bfcc4baab7cfe62e70fae64caf14d5fa/README.md#pdf-20-with-offset-startpdf",
+      "compatibility": true,
+      "sections": ["document", "pages", "content.extract_text"]
+    },
+    {
+      "id": "pdf20-simple",
+      "source": "pdf20examples",
+      "path": "Simple PDF 2.0 file.pdf",
+      "sha256": "296d2a0b2ce19b606f29265694f194a754fbc61783982b5b8d730e8637482236",
+      "behavior": "a baseline PDF 2.0 document exposes its XMP metadata, two page content streams, and Hello World text",
+      "evidence_url": "https://github.com/pdf-association/pdf20examples/blob/c20f2c17bfcc4baab7cfe62e70fae64caf14d5fa/README.md#simple-pdf-20-filepdf",
+      "compatibility": true,
+      "sections": ["document", "document.objects", "pages", "content.streams", "content.extract_text", "fonts"]
+    },
+    {
+      "id": "pdf20-black-point-compensation",
+      "source": "pdf20examples",
+      "path": "PDF 2.0 image with BPC.pdf",
+      "sha256": "fc517dd0d4c72d1b11e3449acc3e816d2719dc14e69a7e14b84da02808103370",
+      "behavior": "the PDF 2.0 UseBlackPtComp external graphics-state entry remains ON with Perceptual intent on both following images",
+      "evidence_url": "https://github.com/pdf-association/pdf20examples/blob/c20f2c17bfcc4baab7cfe62e70fae64caf14d5fa/README.md#pdf-20-image-with-bpcpdf",
+      "compatibility": true,
+      "sections": ["content.interp", "content.images"]
+    },
+    {
+      "id": "pdf20-page-output-intent",
+      "source": "pdf20examples",
+      "path": "PDF 2.0 with page level output intent.pdf",
+      "sha256": "7c13afe3078a4c202184edce3169f7bc842c8fd3db9da7140af6bc0b3b2fa44a",
+      "behavior": "a PDF 2.0 page-level eciRGB output intent remains distinct from the document-level Adobe RGB output intent and is absent from the second page",
+      "evidence_url": "https://github.com/pdf-association/pdf20examples/blob/c20f2c17bfcc4baab7cfe62e70fae64caf14d5fa/README.md#pdf-20-with-page-level-output-intentpdf",
+      "compatibility": true,
+      "sections": ["document", "document.objects", "pages"]
+    },
+    {
+      "id": "pdf-version-1",
+      "source": "pdf-differences",
+      "path": "PDF-version/PDF-versions1.pdf",
+      "sha256": "94b949fc0fcd6e81f19a262f5d49be684e6db135ee4bac7b67f22625edac31b7",
+      "behavior": "the catalog Version entry takes precedence over a lower file-header version",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/PDF-version/README.md",
+      "compatibility": true,
+      "sections": ["document", "pages"]
+    },
+    {
+      "id": "pdf-version-2",
+      "source": "pdf-differences",
+      "path": "PDF-version/PDF-versions2.pdf",
+      "sha256": "e03ffc599c0b47c66b98650742eec25f5f36ee37bc53ac9c08fb5e15f5d3d65e",
+      "behavior": "an incremental catalog Version entry determines the effective PDF version",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/PDF-version/README.md",
+      "compatibility": true,
+      "sections": ["document", "document.xrefs", "pages"]
+    },
+    {
+      "id": "pdf-version-3",
+      "source": "pdf-differences",
+      "path": "PDF-version/PDF-versions3.pdf",
+      "sha256": "690ec13b9c407aa351eb863ffe712bf42432ecb47e0e9b27f322e65ae3d4e287",
+      "behavior": "the newest incremental catalog Version entry determines the effective PDF version",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/PDF-version/README.md",
+      "compatibility": true,
+      "sections": ["document", "document.xrefs", "pages"]
+    },
+    {
+      "id": "page-labels",
+      "source": "pdf-differences",
+      "path": "PageLabels-UX/PageLabelsTest.pdf",
+      "sha256": "69c5c7fa14acf38866171d2bc0baa1138d523904f7e6b452dcdfb90d0595fb5b",
+      "behavior": "page-label number-tree rules produce the documented labels in page order",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/PageLabels-UX/README.md",
+      "compatibility": true,
+      "sections": ["document", "pages"]
+    },
+    {
+      "id": "inline-image-abbreviations",
+      "source": "pdf-differences",
+      "path": "Inline-Image-Abbreviations/InlineAbbreviations.pdf",
+      "sha256": "5716b3f45f5353b9d674bfb3d0c829341c6d061256ad7e5e66721a40425ab1f5",
+      "behavior": "abbreviated inline-image keys take precedence over matching full key names",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/Inline-Image-Abbreviations/README.md",
+      "compatibility": true,
+      "sections": ["pages", "content.contents", "content.images"]
+    },
+    {
+      "id": "vertical-text",
+      "source": "pdf-differences",
+      "path": "VerticalText/VerticalText.pdf",
+      "sha256": "64df210d4b119e2af344911a6711764a3569c970265b8b61a2fa08b6c1fe073c",
+      "behavior": "vertical Japanese text exposes vertical font, origin, and displacement semantics",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/VerticalText/README.md",
+      "compatibility": true,
+      "sections": ["content.text", "content.glyphs", "fonts"]
+    },
+    {
+      "id": "type3-word-spacing",
+      "source": "pdf-differences",
+      "path": "Type3WordSpacing/Type3Test.pdf",
+      "sha256": "8ac40dc49d40af8b5a50b442ced56b8db962c961a779a0284cd3a6207adc0bb7",
+      "behavior": "Type 3 code 32 applies word spacing while glyph paths inherit stroke and fill state",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/Type3WordSpacing/README.md",
+      "compatibility": true,
+      "sections": ["content.glyphs"]
+    },
+    {
+      "id": "unknown-filter-linearized",
+      "source": "pdf-differences",
+      "path": "UnknownFilter/UnknownFilter-Linearized.pdf",
+      "sha256": "10272c70b1c60e7f67bf717d39570964216b2aca2c71a34826378f7f8e043529",
+      "behavior": "an unknown filter in optional Linearization data does not prevent normal document processing",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/UnknownFilter/README.md#unknownfilter-linearizedpdf",
+      "compatibility": true,
+      "sections": ["document", "pages", "content.text", "content.images", "fonts"]
+    },
+    {
+      "id": "unknown-filter-page-content",
+      "source": "pdf-differences",
+      "path": "UnknownFilter/UnknownFilter-PageContentStream.pdf",
+      "sha256": "e2dd6a46f0f41256b8796770bbbd523179cbbd77aacc6abb045c4151108afcad",
+      "behavior": "an unknown page-content filter preserves page metadata and reports content decoding failure explicitly",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/UnknownFilter/README.md#unknownfilter-pagecontentstreampdf",
+      "compatibility": true,
+      "sections": ["document", "pages"]
+    },
+    {
+      "id": "unknown-filter-xref-stream",
+      "source": "pdf-differences",
+      "path": "UnknownFilter/UnknownFilter-xrefstm.pdf",
+      "sha256": "2c153eb1a00e2583d03e939b116b623fe78b70be18e4308347cfcf5f2c4c3c81",
+      "behavior": "fallback object scanning recovers the page, text, and image when the only cross-reference stream uses an unknown filter",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/UnknownFilter/README.md#unknownfilter-xrefstmpdf",
+      "compatibility": false,
+      "sections": []
+    },
+    {
+      "id": "unknown-filter-object-stream",
+      "source": "pdf-differences",
+      "path": "UnknownFilter/UnknownFilter-objstm.pdf",
+      "sha256": "f98b7501731e5fb8ee1b08a832e5cfa19f503c496faea646a26566c4d415f9c5",
+      "behavior": "an inaccessible object stream with an unknown filter does not prevent processing the independently accessible page, text, and image",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/UnknownFilter/README.md#unknownfilter-objstmpdf",
+      "compatibility": true,
+      "sections": ["document", "pages", "content.extract_text.untagged", "content.images"]
+    },
+    {
+      "id": "unknown-filter-icc",
+      "source": "pdf-differences",
+      "path": "UnknownFilter/UnknownFilter-ICC.pdf",
+      "sha256": "cddc37a4673008c770b6be70d539c20a13349750612ca7ecf28e0bba37431977",
+      "behavior": "an unknown filter on an optional ICC profile does not prevent independent page, text, and image processing",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/UnknownFilter/README.md#unknownfilter-iccpdf",
+      "compatibility": true,
+      "sections": ["document", "pages", "content.extract_text.untagged", "content.images"]
+    },
+    {
+      "id": "unknown-filter-outline-object-stream",
+      "source": "pdf-differences",
+      "path": "UnknownFilter/UnknownFilter-OutlineObjStm.pdf",
+      "sha256": "585100f65ef5577707317974cee18891e92e35b22873709d13b7148a7b20defe",
+      "behavior": "an unknown filter on the object stream containing only optional outline objects leaves page, text, and image processing available while the outline is skipped",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/UnknownFilter/README.md#unknownfilter-outlinesobjstmpdf",
+      "compatibility": true,
+      "sections": ["document", "pages", "content.extract_text.untagged", "content.images", "outline"]
+    },
+    {
+      "id": "compacted-syntax",
+      "source": "safedocs",
+      "path": "CompactedSyntax/CompactedPDFSyntaxTest.pdf",
+      "sha256": "df9ab28a64f63896152934fb13e9ee1322cbd94874206b91107344ffff7aaa6c",
+      "behavior": "the lexer recognizes PDF objects separated only by standard delimiter characters",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/CompactedSyntax/README.md",
+      "compatibility": true,
+      "sections": ["content.tokens", "content.contents"]
+    },
+    {
+      "id": "no-page-contents",
+      "source": "safedocs",
+      "path": "Miscellaneous Targeted Test PDFs/PDF-NoPageContents.pdf",
+      "sha256": "3039e924817962a2bdaf51361733702d4a1734a05a3d3708797cd8fb65589fb5",
+      "behavior": "a page without a Contents entry has empty repeatable content sequences",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Miscellaneous%20Targeted%20Test%20PDFs/README.md",
+      "compatibility": true,
+      "sections": ["pages", "content.streams", "content.tokens", "content.contents", "content.interp"]
+    },
+    {
+      "id": "dual-startxref",
+      "source": "safedocs",
+      "path": "Miscellaneous Targeted Test PDFs/Dual-startxref.pdf",
+      "sha256": "378e1e7967af58f6847a2e6ac56d9384e4ba08071b7ecee1fba5785073409135",
+      "behavior": "the final valid startxref marker determines the active cross-reference section",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Miscellaneous%20Targeted%20Test%20PDFs/README.md",
+      "compatibility": true,
+      "sections": ["document", "document.xrefs", "pages"]
+    },
+    {
+      "id": "type3-content-cycle",
+      "source": "safedocs",
+      "path": "Miscellaneous Targeted Test PDFs/ContentStreamCycleType3insideType3.pdf",
+      "sha256": "131aec277c444c985d502e5f589f37735d275a8ea247c1beedba0781fbe99d40",
+      "behavior": "a Type 3 glyph content cycle terminates without unbounded recursion",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Miscellaneous%20Targeted%20Test%20PDFs/README.md",
+      "compatibility": false,
+      "sections": []
+    },
+    {
+      "id": "type3-content-no-cycle",
+      "source": "safedocs",
+      "path": "Miscellaneous Targeted Test PDFs/ContentStreamNoCycleType3insideType3.pdf",
+      "sha256": "cffddca28e1b55dba97257a3045bfc83f6daf800dcecbed58697057d493f5dd6",
+      "behavior": "nested non-cyclic Type 3 glyph content remains traversable",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Miscellaneous%20Targeted%20Test%20PDFs/README.md",
+      "compatibility": true,
+      "sections": ["content.glyphs"]
+    },
+    {
+      "id": "accessibility-role-map",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/1-basic-technical-rules/G1_01-Custom-tag-correctly-role-mapped/UA1_Tpdf-G1_01.pdf",
+      "sha256": "5124fa2917e90168f3043ed9255a2df8d74603084748bff8091e76881c730deb",
+      "behavior": "a custom Paragraph structure type resolves through RoleMap to the standard P role",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/1-basic-technical-rules/G1_01-Custom-tag-correctly-role-mapped/README.md",
+      "compatibility": true,
+      "sections": ["document", "structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-role-map-missing",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/1-basic-technical-rules/G1_F01-Custom-tag-role-map-missing/UA1_Tpdf-G1_F01.pdf",
+      "sha256": "4550a83e20f571b7286c501873713e9f0bb2b2e951a332c234884338b6016fcb",
+      "behavior": "an unmapped custom FirstParagraph structure type remains distinguishable from the standard P role",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/1-basic-technical-rules/G1_F01-Custom-tag-role-map-missing/README.md",
+      "compatibility": true,
+      "sections": ["document", "structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-text-one-container",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/2-text/G2_01-Text-content-correctly-tagged-in-one-container/UA1_Tpdf-G2_01.pdf",
+      "sha256": "7125265c92a8c501dde8ffbdbb928f8a29db5f7505010930a1a23112f46d2ac2",
+      "behavior": "a complete paragraph in one marked-content container remains one logical P and extracts as a single sentence",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/2-text/G2_01-Text-content-correctly-tagged-in-one-container/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged", "content.extract_text.untagged"]
+    },
+    {
+      "id": "accessibility-text-word-containers",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/2-text/G2_02-Text-content-correctly-tagged-one-container-per-word/UA1_Tpdf-G2_02.pdf",
+      "sha256": "73042971c1a46b000a398dfcbb7cafc1a7be78bae4cb34920ee42590dd75fdd7",
+      "behavior": "four word-level marked-content containers remain one logical P and extract as a single sentence",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/2-text/G2_02-Text-content-correctly-tagged-one-container-per-word/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged", "content.extract_text.untagged"]
+    },
+    {
+      "id": "accessibility-text-character-containers",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/2-text/G2_03-Text-content-correctly-tagged-one-container-per-character/UA1_Tpdf-G2_03.pdf",
+      "sha256": "e47cf72f8c6c972c750f8d92cfa79100b67b469a9bc52fc6ea3e698f10a48389",
+      "behavior": "twenty-two character-level marked-content containers remain one logical P and extract as a single sentence",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/2-text/G2_03-Text-content-correctly-tagged-one-container-per-character/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged", "content.extract_text.untagged"]
+    },
+    {
+      "id": "accessibility-visible-text-not-extractable",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/2-text/G2_F04-Extractable-characters-are-not-present-in-a-document-with-visible-text/UA1_Tpdf-G2_F04.pdf",
+      "sha256": "9361a1a6c2caefad2d71f264af25d4051833cc445020d08740d13c6a5b6d78f0",
+      "behavior": "visible sentence content stored only as a Figure image is not fabricated as extractable text",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/2-text/G2_F04-Extractable-characters-are-not-present-in-a-document-with-visible-text/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.images", "content.extract_text.tagged", "content.extract_text.untagged"]
+    },
+    {
+      "id": "accessibility-unicode-correct",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/2-text/G2_04-Special-character-with-correct-Unicode-mapping/UA1_Tpdf-G2_04.pdf",
+      "sha256": "d1eff0dea9877beb85b3688b7657cf96e9a9ab140db372aad7b568747ea22aa9",
+      "behavior": "a correctly mapped special character extracts as Unicode U+2B8A",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/2-text/G2_04-Special-character-with-correct-Unicode-mapping/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.extract_text.tagged", "content.extract_text.untagged"]
+    },
+    {
+      "id": "accessibility-unicode-missing",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/2-text/G2_F01-Special-character-missing-Unicode-mapping/UA1_Tpdf-G2_F01.pdf",
+      "sha256": "f6d7372b8cbd92c0534f973f31bc62cfd029979ac095958545ada684dcc8fc42",
+      "behavior": "a character without a Unicode mapping does not masquerade as the intended U+2B8A character",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/2-text/G2_F01-Special-character-missing-Unicode-mapping/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.extract_text.tagged", "content.extract_text.untagged"]
+    },
+    {
+      "id": "accessibility-unicode-incorrect",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/2-text/G2_F02-Special-character-with-incorrect-Unicode-mapping/UA1_Tpdf-G2_F02.pdf",
+      "sha256": "8b409c01ace624f977816a55901d9726e1e1e9bd300d855976611df7642ada96",
+      "behavior": "an incorrect ToUnicode mapping is exposed as greater-than rather than the visually intended U+2B8A character",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/2-text/G2_F02-Special-character-with-incorrect-Unicode-mapping/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.extract_text.tagged", "content.extract_text.untagged"]
+    },
+    {
+      "id": "accessibility-actualtext-ocr",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/2-text/G2_06-ActualText-provides-correct-extractable-characters-in-place-of-OCR-errors/UA1_Tpdf-G2_06.pdf",
+      "sha256": "d7de1e10e633b7e6b5e93d7c45c9153e225eee5ae1e961186b93ae21d00025f0",
+      "behavior": "ActualText on a Span structure element replaces erroneous invisible OCR text during tagged extraction",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/2-text/G2_06-ActualText-provides-correct-extractable-characters-in-place-of-OCR-errors/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-real-content-tagged",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/3-content/G3_01-Real-content-correctly-tagged/UA1_Tpdf-G3_01.pdf",
+      "sha256": "52330a43e8504cef45246ca5df382aae5262be3e8d2ea9fe5db156b35e61ba7f",
+      "behavior": "real paragraph content is associated with one standard P structure element and remains fully extractable",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/3-content/G3_01-Real-content-correctly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged", "content.extract_text.untagged"]
+    },
+    {
+      "id": "accessibility-real-content-partially-untagged",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/3-content/G3_F01-Real-content-not-tagged/UA1_Tpdf-G3_F01.pdf",
+      "sha256": "787f25de746d4a634c74a9c7f87f74c07978a1e8f3ac99cc1f35639d9444bcad",
+      "behavior": "the untagged final word of a real paragraph remains excluded from tagged extraction while untagged extraction retains it",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/3-content/G3_F01-Real-content-not-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged", "content.extract_text.untagged"]
+    },
+    {
+      "id": "accessibility-real-content-artifacted",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/3-content/G3_F02-Real-content-incorrectly-tagged/UA1_Tpdf-G3_F02.pdf",
+      "sha256": "8c83d16c54234923c1b598699d32f62586fff63b0bdfce442929c9f4e95eca1e",
+      "behavior": "real paragraph content incorrectly marked Artifact remains absent from the logical structure and tagged extraction",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/3-content/G3_F02-Real-content-incorrectly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged", "content.extract_text.untagged"]
+    },
+    {
+      "id": "accessibility-decorative-artifact",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/3-content/G3_02-Decorative-content-correctly-marked-as-artifact/UA1_Tpdf-G3_02.pdf",
+      "sha256": "9d9182552538efeff34d31c39131e80c8768579da7901fb145fa7b4177a3c85d",
+      "behavior": "decorative vector content is marked Artifact and excluded from the logical structure tree",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/3-content/G3_02-Decorative-content-correctly-marked-as-artifact/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.paths", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-decorative-figure",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/3-content/G3_F03-Decorative-content-incorrectly-tagged-as-figure/UA1_Tpdf-G3_F03.pdf",
+      "sha256": "351dd7044a5bc052befe239a7c5af3aa2fc3167dc45c2208a7a63fe8bdf2f8ad",
+      "behavior": "a decorative background incorrectly tagged as Figure remains visible as a Figure structure element and marked path",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/3-content/G3_F03-Decorative-content-incorrectly-tagged-as-figure/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.paths", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-decorative-unmarked",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/3-content/G3_F04-Decorative-content-not-marked-as-artifact/UA1_Tpdf-G3_F04.pdf",
+      "sha256": "086e9375b07ff8d6c6599252908af82fb0afa508a2071576c0cb0105aecd0584",
+      "behavior": "an unmarked decorative background remains an untagged path and is absent from the logical structure tree",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/3-content/G3_F04-Decorative-content-not-marked-as-artifact/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.paths", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-order-correct",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/4-logical-content-order/G4_01-Content-order-correctly-set/UA1_Tpdf-G4_01.pdf",
+      "sha256": "86557b1f79cb278e5826813e5f968d47d28a29aeb1d53acbd7e71149b2c736dd",
+      "behavior": "the logical structure tree preserves the intended heading and paragraph order",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/4-logical-content-order/G4_01-Content-order-correctly-set/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-order-incorrect",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/4-logical-content-order/G4_F01-Content-order-incorrectly-set/UA1_Tpdf-G4_F01.pdf",
+      "sha256": "fcfd6de6b80ca8ac7bbb34353ae693c4f388f3b828395478fff23c571754c425",
+      "behavior": "an intentionally incorrect logical order remains visible instead of being silently reordered",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/4-logical-content-order/G4_F01-Content-order-incorrectly-set/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-columns-correct",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/4-logical-content-order/G4_03-Content-in-columns-correctly-ordered/UA1_Tpdf-G4_03.pdf",
+      "sha256": "b823997dc8bbecb5e2b22ff9463912aeed8e67de62ccb02fc57d36d928b3d745",
+      "behavior": "a two-column page exposes its heading and three paragraphs in the intended logical reading order",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/4-logical-content-order/G4_03-Content-in-columns-correctly-ordered/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-columns-incorrect",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/4-logical-content-order/G4_F03-Content-in-columns-incorrectly-ordered/UA1_Tpdf-G4_F03.pdf",
+      "sha256": "9372bc131e3ba2c81a72c7ca0316b70a5545fcbf7c4b6cb8043d91ccfc4d34a4",
+      "behavior": "an intentionally interleaved two-column logical order remains observable rather than being silently reordered by geometry",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/4-logical-content-order/G4_F03-Content-in-columns-incorrectly-ordered/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-sidebar-correct",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/4-logical-content-order/G4_04-Sidebar-correctly-located-in-the-document-s-content-order/UA1_Tpdf-G4_04.pdf",
+      "sha256": "54a14e90b8815b8ac884a99452b997719a26778197a2898c7df939941c8b89d7",
+      "behavior": "a sidebar appears after the heading and before the following main-flow paragraphs in logical content order",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/4-logical-content-order/G4_04-Sidebar-correctly-located-in-the-document-s-content-order/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-sidebar-incorrect",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/4-logical-content-order/G4_F04-Sidebar-incorrectly-located-in-the-document-s-content-order/UA1_Tpdf-G4_F04.pdf",
+      "sha256": "c5c45ea7d0b280f431fb266c28c81d77871428a1db78b59af115c492feecb5ab",
+      "behavior": "an intentionally misplaced sidebar remains between the second and third main-flow paragraphs in logical content order",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/4-logical-content-order/G4_F04-Sidebar-incorrectly-located-in-the-document-s-content-order/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-tab-order-structure",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/4-logical-content-order/G4_05-Tab-order-for-pages-with-annotations-correctly-set/UA1_Tpdf-G4_05.pdf",
+      "sha256": "ae8d29468f6000db0ef6c6c42a2e83d20720617879fd4e3d25255fe665411a3f",
+      "behavior": "a page with three widget annotations declares structure-order tab navigation through Tabs S",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/4-logical-content-order/G4_05-Tab-order-for-pages-with-annotations-correctly-set/README.md",
+      "compatibility": true,
+      "sections": ["pages", "annotations", "content.structure", "content.marked"]
+    },
+    {
+      "id": "accessibility-marked-sequence-order-incorrect",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/4-logical-content-order/G4_F05-Order-of-content-within-a-marked-content-sequence-incorrectly-set/UA1_Tpdf-G4_F05.pdf",
+      "sha256": "35092a00cbe78938457f26939c1cd8e044cfdec9582b02a1e128ec88e73204d2",
+      "behavior": "an intentionally invalid marked-content sequence remains observable in structure order, source text-object order, and tagged extraction",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/4-logical-content-order/G4_F05-Order-of-content-within-a-marked-content-sequence-incorrectly-set/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.text", "content.marked", "content.extract_text.tagged", "content.extract_text.untagged"]
+    },
+    {
+      "id": "accessibility-tab-order-row",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/4-logical-content-order/G4_F06-Tab-order-for-pages-with-annotations-incorrectly-set/UA1_Tpdf-G4_F06.pdf",
+      "sha256": "fe6782017642fd46c5236987364a3540cec604250a2d1abbfa0d470f4621a125",
+      "behavior": "a page with three widget annotations declares row-order tab navigation through Tabs R",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/4-logical-content-order/G4_F06-Tab-order-for-pages-with-annotations-incorrectly-set/README.md",
+      "compatibility": true,
+      "sections": ["pages", "annotations", "content.structure", "content.marked"]
+    },
+    {
+      "id": "accessibility-tab-order-missing",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/4-logical-content-order/G4_F07-Tab-order-for-pages-with-annotations-missing/UA1_Tpdf-G4_F07.pdf",
+      "sha256": "0348680e1be68afb86221c3760d514c545e724cceb43058abc9c50ad2fe4af6d",
+      "behavior": "a page with three widget annotations intentionally omits a Tabs entry",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/4-logical-content-order/G4_F07-Tab-order-for-pages-with-annotations-missing/README.md",
+      "compatibility": true,
+      "sections": ["pages", "annotations", "content.structure", "content.marked"]
+    },
+    {
+      "id": "accessibility-semantic-heading",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/5-appropriate-semantics/G5_01-H1-heading-appropriately-tagged/UA1_Tpdf-G5_01.pdf",
+      "sha256": "45fd819eb0ea3c5aef3367b01d9d4f1486feabdee1bdda03919710c3707aa524",
+      "behavior": "a heading and paragraph use distinct H1 and P structure elements",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/5-appropriate-semantics/G5_01-H1-heading-appropriately-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-semantic-similar-content",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/5-appropriate-semantics/G5_02-Similar-real-content-appropriately-tagged/UA1_Tpdf-G5_02.pdf",
+      "sha256": "c1e209cd4caed00ddd44c64e82e6c9999d5213b544d08a353acecdd1f5da3cfb",
+      "behavior": "two semantically separate paragraphs use two distinct P structure elements",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/5-appropriate-semantics/G5_02-Similar-real-content-appropriately-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-semantic-visually-separated",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/5-appropriate-semantics/G5_03-Visually-separated-content-appropriately-tagged/UA1_Tpdf-G5_03.pdf",
+      "sha256": "071680cd1480e1ebe83ccab3b822b6520a0681d630fdb0975737c37c716147b7",
+      "behavior": "one semantically contiguous paragraph spanning two columns remains one P structure element",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/5-appropriate-semantics/G5_03-Visually-separated-content-appropriately-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-semantic-multiline-heading",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/5-appropriate-semantics/G5_04-Multiline-heading-appropriately-tagged/UA1_Tpdf-G5_04.pdf",
+      "sha256": "2b2e804266581d01acc2b6f54a9c5b66b86a0b6178c97651b531f116ce5b234d",
+      "behavior": "both visual lines of one heading remain inside one H1 structure element",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/5-appropriate-semantics/G5_04-Multiline-heading-appropriately-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-semantic-heading-inappropriate",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/5-appropriate-semantics/G5_F01-H1-heading-inappropriately-tagged/UA1_Tpdf-G5_F01.pdf",
+      "sha256": "edf87a15422b23ad0d036af392a09a16910cfbf902777af686700a90f8ed30e4",
+      "behavior": "a visually heading-like H1 and its failure marker intentionally remain P structure elements",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/5-appropriate-semantics/G5_F01-H1-heading-inappropriately-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-semantic-similar-content-inappropriate",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/5-appropriate-semantics/G5_F02-Similar-real-content-inappropriately-tagged/UA1_Tpdf-G5_F02.pdf",
+      "sha256": "91dbe5df72fe60408aebb9d858ccfa947ee4c06d241d42735a4430280b71ebbe",
+      "behavior": "two separate paragraphs are intentionally combined into one P structure element",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/5-appropriate-semantics/G5_F02-Similar-real-content-inappropriately-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-semantic-unit-split",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/5-appropriate-semantics/G5_F03-Single-semantic-unit-of-content-inappropriately-tagged/UA1_Tpdf-G5_F03.pdf",
+      "sha256": "016eb0d457144a52bc65dd48c7c5b52298c4d46785430296da0e65c8b2a705ff",
+      "behavior": "one semantic unit is intentionally split across multiple P and Figure elements whose logical order remains observable",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/5-appropriate-semantics/G5_F03-Single-semantic-unit-of-content-inappropriately-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-semantic-visually-separated-split",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/5-appropriate-semantics/G5_F04-Visually-separated-content-inappropriately-tagged/UA1_Tpdf-G5_F04.pdf",
+      "sha256": "86c3c4cfbdf8d5597859c34531f9149e0490d998bb0ef05d9adde06eb51d7a00",
+      "behavior": "one paragraph spanning two columns is intentionally split across two P elements",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/5-appropriate-semantics/G5_F04-Visually-separated-content-inappropriately-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-semantic-multiline-heading-split",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/5-appropriate-semantics/G5_F05-Multiline-heading-inappropriately-tagged/UA1_Tpdf-G5_F05.pdf",
+      "sha256": "e78deaa1328e42497ee2abc7978f424f7ce7f6e05f0497b332327f722e88744a",
+      "behavior": "the two visual lines of one heading are intentionally split into two H1 elements",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/5-appropriate-semantics/G5_F05-Multiline-heading-inappropriately-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-semantic-table-headers-as-headings",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/5-appropriate-semantics/G5_F06-Table-header-cell-inappropriately-tagged/UA1_Tpdf-G5_F06.pdf",
+      "sha256": "ccbde3363924d1b1cc6e6118e368a3bda2b52b73a5b7c5cca2a3622ebe3257da",
+      "behavior": "table header cells intentionally contain H1 and H2 children instead of TH elements",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/5-appropriate-semantics/G5_F06-Table-header-cell-inappropriately-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-heading-h1",
+      "source": "techniques-for-accessible-pdf",
+      "path": "headings/H_01-Top-level-heading-correctly-tagged-as-H1/UA1_Tpdf-H_01.pdf",
+      "sha256": "5a112b4a469a8384f1cd9e57d526438ae2c753216fffee8328099d329ca57456",
+      "behavior": "a top-level heading is exposed with the standard H1 structure role",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/headings/H_01-Top-level-heading-correctly-tagged-as-H1/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-heading-multiline",
+      "source": "techniques-for-accessible-pdf",
+      "path": "headings/H_02-Multiline-heading-correctly-tagged/UA1_Tpdf-H_02.pdf",
+      "sha256": "21597b622cab31700d7c1d311536cf41f9da629386882a5f51887ddab771614a",
+      "behavior": "both visual lines of one heading remain inside a single H1 structure element",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/headings/H_02-Multiline-heading-correctly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-heading-level-hierarchy",
+      "source": "techniques-for-accessible-pdf",
+      "path": "headings/H_03-Headings-with-different-levels-correctly-tagged/UA1_Tpdf-H_03.pdf",
+      "sha256": "5a542c854127d5c1725b900eca9c06110dffb0d047e807ef3a15ebf758e11625",
+      "behavior": "multiple top-level headings and their H2 and H3 descendants preserve the intended continuous heading hierarchy",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/headings/H_03-Headings-with-different-levels-correctly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-heading-image",
+      "source": "techniques-for-accessible-pdf",
+      "path": "headings/H_04-Image-correctly-tagged-as-heading/UA1_Tpdf-H_04.pdf",
+      "sha256": "1e78262229e29b620912986fafc3e1e7b5ac4251972c094004147ca7e1f9020c",
+      "behavior": "semantic Phone and Address figures with alternate descriptions are nested inside H2 structure elements",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/headings/H_04-Image-correctly-tagged-as-heading/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-heading-levels-contiguous",
+      "source": "techniques-for-accessible-pdf",
+      "path": "headings/H_05-Heading-levels-correctly-not-skipped/UA1_Tpdf-H_05.pdf",
+      "sha256": "513284c861416442cad00ce4ea47b1cb90cf99b31b5f49eac2aca5f666c0fab9",
+      "behavior": "a visually third-level heading follows H1 as H2 so the semantic heading hierarchy does not skip a level",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/headings/H_05-Heading-levels-correctly-not-skipped/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-heading-subtitle",
+      "source": "techniques-for-accessible-pdf",
+      "path": "headings/H_06-Subtitle-correctly-tagged/UA1_Tpdf-H_06.pdf",
+      "sha256": "e095231d2fee173d84163b924f3a8d9d3a57b617fb91159a93bc421c26fb0965",
+      "behavior": "custom Title and Subtitle structure types both role-map to P separately from the document heading hierarchy",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/headings/H_06-Subtitle-correctly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-heading-title",
+      "source": "techniques-for-accessible-pdf",
+      "path": "headings/H_07-Title-in-page-content-correctly-tagged/UA1_Tpdf-H_07.pdf",
+      "sha256": "13b56165c1fa0bb90b2f404cb6ad59f29a745bb846eb63058f5b3ac835aa0a11",
+      "behavior": "an on-page Title structure type role-maps to P and remains distinct from the document heading hierarchy",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/headings/H_07-Title-in-page-content-correctly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-heading-multiline-split",
+      "source": "techniques-for-accessible-pdf",
+      "path": "headings/H_F02-Multiline-heading-incorrectly-tagged/UA1_Tpdf-H_F02.pdf",
+      "sha256": "fac0aace3b61f86324f58963899b4462b627e7ca312f8275e822968dc597ed50",
+      "behavior": "the two visual lines of one heading are intentionally split into separate H1 structure elements",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/headings/H_F02-Multiline-heading-incorrectly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-heading-paragraph-as-h2",
+      "source": "techniques-for-accessible-pdf",
+      "path": "headings/H_F03-Paragraph-incorrectly-tagged-as-H2/UA1_Tpdf-H_F03.pdf",
+      "sha256": "a8b2273ba5ff080ace91a5acad104ab745c45fcd12804358495568a9275faec0",
+      "behavior": "paragraph content intentionally uses an H2 structure element even though the author does not intend it as a heading",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/headings/H_F03-Paragraph-incorrectly-tagged-as-H2/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-heading-table-cells",
+      "source": "techniques-for-accessible-pdf",
+      "path": "headings/H_F04-Incorrect-use-of-headings-instead-of-table-header-cells/UA1_Tpdf-H_F04.pdf",
+      "sha256": "910bce53080a01c112683cfe338b6b72d780be11df112f242e09fd646572c162",
+      "behavior": "table header cells intentionally contain H1 and H2 elements instead of TH elements",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/headings/H_F04-Incorrect-use-of-headings-instead-of-table-header-cells/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-heading-second-level-as-paragraph",
+      "source": "techniques-for-accessible-pdf",
+      "path": "headings/H_F05-First-level-heading-incorrectly-tagged-as-H3-instead-of-H1/UA1_Tpdf-H_F05.pdf",
+      "sha256": "76976f503d8161ba03de2f98299331756a092545ec4d3f0094dc32813b0c1ad7",
+      "behavior": "a visible second-level heading intentionally remains a P structure element instead of H2",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/headings/H_F05-First-level-heading-incorrectly-tagged-as-H3-instead-of-H1/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-heading-mixed-h-and-hn",
+      "source": "techniques-for-accessible-pdf",
+      "path": "headings/H_F06-Incorrect-combined-use-of-Hn-and-H-tags-for-headings/UA1_Tpdf-H_F06.pdf",
+      "sha256": "c5206350b244f51c4b4ca86b890155ca5c2b95d47e35f2ad5c19cc08a3805dc1",
+      "behavior": "one document intentionally mixes the unnumbered H role with the numbered H1 role",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/headings/H_F06-Incorrect-combined-use-of-Hn-and-H-tags-for-headings/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-heading-title-as-h1",
+      "source": "techniques-for-accessible-pdf",
+      "path": "headings/H_F07-Both-title-and-top-level-headings-incorrectly-tagged-as-H1/UA1_Tpdf-H_F07.pdf",
+      "sha256": "11114f658884eeb17dcc7e587e1a35f86c05092cd48dba6ed64b8c358179eeda",
+      "behavior": "the on-page title and the document's top-level headings intentionally all use H1 structure elements",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/headings/H_F07-Both-title-and-top-level-headings-incorrectly-tagged-as-H1/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-heading-level-skipped",
+      "source": "techniques-for-accessible-pdf",
+      "path": "headings/H_F08-Heading-level-incorrectly-skipped/UA1_Tpdf-H_F08.pdf",
+      "sha256": "7e5bbdacc15dbe4b823f19a0470db283b5ad9816dcceef6ad4de48ced17a5918",
+      "behavior": "an H3 intentionally follows H1 without an intervening H2 and the leading failure marker remains first in logical order",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/headings/H_F08-Heading-level-incorrectly-skipped/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-heading-as-paragraph",
+      "source": "techniques-for-accessible-pdf",
+      "path": "headings/H_F01-Top-level-heading-incorrectly-tagged-as-P-instead-of-H1/UA1_Tpdf-H_F01.pdf",
+      "sha256": "c2f5fd6bcf1a0be7fa8ffa5ee62e8308cacb1b8fc85450f6691fdde1e55dd3fc",
+      "behavior": "a visually heading-like paragraph intentionally tagged as P remains distinguishable from H1",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/headings/H_F01-Top-level-heading-incorrectly-tagged-as-P-instead-of-H1/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-unordered",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_01-Unordered-list/UA1_Tpdf-L_01.pdf",
+      "sha256": "ea69b0d415acc8cefbb16641381526067524854ee9bc959ff13f11fdb9cc0422",
+      "behavior": "an unordered list exposes L, LI, Lbl, and LBody roles with Disc numbering",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_01-Unordered-list/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-as-paragraphs",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_F06-List-incorrectly-tagged-as-P/UA1_Tpdf-L_F06.pdf",
+      "sha256": "5e630938e44bc792b4d74b150eff3329ff385a981ebc7017047f0df02d826f6d",
+      "behavior": "an intentionally untagged list exposes only paragraph roles rather than fabricating list structure",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_F06-List-incorrectly-tagged-as-P/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-graphics-text-actualtext",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/2-text/G2_05-Graphics-representing-text-correctly-tagged/UA1_Tpdf-G2_05.pdf",
+      "sha256": "c1179396dc0eb4ffacbdfbadba896fb1a6e9661f272ee9cd28b2623d5b506c0d",
+      "behavior": "graphics intended as text use ActualText on a Span structure element to expose the word paragraph",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/2-text/G2_05-Graphics-representing-text-correctly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.paths", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-graphics-text-figure",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/2-text/G2_F03-Graphics-representing-text-incorrectly-tagged-as-figure/UA1_Tpdf-G2_F03.pdf",
+      "sha256": "e9ab66c1ee356aae2b96bfd92adc24f63b016a37c8cac44b752c5745ba7a41da",
+      "behavior": "graphics incorrectly tagged as Figure expose paragraph as alternate description without treating it as ActualText",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/2-text/G2_F03-Graphics-representing-text-incorrectly-tagged-as-figure/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.paths", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-marked-order-correct",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/4-logical-content-order/G4_02-Order-of-marked-content-sequences-within-a-tag-correctly-set/UA1_Tpdf-G4_02.pdf",
+      "sha256": "490a3d74cbf5c6315a06890e5d39c3261481b215bc73598b35aa7891754cd87e",
+      "behavior": "each paragraph preserves its intended marked-content sequence order inside one structure tag",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/4-logical-content-order/G4_02-Order-of-marked-content-sequences-within-a-tag-correctly-set/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-marked-order-incorrect",
+      "source": "techniques-for-accessible-pdf",
+      "path": "fundamentals/4-logical-content-order/G4_F02-Order-of-marked-content-sequences-within-a-tag-incorrectly-set/UA1_Tpdf-G4_F02.pdf",
+      "sha256": "e79543cc5765b7111920293f73601addd6803b58440cb2c4d7141f7314d7e754",
+      "behavior": "an intentionally incorrect marked-content sequence remains observably out of order",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/4-logical-content-order/G4_F02-Order-of-marked-content-sequences-within-a-tag-incorrectly-set/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-heading-h7-as-p",
+      "source": "techniques-for-accessible-pdf",
+      "path": "headings/H_08-Heading-level-7-correctly-rolemapped-to-P/UA1_Tpdf-H_08.pdf",
+      "sha256": "5c800f3ceb967bf1299a22a0c875c2d1b26fed96a280574da45f02d5291ff2dd",
+      "behavior": "the custom H7 structure type resolves through RoleMap to the standard P role",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/headings/H_08-Heading-level-7-correctly-rolemapped-to-P/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-heading-h7-as-h6",
+      "source": "techniques-for-accessible-pdf",
+      "path": "headings/H_09-Heading-level-7-correctly-rolemapped-to-H6/UA1_Tpdf-H_09.pdf",
+      "sha256": "490ac660fb82762c2e77c5942bf2e383b3d40408edb406d9f7e2fd7095dc4711",
+      "behavior": "the custom H7 structure type resolves through RoleMap to the standard H6 role",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/headings/H_09-Heading-level-7-correctly-rolemapped-to-H6/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-spans-pages",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_15-List-spanning-2-pages-correctly-tagged/UA1_Tpdf-L_15.pdf",
+      "sha256": "16eb90385e0b40004b7e3ad1f1c7da16143643fbe04d73ecb53577d9d203226c",
+      "behavior": "one list structure element owns list items whose marked content spans both document pages",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_15-List-spanning-2-pages-correctly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["document", "pages", "structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-item-spans-pages",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_11-List-item-spanning-2-pages-correctly-tagged/UA1_Tpdf-L_11.pdf",
+      "sha256": "891e3e7c7a449048f26693e53131635cafca280e48ec52d6a70020953cfe1bf8",
+      "behavior": "one list item's LBody structure content references marked content on both document pages",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_11-List-item-spanning-2-pages-correctly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["document", "pages", "structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-upper-roman",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_02-Ordered-list-with-correctly-set-ListNumbering-attribute-UpperRoman/UA1_Tpdf-L_02.pdf",
+      "sha256": "08a02b03839a7e1d55b3be51fc11bfbd4181195484382f512a798fff0d6765aa",
+      "behavior": "an ordered list exposes three Lbl and paragraph-backed LBody pairs with UpperRoman numbering",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_02-Ordered-list-with-correctly-set-ListNumbering-attribute-UpperRoman/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-decimal",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_03-Ordered-list-with-correctly-set-ListNumbering-attribute-Decimal/UA1_Tpdf-L_03.pdf",
+      "sha256": "dcca3855ab674dd5d9101246b5559778162a49a4fc7adac204512f0d3f04348b",
+      "behavior": "an ordered list exposes three direct Lbl and LBody pairs with Decimal numbering",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_03-Ordered-list-with-correctly-set-ListNumbering-attribute-Decimal/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-decorative-image-labels",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_04-Unordered-List-with-decorative-images-as-bullets-correctly-tagged/UA1_Tpdf-L_04.pdf",
+      "sha256": "84ba1a539a1ffbe2fafc6f85696ef197c66d14ddc543112fe06b5eb0bd1f9e85",
+      "behavior": "fixture-byte regression: decorative graphic labels remain nested Span elements with bullet-plus-trailing-NUL ActualText and the PDF exposes authored Disc numbering, although the pinned README describes a single bullet and says ListNumbering should be absent or None",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_04-Unordered-List-with-decorative-images-as-bullets-correctly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-multilevel",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_05-Multi-level-list-correctly-tagged/UA1_Tpdf-L_05.pdf",
+      "sha256": "e3d02937a2488ef981e3fb6dba3e8be77f027db1a2c69ce4ad645b4864e15724",
+      "behavior": "nested LowerAlpha lists remain inside the containing LBody elements of a Decimal outer list",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_05-Multi-level-list-correctly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-semantic-image-labels",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_06-List-with-semantic-images-as-bullets-correctly-tagged/UA1_Tpdf-L_06.pdf",
+      "sha256": "5d6009b9470873b5f2708eb4647b05a73b44f8e3f7e1f2e594470d1cb9f31f1c",
+      "behavior": "fixture-byte regression: semantic broccoli and tomato figures remain nested under list labels with their alternate descriptions and the PDF exposes authored explicit None numbering, although the pinned README describes the default absent form",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_06-List-with-semantic-images-as-bullets-correctly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-numbering-absent",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_07-Three-unordered-lists-with-the-ListNumbering-correctly-not-set/UA1_Tpdf-L_07.pdf",
+      "sha256": "3756abe122170e55a5e58bb75ae4384adb4b1ba359dde257b758bd7a05e2988d",
+      "behavior": "three unordered list forms preserve intentionally absent ListNumbering attributes and labeled or unlabeled item substructures",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_07-Three-unordered-lists-with-the-ListNumbering-correctly-not-set/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-numbering-none",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_08-Three-unordered-lists-with-the-ListNumbering-correctly-set-to-None/UA1_Tpdf-L_08.pdf",
+      "sha256": "035fafbb6ffe4536b8dba176b6baea1e9333f951e2f7cf5337246e3a803036ad",
+      "behavior": "three unordered list forms preserve explicit None ListNumbering attributes and labeled or unlabeled item substructures",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_08-Three-unordered-lists-with-the-ListNumbering-correctly-set-to-None/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-caption",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_09-Caption-for-List-correctly-tagged/UA1_Tpdf-L_09.pdf",
+      "sha256": "c62552b08a18a293dd5eea4a2b0a4f93df32135c9b71bb735101558818e80315",
+      "behavior": "a Caption remains the first child of its list before three labeled list items",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_09-Caption-for-List-correctly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-inline",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_10-Inline-List-correctly-tagged/UA1_Tpdf-L_10.pdf",
+      "sha256": "1ff4afaaccfade357a2bed0ae7638336417e3132ae06a8c57307ef3d0b4947e5",
+      "behavior": "two lists remain nested inside paragraphs with Inline placement at every list level and LowerRoman numbering on the ordered list",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_10-Inline-List-correctly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-hierarchical",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_12-Hierarchical-list-correctly-tagged/UA1_Tpdf-L_12.pdf",
+      "sha256": "b600b99a9bf4a44192ef73f0b3b900f012ed578ae192a3a9be46dfc887632346",
+      "behavior": "LowerAlpha lists remain direct hierarchical children between the list items of a Decimal outer list",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_12-Hierarchical-list-correctly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-item-substructure",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_13-List-item-with-substructure-correctly-tagged/UA1_Tpdf-L_13.pdf",
+      "sha256": "91c19689a3231afcb9e78e5e570a7bc0d2eaf40f73bcccf353c2721a5752c5ea",
+      "behavior": "multi-paragraph list bodies preserve their nested paragraph substructure alongside direct list bodies",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_13-List-item-with-substructure-correctly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-description",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_14-Description-list-correctly-tagged/UA1_Tpdf-L_14.pdf",
+      "sha256": "e3931d460cfcafd9be13d42c31420817552b5b26f7f9df7f8f9a7724e680e281",
+      "behavior": "a description list preserves five labeled items with explicit None ListNumbering",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_14-Description-list-correctly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-numbering-wrong-for-bullets",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_F01-Unordered-list-with-incorrectly-set-ListNumbering-attribute/UA1_Tpdf-L_F01.pdf",
+      "sha256": "b71137abdae88998d760eb5a3608bb3aefdffd7856b517706e54c5e5cdd2fd95",
+      "behavior": "an intentionally invalid solid-circle unordered list exposes its mismatched Square ListNumbering attribute",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_F01-Unordered-list-with-incorrectly-set-ListNumbering-attribute/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-labels-not-tagged",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_F02-List-with-incorrectly-tagged-labels/UA1_Tpdf-L_F02.pdf",
+      "sha256": "5ed6eb6ded5ad786818c088553871a8d12c36f6ed9d43fd1f106567f9185daf5",
+      "behavior": "an intentionally invalid Decimal list exposes three LI elements whose direct LBody children contain untagged labels and no Lbl elements",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_F02-List-with-incorrectly-tagged-labels/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-ordered-numbering-absent",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_F03-Ordered-list-with-missing-ListNumbering-attribute/UA1_Tpdf-L_F03.pdf",
+      "sha256": "ac135c407388ab9081492993d3505ed3be86f004f2f792241d6e5cb00ef9fbad",
+      "behavior": "an intentionally invalid numbered list preserves its absent ListNumbering attribute despite Decimal labels",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_F03-Ordered-list-with-missing-ListNumbering-attribute/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-ordered-numbering-disc",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_F04-Ordered-list-with-ListNumbering-attribute-incorrectly-set-to-Disc/UA1_Tpdf-L_F04.pdf",
+      "sha256": "122bbd5b86cae20a78f06a21fbe53a61d4842d332913ce763d2a2af0f1ba62c4",
+      "behavior": "an intentionally invalid numbered list exposes Disc ListNumbering alongside Decimal labels",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_F04-Ordered-list-with-ListNumbering-attribute-incorrectly-set-to-Disc/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-lbody-missing",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_F05-List-with-missing-LBody/UA1_Tpdf-L_F05.pdf",
+      "sha256": "4bf102cd6584cec7712f28a13c2270fc43e7a45bb2e3795a9cad903bf2d75330",
+      "behavior": "an intentionally invalid list preserves paragraph content directly under each LI instead of required LBody elements",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_F05-List-with-missing-LBody/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-nested-under-li",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_F07-Multi-level-list-tags-incorrectly-nested/UA1_Tpdf-L_F07.pdf",
+      "sha256": "3e1ff571cc9866e706cac08618f77650dfdf38fa0351b9d6624cd39c07cec4e8",
+      "behavior": "intentionally invalid LowerAlpha nested lists remain siblings of LBody directly under their parent LI elements",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_F07-Multi-level-list-tags-incorrectly-nested/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-substructure-outside-list",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_F08-List-item-substructure-incorrectly-tagged/UA1_Tpdf-L_F08.pdf",
+      "sha256": "162ce60dc603f1546956f17371a3be77ba51dda1208752eb3a5d4813a571620d",
+      "behavior": "intentionally invalid second paragraphs remain outside their list bodies and split one logical list into three L elements",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_F08-List-item-substructure-incorrectly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-substructure-as-li",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_F09-List-item-with-missing-LBody-tag/UA1_Tpdf-L_F09.pdf",
+      "sha256": "bf2994c54d6847e681f3f995c961c381fdeaa7fa474bccef04c7059c5bab77a1",
+      "behavior": "intentionally invalid second paragraphs remain direct marked content in separate bare LI elements rather than inside the preceding LBody",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_F09-List-item-with-missing-LBody-tag/README.md",
+      "compatibility": true,
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"]
+    },
+    {
+      "id": "accessibility-list-split-across-pages",
+      "source": "techniques-for-accessible-pdf",
+      "path": "list/L_F10-List-spanning-multiple-pages-incorrectly-tagged/UA1_Tpdf-L_F10.pdf",
+      "sha256": "2eaca3e89426f29afa6fb1f15aaba4cd8f76d7c376fcaa9d7de319523bc601a5",
+      "behavior": "an intentionally invalid two-page logical list remains split into separate 20-item and 5-item L elements associated with their respective pages",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_F10-List-spanning-multiple-pages-incorrectly-tagged/README.md",
+      "compatibility": true,
+      "sections": ["document", "pages", "structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "negative-dash-phase",
+      "source": "pdf-differences",
+      "path": "Negative-DashPhase/Negative-DashPhase.pdf",
+      "sha256": "9fdc7fd3a19521e3eb9342937a9be99e74478179b5bb96994a8f1d219dc984b0",
+      "behavior": "authored negative dash phases remain observable with their dash arrays for downstream PDF normalization",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/Negative-DashPhase/README.md",
+      "compatibility": true,
+      "sections": ["content.paths"]
+    },
+    {
+      "id": "negative-dash-phase-cut-here",
+      "source": "pdf-differences",
+      "path": "Negative-DashPhase/CutHereExample.pdf",
+      "sha256": "f6178abd6ffbe1299c00064ea2673511c9f7fc936975317a42d201dff0b5c415",
+      "behavior": "a practical cut-line path retains its four-element dash array, negative phase, butt cap, and stroke width",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/Negative-DashPhase/CutHereExample.pdf",
+      "compatibility": true,
+      "sections": ["content.paths"]
+    },
+    {
+      "id": "degenerate-dashing",
+      "source": "pdf-differences",
+      "path": "Dashing-Degenerate/DegenerateDashing.pdf",
+      "sha256": "bd39ed997708358cc997776b3ed167c0a3cdf215a95e2c6bc6a77c51701e33f4",
+      "behavior": "implicitly closed dashed rectangles retain their dash pattern, round join, and butt, round, or projecting line caps",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/Dashing-Degenerate/README.md",
+      "compatibility": true,
+      "sections": ["content.paths"]
+    },
+    {
+      "id": "dashing-end-before-bend",
+      "source": "pdf-differences",
+      "path": "Dashing-EndBeforeBend/Dashing-EndBeforeBend.pdf",
+      "sha256": "c59152a0483ce8578b49d501e68bddb5615e874bad95e70f6a6fb3015f93b298",
+      "behavior": "open cornered paths retain the dash pattern and each line-cap style needed to apply end-before-bend rendering",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/Dashing-EndBeforeBend/README.md",
+      "compatibility": true,
+      "sections": ["content.paths"]
+    },
+    {
+      "id": "dashing-end-before-bend-closed",
+      "source": "pdf-differences",
+      "path": "Dashing-EndBeforeBend/Dashing-EndBeforeBend2.pdf",
+      "sha256": "92e8a49204dbb9321f831246337dee660d610edac60b5da0fd7367d047733a5c",
+      "behavior": "a close-and-stroke cornered path retains its explicit closure, round line cap, and dash pattern",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/Dashing-EndBeforeBend/Dashing-EndBeforeBend2.pdf",
+      "compatibility": true,
+      "sections": ["content.paths"]
+    },
+    {
+      "id": "color-burn-blend-mode",
+      "source": "pdf-differences",
+      "path": "ColorBurn-ColorDodge/ColorBurn.pdf",
+      "sha256": "ef2416ff47d4ac4a5cee17335bccbcd7732ee7bbfde619971b48b56af7240fb6",
+      "behavior": "a ColorBurn external graphics state and DeviceRGB transparency group remain observable while the group's internal blend state resets to Normal",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/ColorBurn-ColorDodge/README.md#colorburnpdf",
+      "compatibility": true,
+      "sections": ["content.interp", "content.xobjects", "content.paths"]
+    },
+    {
+      "id": "color-dodge-blend-mode",
+      "source": "pdf-differences",
+      "path": "ColorBurn-ColorDodge/ColorDodge.pdf",
+      "sha256": "eb904775daf6b67bbebecd3b311e825292fb384f347040576da29b399df32085",
+      "behavior": "a ColorDodge external graphics state and DeviceRGB transparency group remain observable while the group's internal blend state resets to Normal",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/ColorBurn-ColorDodge/README.md#colordodgepdf",
+      "compatibility": true,
+      "sections": ["content.interp", "content.xobjects", "content.paths"]
+    },
+    {
+      "id": "degenerate-line-caps",
+      "source": "pdf-differences",
+      "path": "LineCap-Degenerate/LineCap-Degenerate.pdf",
+      "sha256": "2b8821f9f280b577428f413da1b71f17b440f0e45e58fd30813d9c7045102f2e",
+      "behavior": "degenerate closed subpaths retain their butt, round, and projecting line-cap graphics state",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/LineCap-Degenerate/README.md",
+      "compatibility": true,
+      "sections": ["content.paths"]
+    },
+    {
+      "id": "large-miter-limit",
+      "source": "pdf-differences",
+      "path": "LargeMitreLimit/LargeMitreLimit.pdf",
+      "sha256": "8887f5725c1aed9bf0ab3a9d248672a8c658f2dc81150cfb6f5bd8581a65bea2",
+      "behavior": "very large integer and real miter-limit ratios remain exact on the affected path graphics states",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/LargeMitreLimit/README.md",
+      "compatibility": true,
+      "sections": ["content.paths"]
+    },
+    {
+      "id": "large-miter-limit-beziers",
+      "source": "pdf-differences",
+      "path": "LargeMitreLimit/LargeMitreLimit-Beziers.pdf",
+      "sha256": "aa409792549d998466cfcd6e1fd3f6e3467863839dba1c8d5679b68d8947aae9",
+      "behavior": "very large miter-limit ratios remain exact on paths whose joins combine straight and cubic Bezier segments",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/LargeMitreLimit/README.md#largemitrelimit-bezierspdf",
+      "compatibility": true,
+      "sections": ["content.paths"]
+    },
+    {
+      "id": "atomic-fill-stroke",
+      "source": "pdf-differences",
+      "path": "Atomic-Fill+Stroke/FillStrokeOrdering.pdf",
+      "sha256": "e41acc3e1b39916011e52e55b6c81aba95415815deed8510bc2aa142ec97ad34",
+      "behavior": "combined fill-and-stroke operators remain one path object with both paint flags and the shared transparency state",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/Atomic-Fill+Stroke/README.md#fillstrokeorderingpdf",
+      "compatibility": true,
+      "sections": ["content.paths"]
+    },
+    {
+      "id": "atomic-fill-stroke-self-intersecting-opaque",
+      "source": "pdf-differences",
+      "path": "Atomic-Fill+Stroke/SelfIntersecting-Opaque.pdf",
+      "sha256": "8e9bf836d70f16dde06d4ca077ec6b70431a3f991ee4d2cc11af062e2110e695",
+      "behavior": "opaque self-intersecting stars painted with b and b* remain atomic fill-and-stroke paths with their respective winding rules",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/Atomic-Fill%2BStroke/README.md#selfintersecting-opaquepdf",
+      "compatibility": true,
+      "sections": ["content.paths"]
+    },
+    {
+      "id": "atomic-fill-stroke-self-intersecting-transparency",
+      "source": "pdf-differences",
+      "path": "Atomic-Fill+Stroke/SelfIntersecting-Transparency.pdf",
+      "sha256": "21e0bd7d487e94611c93f84839dd8eac0a15d9b1bf6f7dca5b4430b9806f534c",
+      "behavior": "transparent self-intersecting stars painted with b and b* remain atomic fill-and-stroke paths with shared stroke and fill alpha",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/Atomic-Fill%2BStroke/README.md#selfintersecting-transparencypdf",
+      "compatibility": true,
+      "sections": ["content.paths"]
+    },
+    {
+      "id": "overlapping-glyph-clipping",
+      "source": "pdf-differences",
+      "path": "OverlappingGlyphClipping/OverlappingGlyphClipping.pdf",
+      "sha256": "957a4064877a35f906a505ae0bdeacbfc295df85583e6aad3d381797add01108",
+      "behavior": "text rendered in a clipping mode updates the persistent clipping state at ET before later paths are painted",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/OverlappingGlyphClipping/README.md",
+      "compatibility": true,
+      "sections": ["content.paths"]
+    },
+    {
+      "id": "text-clipping-mode-changes",
+      "source": "pdf-differences",
+      "path": "TextClipModeChanges/TextClippingModeChanges.pdf",
+      "sha256": "d7b844c98a1e5510c9f000035da60eb01ef21fea06937f5ead19e20867263712",
+      "behavior": "glyph clipping accumulates across rendering-mode changes within each text object and updates the persistent clipping state only at ET",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/TextClipModeChanges/README.md",
+      "compatibility": true,
+      "sections": ["content.paths"]
+    },
+    {
+      "id": "default-rgb-explicit",
+      "source": "pdf-differences",
+      "path": "DefaultColorSpaces/DefaultRGBColourSpaces.pdf",
+      "sha256": "bff699dbaaf438cabebb60d6bfadb8a7367713bc0ab44e482e5cbcef956f630e",
+      "behavior": "an explicit page DefaultRGB resource remains available as its CalRGB definition",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/DefaultColorSpaces/README.md#defaultrgbcolourspacespdf",
+      "compatibility": true,
+      "sections": ["document", "pages", "content.text"]
+    },
+    {
+      "id": "default-rgb-inherited",
+      "source": "pdf-differences",
+      "path": "DefaultColorSpaces/DefaultRGBColourSpaces-inherit.pdf",
+      "sha256": "a6cd5a5fc4aebae91a56ea509a84c8fb7985e143c68824db7ffabd7505896efe",
+      "behavior": "a legacy inherited DefaultRGB page resource remains available as its CalRGB definition",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/DefaultColorSpaces/README.md#defaultrgbcolourspaces-inheritpdf",
+      "compatibility": true,
+      "sections": ["document", "pages", "content.text"]
+    },
+    {
+      "id": "indexed-color-out-of-range",
+      "source": "pdf-differences",
+      "path": "IndexedColor/IndexedCS_negative_and_high.pdf",
+      "sha256": "818053a2bf343f31f4ad0b48eb2837eb3b43a4543c9feb6269a9f653fbcee59e",
+      "behavior": "interpreted Indexed color values clamp negative and high indices to 0 and hival and round 0.5 ties upward",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/IndexedColor/README.md",
+      "compatibility": true,
+      "sections": ["content.paths"]
+    },
+    {
+      "id": "negative-font-size",
+      "source": "pdf-differences",
+      "path": "NegativeFontSize/NegativeFontSize.pdf",
+      "sha256": "7886e7942de1c5a215caf3f98507c66a4fe32a7e8c2ff862bc9431958a31b0d8",
+      "behavior": "positive, negative, and zero font sizes from Tf and ExtGState Font entries retain their signed values",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/NegativeFontSize/README.md",
+      "compatibility": true,
+      "sections": ["content.text", "content.glyphs"]
+    },
+    {
+      "id": "unknown-filter-font",
+      "source": "pdf-differences",
+      "path": "UnknownFilter/UnknownFilter-Font.pdf",
+      "sha256": "b5272e7e9bc0c02ad08ce995a6e8826102d818e67b684f4167b8efb17a0baba4",
+      "behavior": "an unknown embedded-font filter does not prevent independent page and image processing",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/UnknownFilter/README.md#unknownfilter-fontpdf",
+      "compatibility": true,
+      "sections": ["document", "pages", "content.images"]
+    },
+    {
+      "id": "unknown-filter-image",
+      "source": "pdf-differences",
+      "path": "UnknownFilter/UnknownFilter-ImageXObject.pdf",
+      "sha256": "74b36790035e244f8ef02c4ec3efd541222d73cca847814c51fce747cef10701",
+      "behavior": "an unknown image filter reports image decoding failure while preserving independent text and font processing",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/UnknownFilter/README.md#unknownfilter-imagexobjectpdf",
+      "compatibility": true,
+      "sections": ["document", "pages", "content.text", "fonts"]
+    },
+    {
+      "id": "unknown-filter-form",
+      "source": "pdf-differences",
+      "path": "UnknownFilter/UnknownFilter-FormXObject.pdf",
+      "sha256": "839d651384db9cce2104a9b997212e9adf52985d4528f88e06eb632fd4845c27",
+      "behavior": "an unknown Form XObject filter preserves raw page content but reports expanded-content failure",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/UnknownFilter/README.md#unknownfilter-formxobjectpdf",
+      "compatibility": true,
+      "sections": ["document", "pages", "content.contents"]
+    },
+    {
+      "id": "dct-png-polyglot-wine",
+      "source": "pdf-differences",
+      "path": "UnknownFilter/382252277877c00a92f3bb54daef1413bafe5557e2f5f7c32c23e800cd9bdcd4.pdf",
+      "sha256": "382252277877c00a92f3bb54daef1413bafe5557e2f5f7c32c23e800cd9bdcd4",
+      "behavior": "strict DCT decoding rejects a PNG polyglot stream instead of format-sniffing or scanning embedded bytes into a visible image",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/UnknownFilter/README.md#real-world-example",
+      "compatibility": true,
+      "sections": ["content.images"]
+    },
+    {
+      "id": "dct-png-polyglot-oil",
+      "source": "pdf-differences",
+      "path": "UnknownFilter/4387ba480c6f935b8e97749d40b3c001ad584b7bda66ca2c040be67337669497.pdf",
+      "sha256": "4387ba480c6f935b8e97749d40b3c001ad584b7bda66ca2c040be67337669497",
+      "behavior": "strict DCT decoding rejects a PNG polyglot stream instead of format-sniffing or scanning embedded bytes into a visible image",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/UnknownFilter/README.md#real-world-example",
+      "compatibility": true,
+      "sections": ["content.images"]
+    },
+    {
+      "id": "link-annotation-appearance",
+      "source": "safedocs",
+      "path": "Miscellaneous Targeted Test PDFs/LinkAnnot-appearances.pdf",
+      "sha256": "6a10c809c7a5afe1fe7e9df0071ff10ad9ae0421605ab89735e66d245a3eb788",
+      "behavior": "a Link annotation exposes its normal appearance, border, highlight mode, and complete ordered URI action chain",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Miscellaneous%20Targeted%20Test%20PDFs/README.md#linkannot-appearancespdf",
+      "compatibility": true,
+      "sections": ["document", "pages", "annotations"]
+    },
+    {
+      "id": "uri-action-tree",
+      "source": "safedocs",
+      "path": "Miscellaneous Targeted Test PDFs/list-of-uri-actions.pdf",
+      "sha256": "c5045d62f5d5a234e1487b607c4b6218f32945be3ac81669f75a928e1c6a6b00",
+      "behavior": "Link annotations expose every URI in singly linked and branching Next action trees in source order",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Miscellaneous%20Targeted%20Test%20PDFs/README.md#list-of-uri-actionspdf",
+      "compatibility": true,
+      "sections": ["document", "pages", "annotations"]
+    },
+    {
+      "id": "uri-actions-with-base",
+      "source": "safedocs",
+      "path": "Miscellaneous Targeted Test PDFs/list-of-uri-actions-with-base.pdf",
+      "sha256": "9cd3bd10b41fb06bfee907bb832c25b4c9913499da9ab02430f7b97f4461a8a7",
+      "behavior": "the catalog URI Base and mixed relative and absolute annotation action URIs remain independently observable",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Miscellaneous%20Targeted%20Test%20PDFs/README.md#list-of-uri-actions-with-basepdf",
+      "compatibility": true,
+      "sections": ["document", "pages", "annotations"]
+    },
+    {
+      "id": "uri-ismap",
+      "source": "safedocs",
+      "path": "Miscellaneous Targeted Test PDFs/uri-ismap-test.pdf",
+      "sha256": "a3a8368b9d511fbacb23bef3870a928664a6ff017c53b5c2efe91f9177e8f518",
+      "behavior": "a URI action preserves its IsMap flag while the Link annotation retains its target and decoration",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Miscellaneous%20Targeted%20Test%20PDFs/README.md#uri-ismap-testpdf",
+      "compatibility": true,
+      "sections": ["document", "pages", "annotations"]
+    },
+    {
+      "id": "font-inside-nested-type3",
+      "source": "safedocs",
+      "path": "Miscellaneous Targeted Test PDFs/FontinsideType3insideType3.pdf",
+      "sha256": "92434006539d935fd64d2300bb14ca05d3d053fd8d4fb3d5e33674f391bc5754",
+      "behavior": "document font discovery descends through two nested Type 3 fonts to their Type 1 Helvetica resource",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Miscellaneous%20Targeted%20Test%20PDFs/README.md#fontinsidetype3insidetype3pdf",
+      "compatibility": true,
+      "sections": ["fonts"]
+    },
+    {
+      "id": "font-inside-pattern",
+      "source": "safedocs",
+      "path": "Miscellaneous Targeted Test PDFs/PatternTextInsideText.pdf",
+      "sha256": "c61f1e483c11dac03fb1ef0fc873f0fd54832ae2476cb8e4d2c21c1e37da004a",
+      "behavior": "document font discovery descends into a shading pattern and reports both Type 1 font resources",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Miscellaneous%20Targeted%20Test%20PDFs/README.md#patterntextinsidetextpdf",
+      "compatibility": true,
+      "sections": ["fonts"]
+    },
+    {
+      "id": "content-stream-dictionaries",
+      "source": "safedocs",
+      "path": "Dialects/Dialect-ContentStreams.pdf",
+      "sha256": "916486e480bd74299ca4470584b2c1503452f86bac43c6d9c7276e36d7f5f88d",
+      "behavior": "direct dictionaries remain valid in inline images, marked-content property lists, and compatibility sections",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Dialects/README.md#dialect-contentstreamspdf",
+      "compatibility": true,
+      "sections": ["content.contents", "content.extract_text"]
+    },
+    {
+      "id": "content-stream-resource-names",
+      "source": "safedocs",
+      "path": "Dialects/Dialect-ContentStreamsViaResourceNames.pdf",
+      "sha256": "b36796872fe319d8a0bbe2f38b28595d05e6bbe3b0a5c591e1221a33393f38c6",
+      "behavior": "private content-stream dictionary values may select named resources without corrupting surrounding operations",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Dialects/README.md#dialect-contentstreamsviaresourcenamespdf",
+      "compatibility": true,
+      "sections": ["content.contents", "content.extract_text"]
+    },
+    {
+      "id": "content-stream-indirect-references",
+      "source": "safedocs",
+      "path": "Dialects/Dialect-ContentStreamsWithIndirectRefs.pdf",
+      "sha256": "e72a02730490375bf3d9a96b310e69efe2e58b25a7b8b4ac27078f8b87ba9270",
+      "behavior": "indirect object references prohibited by the content-stream grammar produce an explicit parse error",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Dialects/README.md#dialect-contentstreamswithindirectrefspdf",
+      "compatibility": true,
+      "sections": ["content.contents"]
+    },
+    {
+      "id": "dialect-stream-is-dict",
+      "source": "safedocs",
+      "path": "Dialects/Dialect-StreamIsDict.pdf",
+      "sha256": "0cd3361df97988626b219c9b691e51be5a290c79de5bcb3f7660c517a6e59ffc",
+      "behavior": "a plain dictionary referenced where a content or metadata stream is required remains a dictionary and produces an explicit type error",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Dialects/README.md#stream-is-just-a-dictionary",
+      "compatibility": true,
+      "sections": ["content.contents"]
+    },
+    {
+      "id": "dialect-dict-is-stream",
+      "source": "safedocs",
+      "path": "Dialects/Dialect-DictIsStream.pdf",
+      "sha256": "a9eb0a3fa943629f29b42471643436d5bca4c55b27ae9aabc8e17e1fc6889008",
+      "behavior": "a stream object referenced where a page or font dictionary is required produces an explicit type error instead of being treated as its stream dictionary",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Dialects/README.md#dictionary-is-a-really-a-stream",
+      "expected_page_failure": true,
+      "compatibility": true,
+      "sections": ["pages"]
+    },
+    {
+      "id": "unicode-reiwa-tounicode",
+      "source": "safedocs",
+      "path": "Unicode passwords/baseline/unicode-test.pdf",
+      "sha256": "a093870c296eaeb6e88980f0b84a03388fd23e1515dfa7592a33a45e8dab191a",
+      "behavior": "a ToUnicode CMap extracts the Unicode 12.1 Reiwa era symbol U+32FF independently of the Unicode version used for passwords",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Unicode%20passwords/baseline/baseline.md#test-documents",
+      "compatibility": true,
+      "sections": ["content.extract_text.untagged"]
+    },
+    {
+      "id": "unicode-reiwa-actualtext",
+      "source": "safedocs",
+      "path": "Unicode passwords/baseline/unicode-test-actualtext.pdf",
+      "sha256": "16ad05198b71ecfbf34a8dba5b762de0f64a2e5242549421a284da28fe79563c",
+      "behavior": "an ActualText replacement extracts the Unicode 12.1 Reiwa era symbol U+32FF independently of the Unicode version used for passwords",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Unicode%20passwords/baseline/baseline.md#test-documents",
+      "compatibility": true,
+      "sections": ["structure", "content.extract_text.tagged"]
+    },
+    {
+      "id": "unicode-password-c4-correct",
+      "source": "safedocs",
+      "path": "Unicode passwords/corrigendum4/unicode-test-U2F874-correct.pdf",
+      "sha256": "d30412e5424589fc26b66b2463c53e4059916a86d29416544e5d1c9d2551ecfa",
+      "behavior": "revision 6 password preprocessing uses Unicode 3.2 normalization, so both U+2F874 and its pre-Corrigendum #4 mapping U+5F33 decrypt the correctly normalized document",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Unicode%20passwords/corrigendum4/corrigendum4.md#test-procedure",
+      "password": "Password当!",
+      "compatibility": true,
+      "sections": ["document", "pages", "content.extract_text.untagged"]
+    },
+    {
+      "id": "unicode-password-c4-wrong",
+      "source": "safedocs",
+      "path": "Unicode passwords/corrigendum4/unicode-test-U2F874-wrong.pdf",
+      "sha256": "b5ff24d38f77b2875251a82d6e323d6024dc441c8b22817efbd4feb84c5aaa9d",
+      "behavior": "revision 6 password preprocessing rejects U+2F874 for a document encrypted with the post-Corrigendum #4 mapping while accepting the already normalized U+5F53 password",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Unicode%20passwords/corrigendum4/corrigendum4.md#test-procedure",
+      "password": "Password当!",
+      "compatibility": true,
+      "sections": ["document", "pages", "content.extract_text.untagged"]
+    },
+    {
+      "id": "unicode-password-c5-once",
+      "source": "safedocs",
+      "path": "Unicode passwords/corrigendum5/unicode-corrigendum5-unicode32-once.pdf",
+      "sha256": "628f77af77affc4ce8768afbd8d4e073760b46393f2c5fb17783cf5686cc9aab",
+      "behavior": "revision 6 password preprocessing applies the corrected idempotent normalization algorithm and therefore rejects the legacy one-pass password against a document encrypted with that unnormalized intermediate value",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Unicode%20passwords/corrigendum5/corrigendum5.md#test-procedure",
+      "password": "가̣̀",
+      "expected_password_failure": true,
+      "compatibility": false,
+      "sections": []
+    },
+    {
+      "id": "unicode-password-c5-twice",
+      "source": "safedocs",
+      "path": "Unicode passwords/corrigendum5/unicode-corrigendum5-unicode32-twice.pdf",
+      "sha256": "a8224fe8278f4b3eb8bae0345b282c83d9c959505724ec7fe2680628ea7d035f",
+      "behavior": "revision 6 password preprocessing is idempotent after Corrigendum #5: the unnormalized source is rejected while both its one-pass and normalized forms decrypt the normalized document",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Unicode%20passwords/corrigendum5/corrigendum5.md#test-procedure",
+      "password": "가̣̀",
+      "compatibility": true,
+      "sections": ["document", "pages", "content.extract_text.untagged"]
+    },
+    {
+      "id": "utf16le-text-strings",
+      "source": "safedocs",
+      "path": "Miscellaneous Targeted Test PDFs/utf16LE-test.pdf",
+      "sha256": "04af7aced559ca6b9fbf7a466526a94f3b76cf75ed6af81f4f963892a9bcacfa",
+      "behavior": "UTF-16LE text strings, which ISO 32000-2 does not permit, remain distinguishable from valid UTF-16BE strings by decoding as PDFDocEncoding",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Miscellaneous%20Targeted%20Test%20PDFs/README.md#utf16le-testpdf",
+      "compatibility": true,
+      "sections": ["document", "outline"]
+    }
+  ],
+  "exclusions": [
+    {
+      "source": "safedocs",
+      "path": "CompactedSyntax/CompactedPDFSyntaxMatrix.pdf",
+      "sha256": "e6d3ce17ce4ea3ca93e3c6ab3a852f356209d32e3a00920cb490461be0120aec",
+      "reason": "the PDF documents the token-pair matrix rather than exercising the compacted lexer; CompactedPDFSyntaxTest.pdf is the executable test artifact",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/CompactedSyntax/README.md"
+    },
+    {
+      "source": "safedocs",
+      "path": "Inline Image Abbreviations/InlineAbbreviations.pdf",
+      "sha256": "5716b3f45f5353b9d674bfb3d0c829341c6d061256ad7e5e66721a40425ab1f5",
+      "reason": "byte-identical duplicate of the selected pdf-differences InlineAbbreviations.pdf fixture",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Inline%20Image%20Abbreviations/README.md"
+    },
+    {
+      "source": "safedocs",
+      "path": "Unicode passwords/corrigendum5/unicode-corrigendum5-fixed.pdf",
+      "sha256": "70421a50fd5e36cf7facaac763b9eed337f8aefcde9cb04ae7dae8d78a50d31a",
+      "reason": "the published procedure explicitly permits either success or failure for this document, so it has no deterministic conformance expectation; the once- and twice-normalized documents cover the specified outcomes",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Unicode%20passwords/corrigendum5/corrigendum5.md#test-procedure"
+    }
+  ],
+  "differences": [
+    {
+      "id": "utf8-outline-decoded-as-legacy-text",
+      "fixture_id": "pdf20-utf8",
+      "fixture_sha256": "a7ca717ef062df0a65e58487d26358c81424b76084a2000ca1c74b9e5776b7a1",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["document", "outline"],
+      "lines": [
+        "page_labels[0]: playa=ï»¿Prefixi, go=Prefixi",
+        "outline[0].title: playa=ï»¿PDF 2.0 with UTF-8 test file, go=PDF 2.0 with UTF-8 test file",
+        "outline[1].title: playa=ï»¿â•ªâ•ªtestâ•ª, go=\u202a\u202atest\u202a",
+        "outline[2].title: playa=ï»¿ð\u0000„‹ï¸‘\n, go=🌈️\n"
+      ],
+      "playa_error": "",
+      "title": "PDF 2.0 UTF-8 outline title is decoded as legacy text",
+      "expectation": "A PDF 2.0 text string beginning with the UTF-8 BOM is decoded as UTF-8, so the outline title does not include a BOM or mojibake.",
+      "playa_behavior": "The UTF-8 BOM and title bytes are decoded as legacy single-byte text, producing mojibake in the outline title.",
+      "evidence_url": "https://github.com/pdf-association/pdf20examples/blob/c20f2c17bfcc4baab7cfe62e70fae64caf14d5fa/README.md#pdf20-utf8-testpdf",
+      "reproduction": "Open `pdf20-utf8-test.pdf` and read the first outline item's title."
+    },
+    {
+      "id": "utf8-annotation-decoded-as-legacy-text",
+      "fixture_id": "pdf20-utf8-annotation",
+      "fixture_sha256": "f3a018213564a420db81062a0e584fbcc5f705e353ed477da43bab6222f137b6",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["document", "pages", "annotations"],
+      "lines": ["pages[0].annotations[0].contents: playa=ï»¿à¹—à¸®à¹—à¸¥à¸Łà¹„à¸‡à¹›à¸\u0000à¸—à¸§à¸²à¸¡, go=ไฮไลต์ข้อความ"],
+      "playa_error": "",
+      "title": "PDF 2.0 UTF-8 annotation contents are decoded as legacy text",
+      "expectation": "A PDF 2.0 annotation Contents string beginning with the UTF-8 BOM is decoded as UTF-8 and returns the encoded Thai text.",
+      "playa_behavior": "The UTF-8 BOM and annotation bytes are decoded as legacy single-byte text, producing mojibake and an embedded NUL.",
+      "evidence_url": "https://github.com/pdf-association/pdf20examples/blob/c20f2c17bfcc4baab7cfe62e70fae64caf14d5fa/README.md#pdf-20-utf-8-string-and-annotationpdf",
+      "reproduction": "Open `PDF 2.0 UTF-8 string and annotation.pdf` and read the first annotation's Contents value."
+    },
+    {
+      "id": "unknown-filter-linearization-error",
+      "fixture_id": "unknown-filter-linearized",
+      "fixture_sha256": "10272c70b1c60e7f67bf717d39570964216b2aca2c71a34826378f7f8e043529",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["document", "pages", "content.text", "content.images", "fonts"],
+      "lines": [],
+      "playa_error": "NotImplementedError: Unsupported filter: /'XXXDecode'",
+      "title": "Unknown filter in optional linearization data prevents normal document processing",
+      "expectation": "An unknown filter in an optional linearization cross-reference stream is ignored so the main cross-reference data, pages, and ordinary page contents remain available.",
+      "playa_behavior": "Opening the test file aborts while decoding the optional linearization data, before ordinary document processing can continue.",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/UnknownFilter/README.md#unknownfilter-linearizedpdf",
+      "reproduction": "Open `UnknownFilter-Linearized.pdf`, enumerate its pages, and extract the visible page text. Document processing aborts before those operations complete."
+    },
+    {
+      "id": "unknown-filter-outline-object-stream-error",
+      "fixture_id": "unknown-filter-outline-object-stream",
+      "fixture_sha256": "585100f65ef5577707317974cee18891e92e35b22873709d13b7148a7b20defe",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["document", "pages", "content.extract_text.untagged", "content.images", "outline"],
+      "lines": [],
+      "playa_error": "NotImplementedError: Unsupported filter: /'XXXDecode'",
+      "title": "Unknown filter in optional outline object stream prevents page access",
+      "expectation": "A hybrid-reference PDF remains available for page enumeration, text extraction, and image extraction when an unknown filter affects only the object stream containing optional outline objects; the outline itself may be unavailable.",
+      "playa_behavior": "After hybrid cross-reference parsing fails, fallback object scanning eagerly expands every object stream and aborts on the unknown filter before the otherwise independent page tree can be accessed.",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/UnknownFilter/README.md#unknownfilter-outlinesobjstmpdf",
+      "reproduction": "Open `UnknownFilter-OutlineObjStm.pdf`, enumerate its pages, and extract the visible page text or image. Accessing the page list aborts before those operations can run."
+    },
+    {
+      "id": "dct-png-polyglot-wine-accepted",
+      "fixture_id": "dct-png-polyglot-wine",
+      "fixture_sha256": "382252277877c00a92f3bb54daef1413bafe5557e2f5f7c32c23e800cd9bdcd4",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["content.images"],
+      "lines": ["pages[0].images[2].stream_length: playa=224207, go=0"],
+      "playa_error": "",
+      "title": "DCTDecode image extraction writes PNG polyglot bytes with a JPEG extension",
+      "expectation": "Strict DCT stream handling rejects bytes that do not begin with the JPEG SOI marker, rather than format-sniffing or scanning embedded data into an alternate visible image.",
+      "playa_behavior": "Image extraction chooses a `.jpg` suffix from the declared DCTDecode filter and writes the stream unchanged even though its first eight bytes are the PNG signature.",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/UnknownFilter/README.md#real-world-example",
+      "reproduction": "Open the hash-named PDF, find the page image whose XObject name is `Ig2`, and compare the suffix selected by `get_image_suffix_and_writer()` with the first eight bytes of its stream."
+    },
+    {
+      "id": "dct-png-polyglot-oil-accepted",
+      "fixture_id": "dct-png-polyglot-oil",
+      "fixture_sha256": "4387ba480c6f935b8e97749d40b3c001ad584b7bda66ca2c040be67337669497",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["content.images"],
+      "lines": ["pages[0].images[2].stream_length: playa=224207, go=0"],
+      "playa_error": "",
+      "title": "DCTDecode image extraction writes PNG polyglot bytes with a JPEG extension",
+      "expectation": "Strict DCT stream handling rejects bytes that do not begin with the JPEG SOI marker, rather than format-sniffing or scanning embedded data into an alternate visible image.",
+      "playa_behavior": "Image extraction chooses a `.jpg` suffix from the declared DCTDecode filter and writes the stream unchanged even though its first eight bytes are the PNG signature.",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/UnknownFilter/README.md#real-world-example",
+      "reproduction": "Open the hash-named PDF, find the page image whose XObject name is `Ig2`, and compare the suffix selected by `get_image_suffix_and_writer()` with the first eight bytes of its stream."
+    },
+    {
+      "id": "indexed-color-indices-not-normalized",
+      "fixture_id": "indexed-color-out-of-range",
+      "fixture_sha256": "818053a2bf343f31f4ad0b48eb2837eb3b43a4543c9feb6269a9f653fbcee59e",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["content.paths"],
+      "lines": [
+        "pages[0].paths[11].state.fill_color.values[0]: playa=-17, go=0",
+        "pages[0].paths[20].state.fill_color.values[0]: playa=6.5, go=7",
+        "pages[0].paths[21].state.fill_color.values[0]: playa=17, go=7"
+      ],
+      "playa_error": "",
+      "title": "Indexed color-space indices are not rounded or clamped",
+      "expectation": "An Indexed color component is rounded to the nearest integer with 0.5 ties rounded upward, then clamped to the inclusive range from zero through hival.",
+      "playa_behavior": "Interpreted path graphics states retain the authored -17, 6.5, and 17 components instead of exposing the effective 0, 7, and 7 indices for an Indexed color space whose hival is 7.",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/IndexedColor/README.md",
+      "reproduction": "Open `IndexedCS_negative_and_high.pdf`, enumerate page paths whose nonstroking color space is `Cs1`, and inspect each path's nonstroking color values."
+    },
+    {
+      "id": "page-paths-ignore-userunit",
+      "fixture_id": "degenerate-line-caps",
+      "fixture_sha256": "2b8821f9f280b577428f413da1b71f17b440f0e45e58fd30813d9c7045102f2e",
+      "spaces": ["page", "screen"],
+      "sections": ["content.paths"],
+      "lines": [
+        "pages[0].paths[0].segments[0].points[0][0]: playa=10, go=100",
+        "pages[0].paths[1].segments[0].points[0][0]: playa=50, go=500",
+        "pages[0].paths[2].segments[0].points[0][0]: playa=100, go=1000",
+        "pages[0].paths[3].segments[0].points[0][0]: playa=150, go=1500",
+        "pages[0].paths[4].segments[0].points[0][0]: playa=50, go=500",
+        "pages[0].paths[5].segments[0].points[0][0]: playa=100, go=1000",
+        "pages[0].paths[6].segments[0].points[0][0]: playa=150, go=1500",
+        "pages[0].paths[7].segments[0].points[0][0]: playa=50, go=500",
+        "pages[0].paths[8].segments[0].points[0][0]: playa=100, go=1000",
+        "pages[0].paths[9].segments[0].points[0][0]: playa=150, go=1500"
+      ],
+      "playa_error": "",
+      "title": "Page and screen path coordinates ignore the page UserUnit",
+      "expectation": "The page's UserUnit value participates in the initial transformation from default user space to page or screen device space, so interpreted path segments reflect the declared scale.",
+      "playa_behavior": "Interpreted path segments in page and screen space retain the unscaled default-user-space X coordinates even though the page declares UserUnit 10.",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/LineCap-Degenerate/README.md",
+      "reproduction": "Open `LineCap-Degenerate.pdf` with `space=\"page\"` or `space=\"screen\"`, then compare the first point of each path's `raw_segments` and interpreted `segments`."
+    },
+    {
+      "id": "structure-actualtext-ignored",
+      "fixture_id": "accessibility-actualtext-ocr",
+      "fixture_sha256": "d7de1e10e633b7e6b5e93d7c45c9153e225eee5ae1e961186b93ae21d00025f0",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["structure", "content.extract_text.tagged"],
+      "lines": ["pages[0].extract_text_tagged: playa=Availal;!e 24/7, you c;m book an appointroP.nt online., go=Available 24/7, you can book an appointment online."],
+      "playa_error": "",
+      "title": "Structure element ActualText is ignored during text extraction",
+      "expectation": "ActualText on the Span structure element replaces the erroneous invisible OCR text, yielding the extractable sentence shown by the PDF Association test.",
+      "playa_behavior": "The ActualText property is exposed on the structure element, but both the element text and tagged page extraction return the erroneous invisible OCR text instead.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/2-text/G2_06-ActualText-provides-correct-extractable-characters-in-place-of-OCR-errors/README.md",
+      "reproduction": "Open `UA1_Tpdf-G2_06.pdf`, find the page's Span structure element, then compare its `actual_text` with its `text` and the page's tagged text extraction."
+    },
+    {
+      "id": "document-fonts-miss-nested-type3-resources",
+      "fixture_id": "font-inside-nested-type3",
+      "fixture_sha256": "92434006539d935fd64d2300bb14ca05d3d053fd8d4fb3d5e33674f391bc5754",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["fonts"],
+      "lines": ["document_fonts: playa length=1, go length=3"],
+      "playa_error": "",
+      "title": "Document font discovery misses fonts nested in Type 3 resources",
+      "expectation": "Document-wide font discovery descends through Type 3 font resource dictionaries and reports FType3A, FType3B, and Helvetica.",
+      "playa_behavior": "Only the top-level page font FType3A is reported; the nested Type 3 font FType3B and its Helvetica resource are omitted.",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Miscellaneous%20Targeted%20Test%20PDFs/README.md#fontinsidetype3insidetype3pdf",
+      "reproduction": "Open `FontinsideType3insideType3.pdf` and enumerate `document.fonts`."
+    },
+    {
+      "id": "type3-explicit-encoding-replaced-by-standard",
+      "fixture_id": "font-inside-nested-type3",
+      "fixture_sha256": "92434006539d935fd64d2300bb14ca05d3d053fd8d4fb3d5e33674f391bc5754",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["fonts"],
+      "lines": [
+        "document_fonts[0].decode[0].glyphs[0].text: playa= , go=",
+        "document_fonts[0].decode[1].glyphs[0].text: playa=A, go=",
+        "pages[0].fonts[0].decode[0].glyphs[0].text: playa= , go="
+      ],
+      "playa_error": "",
+      "title": "Type 3 explicit encoding is replaced by StandardEncoding when its glyph names have no Unicode mapping",
+      "expectation": "A Type 3 font's required Encoding entirely defines its character-code mapping. Codes absent from that explicit encoding, and glyph names without a Unicode mapping, remain unmapped.",
+      "playa_behavior": "Because the explicit glyph names `rect` and `triangle` produce no Unicode mappings, the complete encoding is replaced with StandardEncoding. Unspecified codes such as 32 and 65 then decode as a space and `A`, while the explicitly named glyphs decode as `a` and `b`.",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Miscellaneous%20Targeted%20Test%20PDFs/README.md#fontinsidetype3insidetype3pdf",
+      "reproduction": "Open `FontinsideType3insideType3.pdf`, get the FType3A font, inspect its explicit Encoding Differences, and decode character codes 32, 65, 97, and 98."
+    },
+    {
+      "id": "document-fonts-miss-pattern-resources",
+      "fixture_id": "font-inside-pattern",
+      "fixture_sha256": "c61f1e483c11dac03fb1ef0fc873f0fd54832ae2476cb8e4d2c21c1e37da004a",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["fonts"],
+      "lines": ["document_fonts: playa length=1, go length=2"],
+      "playa_error": "",
+      "title": "Document font discovery misses fonts nested in Pattern resources",
+      "expectation": "Document-wide font discovery descends into Pattern resource dictionaries and reports both Helvetica and Times-Italic.",
+      "playa_behavior": "Only the top-level Helvetica page font is reported; Times-Italic inside the Pattern resource is omitted.",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Miscellaneous%20Targeted%20Test%20PDFs/README.md#patterntextinsidetextpdf",
+      "reproduction": "Open `PatternTextInsideText.pdf` and enumerate `document.fonts`."
+    },
+    {
+      "id": "content-stream-indirect-references-accepted",
+      "fixture_id": "content-stream-indirect-references",
+      "fixture_sha256": "e72a02730490375bf3d9a96b310e69efe2e58b25a7b8b4ac27078f8b87ba9270",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["content.contents"],
+      "lines": [],
+      "playa_error": "",
+      "go_error": "compare snapshot: decode Playa page 0: playa: compatibility snapshot page 0 contents boundary recovery: playa: indirect object reference is not permitted in a content stream",
+      "title": "Indirect object references are accepted in content streams",
+      "expectation": "Indirect object references are not part of the content-stream object grammar, so encountering one directly or inside a content-stream dictionary produces a syntax error.",
+      "playa_behavior": "The content parser accepts indirect object references in operands and nested dictionaries and emits content objects instead of reporting invalid content-stream syntax.",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Dialects/README.md#dialect-contentstreamswithindirectrefspdf",
+      "reproduction": "Open `Dialect-ContentStreamsWithIndirectRefs.pdf` and enumerate `document.pages[0].contents`; the invalid references are accepted without a syntax error."
+    },
+    {
+      "id": "stream-object-kind-mismatch-recovered",
+      "fixture_id": "dialect-stream-is-dict",
+      "fixture_sha256": "0cd3361df97988626b219c9b691e51be5a290c79de5bcb3f7660c517a6e59ffc",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["content.contents"],
+      "lines": [],
+      "playa_error": "",
+      "go_error": "compare snapshot: decode Playa page 0: playa: compatibility snapshot page 0 contents boundary recovery: playa: page Contents is not a stream or array",
+      "title": "Dictionary referenced as a content stream is silently treated as empty content",
+      "expectation": "A dictionary without the required stream and endstream keywords remains a dictionary. Using it as page Contents is invalid PDF syntax and produces an observable type or syntax error.",
+      "playa_behavior": "The non-stream Contents value produces a warning, but content enumeration continues with an empty buffer and returns no content objects or error.",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Dialects/README.md#stream-is-just-a-dictionary",
+      "reproduction": "Open `Dialect-StreamIsDict.pdf` and enumerate `document.pages[0].contents`; the plain dictionary is silently represented as empty page content."
+    },
+    {
+      "id": "dictionary-object-kind-mismatch-recovered",
+      "fixture_id": "dialect-dict-is-stream",
+      "fixture_sha256": "a9eb0a3fa943629f29b42471643436d5bca4c55b27ae9aabc8e17e1fc6889008",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["pages"],
+      "lines": [],
+      "playa_error": "",
+      "go_error": "compare snapshot: decode Playa page 0: resolve Go page 0: playa: page node is not dictionary",
+      "title": "Stream referenced as a page dictionary is replaced with an empty page",
+      "expectation": "A stream object remains distinct from its stream dictionary. Using one as a page or font dictionary is invalid PDF syntax and produces an observable type or syntax error.",
+      "playa_behavior": "The invalid page stream produces a warning, then page traversal substitutes a 612 by 792 empty page and continues without returning an error; the fixture's `Dict is Stream` text is lost.",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Dialects/README.md#dictionary-is-a-really-a-stream",
+      "reproduction": "Open `Dialect-DictIsStream.pdf`, enumerate `document.pages`, and extract text from the first page; an empty synthesized page is returned instead of a syntax error."
+    },
+    {
+      "id": "utf16le-accepted-as-text-encoding",
+      "fixture_id": "utf16le-text-strings",
+      "fixture_sha256": "04af7aced559ca6b9fbf7a466526a94f3b76cf75ed6af81f4f963892a9bcacfa",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["document", "outline"],
+      "lines": [
+        "page_labels[0]: playa=∰i, go=ÿþ0\"i",
+        "outline[0].title: playa=∰㉐⑊, go=ÿþ0\"P2J$",
+        "outline[1].title: playa=∰✴㉐, go=ÿþ0\"4'P2",
+        "outline[2].title: playa=㉐入⑊, go=ÿþP2eQJ$"
+      ],
+      "playa_error": "",
+      "title": "UTF-16LE text strings are decoded as Unicode despite being excluded by the PDF text-string grammar",
+      "expectation": "ISO 32000-2 permits PDFDocEncoding, UTF-16BE, and UTF-8 text strings, but not UTF-16LE. A string beginning with `FF FE` therefore remains a PDFDocEncoding byte sequence rather than being decoded as UTF-16LE.",
+      "playa_behavior": "A leading `FF FE` byte pair is treated as a UTF-16 byte-order marker. Page-label prefixes and outline titles are consequently decoded into Unicode symbols instead of retaining their distinguishable PDFDocEncoding byte values.",
+      "evidence_url": "https://github.com/pdf-association/safedocs/blob/68f730ab8c39204844112c499c5707b79878533b/Miscellaneous%20Targeted%20Test%20PDFs/README.md#utf16le-testpdf",
+      "reproduction": "Open `utf16LE-test.pdf`, read the first page label and enumerate the outline titles."
+    },
+    {
+      "id": "overlapping-glyph-text-clipping-ignored",
+      "fixture_id": "overlapping-glyph-clipping",
+      "fixture_sha256": "957a4064877a35f906a505ae0bdeacbfc295df85583e6aad3d381797add01108",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["content.paths"],
+      "lines": [
+        "pages[0].paths[0].state.has_clip: playa=false, go=true"
+      ],
+      "playa_error": "",
+      "title": "Text clipping at ET does not update the clipping path",
+      "expectation": "Glyph outlines shown in a clipping rendering mode accumulate until ET, when their nonzero-winding union intersects the current clipping path before later paths are painted.",
+      "playa_behavior": "The blue rectangle painted after ET retains a graphics state with no clipping path, so the text clipping operation is not observable.",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/OverlappingGlyphClipping/README.md",
+      "reproduction": "Open `OverlappingGlyphClipping.pdf`, enumerate the first page's paths, and inspect the graphics state of the blue rectangle painted after ET."
+    },
+    {
+      "id": "text-clipping-mode-changes-ignored",
+      "fixture_id": "text-clipping-mode-changes",
+      "fixture_sha256": "d7b844c98a1e5510c9f000035da60eb01ef21fea06937f5ead19e20867263712",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["content.paths"],
+      "lines": [
+        "pages[0].paths[0].state.has_clip: playa=false, go=true",
+        "pages[0].paths[1].state.has_clip: playa=false, go=true",
+        "pages[0].paths[2].state.has_clip: playa=false, go=true"
+      ],
+      "playa_error": "",
+      "title": "Text clipping mode changes are discarded at ET",
+      "expectation": "All glyphs shown while the rendering mode includes clipping accumulate within the text object, regardless of changes among modes 4 through 7, and update the clipping path exactly once at ET.",
+      "playa_behavior": "Each path painted after a clipping text object retains a graphics state with no clipping path, including text objects that change between clipping rendering modes.",
+      "evidence_url": "https://github.com/pdf-association/pdf-differences/blob/907fe96e52b73e491489eee545c47b119bf9989b/TextClipModeChanges/README.md",
+      "reproduction": "Open `TextClippingModeChanges.pdf`, enumerate the first page's three paths, and inspect each path's graphics state after the preceding ET operator."
+    },
+    {
+      "id": "tagged-marked-content-order-physical-order",
+      "fixture_id": "accessibility-marked-order-incorrect",
+      "fixture_sha256": "e79543cc5765b7111920293f73601addd6803b58440cb2c4d7141f7314d7e754",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "sections": [
+        "structure",
+        "content.extract_text.tagged"
+      ],
+      "lines": [
+        "pages[0].extract_text_tagged: playa=FAILFifth line of second paragraph.Fourth line of second paragraph.\nThird line of second paragraph. Second line of second paragraph. This\nis the second paragraph. Fifth line of first paragraph. Fourth line of\nfirst paragraph. Third line of first paragraph. Second line of first\nparagraph. This is the first paragraph., go=FAILFifth line of first paragraph. Fourth line of first paragraph.\nThird line of first paragraph. Second line of first paragraph. This is\nthe first paragraph. Fifth line of second paragraph.Fourth line of\nsecond paragraph. Third line of second paragraph. Second line of\nsecond paragraph. This is the second paragraph."
+      ],
+      "playa_error": "",
+      "title": "Tagged extraction ignores marked-content order within structure elements",
+      "expectation": "Tagged text extraction follows each structure element's explicit `/K` order, including the deliberately incorrect paragraph ordering in this failure sample.",
+      "playa_behavior": "The extractor follows content-stream painting order, so it emits the second paragraph before the first even though the structure tree orders their marked-content sequences the other way around.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/4-logical-content-order/G4_F02-Order-of-marked-content-sequences-within-a-tag-incorrectly-set/README.md",
+      "reproduction": "Open `UA1_Tpdf-G4_F02.pdf`, compare the marked-content sequence order in each structure element with `document.pages[0].extract_text_tagged()`, and observe that extraction follows painting order instead."
+    },
+    {
+      "id": "tagged-order-incorrect-physical-order",
+      "fixture_id": "accessibility-order-incorrect",
+      "fixture_sha256": "fcfd6de6b80ca8ac7bbb34353ae693c4f388f3b828395478fff23c571754c425",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "sections": [
+        "structure",
+        "content.extract_text.tagged"
+      ],
+      "lines": [
+        "pages[0].extract_text_tagged: playa=FAIL\nThis is an H1\nThis is the first paragraph.\nThis is the second paragraph.\nThis is the third paragraph., go=FAIL\nThis is the second paragraph. This is an H1\nThis is the third paragraph. This is the first paragraph."
+      ],
+      "playa_error": "",
+      "title": "Tagged extraction ignores an intentionally incorrect logical content order",
+      "expectation": "Tagged text extraction follows the structure tree order even when that order is intentionally incorrect, exposing the failure rather than silently reverting to physical painting order.",
+      "playa_behavior": "The extractor walks text objects in content-stream order, so the output appears visually ordered and hides the deliberately incorrect structure-tree order.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/4-logical-content-order/G4_F01-Content-order-incorrectly-set/README.md",
+      "reproduction": "Open `UA1_Tpdf-G4_F01.pdf`, compare the document structure child order with `document.pages[0].extract_text_tagged()`, and observe that the extracted text follows the painted order instead."
+    },
+    {
+      "id": "tagged-sidebar-precedes-heading",
+      "fixture_id": "accessibility-sidebar-correct",
+      "fixture_sha256": "54a14e90b8815b8ac884a99452b997719a26778197a2898c7df939941c8b89d7",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "sections": [
+        "structure",
+        "content.extract_text.tagged"
+      ],
+      "lines": [
+        "pages[0].extract_text_tagged: playa=This is sidebar text with the main idea of the following paragraphs.\nThis is an H1\nThis is the first paragraph. Lorem ipsum dolor sit amet, consetetur\nsadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\ndolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam\net justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea\ntakimata sanctus est Lorem ipsum dolor sit amet.\nThis is the second paragraph. Lorem ipsum dolor sit amet, consetetur\nsadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\ndolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam\net justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea\ntakimata sanctus est Lorem ipsum dolor sit amet.\nThis is the third paragraph. Lorem ipsum dolor sit amet, consetetur\nsadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\ndolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam\net justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea\ntakimata sanctus est Lorem ipsum dolor sit amet., go=This is an H1\nThis is sidebar text with the main idea of the following paragraphs.\nThis is the first paragraph. Lorem ipsum dolor sit amet, consetetur\nsadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\ndolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam\net justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea\ntakimata sanctus est Lorem ipsum dolor sit amet.\nThis is the second paragraph. Lorem ipsum dolor sit amet, consetetur\nsadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\ndolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam\net justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea\ntakimata sanctus est Lorem ipsum dolor sit amet.\nThis is the third paragraph. Lorem ipsum dolor sit amet, consetetur\nsadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et\ndolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam\net justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea\ntakimata sanctus est Lorem ipsum dolor sit amet."
+      ],
+      "playa_error": "",
+      "title": "Tagged extraction places a sidebar before its preceding heading",
+      "expectation": "The correctly tagged sidebar is extracted after the H1 and before the three main-flow paragraphs, matching the structure tree order.",
+      "playa_behavior": "The sidebar is painted first and is therefore emitted before the H1, despite appearing after the H1 in the logical structure tree.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/4-logical-content-order/G4_04-Sidebar-correctly-located-in-the-document-s-content-order/README.md",
+      "reproduction": "Open `UA1_Tpdf-G4_04.pdf`, compare the document structure child order with `document.pages[0].extract_text_tagged()`, and observe that the sidebar is emitted before the H1."
+    },
+    {
+      "id": "tagged-semantic-heading-failure-marker-physical-order",
+      "fixture_id": "accessibility-semantic-heading-inappropriate",
+      "fixture_sha256": "edf87a15422b23ad0d036af392a09a16910cfbf902777af686700a90f8ed30e4",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "sections": [
+        "structure",
+        "content.marked",
+        "content.extract_text.tagged"
+      ],
+      "lines": [
+        "pages[0].extract_text_tagged: playa=This is an H1\nThis is a paragraph.FAIL, go=FAIL\nThis is an H1\nThis is a paragraph."
+      ],
+      "playa_error": "",
+      "title": "Tagged extraction moves a semantic failure marker after heading-like content",
+      "expectation": "Tagged text extraction follows the structure tree order, including the leading failure marker before the intentionally mis-tagged heading and its following paragraph.",
+      "playa_behavior": "The extractor follows content-stream painting order and appends the failure marker after the heading-like content instead of preserving the structure order.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/5-appropriate-semantics/G5_F01-H1-heading-inappropriately-tagged/README.md",
+      "reproduction": "Open `UA1_Tpdf-G5_F01.pdf`, compare the document structure child order with `document.pages[0].extract_text_tagged()`, and observe that `FAIL` is emitted last."
+    },
+    {
+      "id": "tagged-semantic-figure-physical-order",
+      "fixture_id": "accessibility-semantic-unit-split",
+      "fixture_sha256": "016eb0d457144a52bc65dd48c7c5b52298c4d46785430296da0e65c8b2a705ff",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "sections": [
+        "structure",
+        "content.marked",
+        "content.extract_text.tagged"
+      ],
+      "lines": [
+        "pages[0].extract_text_tagged: playa=FAIL\nThis is the first line of a paragraph.\nSecond line of the paragraph.\nThird line of the paragraph.\nFourth line of the paragraph.\nFifth line of the paragraph.Place holder Image, go=FAIL\nThis is the first line of a paragraph.\nSecond line of the paragraph.\nPlace holder Image\nThird line of the paragraph.\nFourth line of the paragraph.\nFifth line of the paragraph."
+      ],
+      "playa_error": "",
+      "title": "Tagged extraction moves a Figure after later paragraph content",
+      "expectation": "Tagged text extraction follows the structure tree order, which places the Figure between the paragraph containing the first two lines and the paragraph containing the final three lines.",
+      "playa_behavior": "The extractor follows content-stream painting order, so the Figure text is appended after all five paragraph lines instead of between the two P elements that surround it in the structure tree.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/5-appropriate-semantics/G5_F03-Single-semantic-unit-of-content-inappropriately-tagged/README.md",
+      "reproduction": "Open `UA1_Tpdf-G5_F03.pdf`, compare the Figure's position in the document structure with `document.pages[0].extract_text_tagged()`, and observe that `Place holder Image` is emitted last."
+    },
+    {
+      "id": "tagged-heading-failure-marker-physical-order",
+      "fixture_id": "accessibility-heading-as-paragraph",
+      "fixture_sha256": "c2f5fd6bcf1a0be7fa8ffa5ee62e8308cacb1b8fc85450f6691fdde1e55dd3fc",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "sections": [
+        "structure",
+        "content.extract_text.tagged"
+      ],
+      "lines": [
+        "pages[0].extract_text_tagged: playa=This is an H1\nThis is a paragraph.FAIL, go=FAIL\nThis is an H1\nThis is a paragraph."
+      ],
+      "playa_error": "",
+      "title": "Tagged extraction moves a failure marker after heading-like content",
+      "expectation": "Tagged text extraction follows the structure tree order, including the leading failure marker in this intentionally failing heading-semantics sample.",
+      "playa_behavior": "The extractor follows content-stream painting order and appends the failure marker after the heading-like content instead of preserving the structure order.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/headings/H_F01-Top-level-heading-incorrectly-tagged-as-P-instead-of-H1/README.md",
+      "reproduction": "Open `UA1_Tpdf-H_F01.pdf`, compare the structure child order with `document.pages[0].extract_text_tagged()`, and observe that `FAIL` is emitted last."
+    },
+    {
+      "id": "tagged-graphics-failure-marker-physical-order",
+      "fixture_id": "accessibility-graphics-text-figure",
+      "fixture_sha256": "e9ab66c1ee356aae2b96bfd92adc24f63b016a37c8cac44b752c5745ba7a41da",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "sections": [
+        "structure",
+        "content.paths",
+        "content.extract_text.tagged"
+      ],
+      "lines": [
+        "pages[0].extract_text_tagged: playa=This is the FAIL, go=FAIL\nThis is the"
+      ],
+      "playa_error": "",
+      "title": "Tagged extraction moves a failure marker after graphics-representing-text content",
+      "expectation": "Tagged text extraction follows the structure tree order, including the leading failure marker before the text adjacent to the incorrectly tagged graphic.",
+      "playa_behavior": "The extractor follows content-stream painting order and emits the failure marker after the adjacent text instead of preserving the structure order.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/2-text/G2_F03-Graphics-representing-text-incorrectly-tagged-as-figure/README.md",
+      "reproduction": "Open `UA1_Tpdf-G2_F03.pdf`, compare the structure child order with `document.pages[0].extract_text_tagged()`, and observe that `FAIL` is emitted after `This is the`."
+    },
+    {
+      "id": "tagged-decorative-figure-failure-marker-physical-order",
+      "fixture_id": "accessibility-decorative-figure",
+      "fixture_sha256": "351dd7044a5bc052befe239a7c5af3aa2fc3167dc45c2208a7a63fe8bdf2f8ad",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "sections": [
+        "structure",
+        "content.paths",
+        "content.extract_text.tagged"
+      ],
+      "lines": [
+        "pages[0].extract_text_tagged: playa=This paragraph is real content, therefore it is tagged with a P\nstructure element. The blue backgroundis decorative and therefore it\nis artifacted.FAIL, go=FAIL\nThis paragraph is real content, therefore it is tagged with a P\nstructure element. The blue backgroundis decorative and therefore it\nis artifacted."
+      ],
+      "playa_error": "",
+      "title": "Tagged extraction places the decorative Figure failure marker in physical order",
+      "expectation": "Tagged text extraction follows the structure tree order, including the leading failure marker before the paragraph associated with the incorrectly tagged decorative figure.",
+      "playa_behavior": "The extractor follows content-stream painting order and appends the failure marker after the paragraph; within that paragraph it also concatenates two line-separated text objects as `backgroundis`. The order defect is tracked by issue 242; within-section concatenation now matches the pinned oracle.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/3-content/G3_F03-Decorative-content-incorrectly-tagged-as-figure/README.md",
+      "reproduction": "Open `UA1_Tpdf-G3_F03.pdf`, compare the structure child order with `document.pages[0].extract_text_tagged()`, and observe that `FAIL` is emitted last."
+    },
+    {
+      "id": "tagged-decorative-unmarked-failure-marker-physical-order",
+      "fixture_id": "accessibility-decorative-unmarked",
+      "fixture_sha256": "086e9375b07ff8d6c6599252908af82fb0afa508a2071576c0cb0105aecd0584",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "sections": [
+        "structure",
+        "content.paths",
+        "content.extract_text.tagged"
+      ],
+      "lines": [
+        "pages[0].extract_text_tagged: playa=This paragraph is real content, therefore it is tagged with a P\nstructure element. The blue backgroundis decorative and therefore it\nis artifacted.FAIL, go=FAIL\nThis paragraph is real content, therefore it is tagged with a P\nstructure element. The blue backgroundis decorative and therefore it\nis artifacted."
+      ],
+      "playa_error": "",
+      "title": "Tagged extraction places the unmarked decoration failure marker in physical order",
+      "expectation": "Tagged text extraction follows the structure tree order, including the leading failure marker before the paragraph adjacent to the unmarked decorative background.",
+      "playa_behavior": "The extractor follows content-stream painting order and appends the failure marker after the paragraph; within that paragraph it also concatenates two line-separated text objects as `backgroundis`. The order defect is tracked by issue 242; within-section concatenation now matches the pinned oracle.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/3-content/G3_F04-Decorative-content-not-marked-as-artifact/README.md",
+      "reproduction": "Open `UA1_Tpdf-G3_F04.pdf`, compare the structure child order with `document.pages[0].extract_text_tagged()`, and observe that `FAIL` is emitted last."
+    },
+    {
+      "id": "structure-unversioned-attributes-visible-figure",
+      "fixture_id": "accessibility-visible-text-not-extractable",
+      "fixture_sha256": "9361a1a6c2caefad2d71f264af25d4051833cc445020d08740d13c6a5b6d78f0",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["structure", "content.images", "content.extract_text.tagged", "content.extract_text.untagged"],
+      "lines": ["structure[0].children[1].attributes.BBox: unexpected Go value", "structure[0].children[1].attributes.O: unexpected Go value", "structure[0].children[1].attributes.Placement: unexpected Go value"],
+      "playa_error": "",
+      "title": "An unversioned Figure attribute object is omitted",
+      "expectation": "An attribute object in an A array without a following integer has revision 0 and remains available, including the Figure's BBox attribute.",
+      "playa_behavior": "Element.attributes returns None because the sole attribute dictionary has no following integer revision number.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/2-text/G2_F04-Extractable-characters-are-not-present-in-a-document-with-visible-text/README.md",
+      "reproduction": "Open `UA1_Tpdf-G2_F04.pdf`, find its Figure structure element, compare `element.props['A']` with `element.attributes`, and observe that the BBox-bearing attribute object is present only in the raw array."
+    },
+    {
+      "id": "structure-unversioned-attributes-decorative-figure",
+      "fixture_id": "accessibility-decorative-figure",
+      "fixture_sha256": "351dd7044a5bc052befe239a7c5af3aa2fc3167dc45c2208a7a63fe8bdf2f8ad",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["structure", "content.paths", "content.extract_text.tagged"],
+      "lines": ["structure[0].children[2].attributes.BBox: unexpected Go value", "structure[0].children[2].attributes.Height: unexpected Go value", "structure[0].children[2].attributes.O: unexpected Go value", "structure[0].children[2].attributes.Placement: unexpected Go value", "structure[0].children[2].attributes.Width: unexpected Go value"],
+      "playa_error": "",
+      "title": "An unversioned decorative Figure attribute object is omitted",
+      "expectation": "An attribute object in an A array without a following integer has revision 0 and remains available, including the Figure's BBox attribute.",
+      "playa_behavior": "Element.attributes returns None because the sole attribute dictionary has no following integer revision number.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/3-content/G3_F03-Decorative-content-incorrectly-tagged-as-figure/README.md",
+      "reproduction": "Open `UA1_Tpdf-G3_F03.pdf`, find its Figure structure element, compare `element.props['A']` with `element.attributes`, and observe that the BBox-bearing attribute object is present only in the raw array."
+    },
+    {
+      "id": "structure-unversioned-attributes-split-figure",
+      "fixture_id": "accessibility-semantic-unit-split",
+      "fixture_sha256": "016eb0d457144a52bc65dd48c7c5b52298c4d46785430296da0e65c8b2a705ff",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"],
+      "lines": ["structure[0].children[2].attributes.BBox: unexpected Go value", "structure[0].children[2].attributes.O: unexpected Go value", "structure[0].children[2].attributes.Placement: unexpected Go value"],
+      "playa_error": "",
+      "title": "An unversioned semantic Figure attribute object is omitted",
+      "expectation": "An attribute object in an A array without a following integer has revision 0 and remains available, including the Figure's BBox attribute.",
+      "playa_behavior": "Element.attributes returns None because the sole attribute dictionary has no following integer revision number.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/5-appropriate-semantics/G5_F03-Single-semantic-unit-of-content-inappropriately-tagged/README.md",
+      "reproduction": "Open `UA1_Tpdf-G5_F03.pdf`, find its Figure structure element, compare `element.props['A']` with `element.attributes`, and observe that the BBox-bearing attribute object is present only in the raw array."
+    },
+    {
+      "id": "structure-unversioned-attributes-text-figure",
+      "fixture_id": "accessibility-graphics-text-figure",
+      "fixture_sha256": "e9ab66c1ee356aae2b96bfd92adc24f63b016a37c8cac44b752c5745ba7a41da",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["structure", "content.paths", "content.extract_text.tagged"],
+      "lines": ["structure[0].children[1].children[0].attributes.BBox: unexpected Go value", "structure[0].children[1].children[0].attributes.O: unexpected Go value"],
+      "playa_error": "",
+      "title": "An unversioned graphics-as-text Figure attribute object is omitted",
+      "expectation": "An attribute object in an A array without a following integer has revision 0 and remains available, including the Figure's BBox attribute.",
+      "playa_behavior": "Element.attributes returns None because the sole attribute dictionary has no following integer revision number.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/fundamentals/2-text/G2_F03-Graphics-representing-text-incorrectly-tagged-as-figure/README.md",
+      "reproduction": "Open `UA1_Tpdf-G2_F03.pdf`, find its nested Figure structure element, compare `element.props['A']` with `element.attributes`, and observe that the BBox-bearing attribute object is present only in the raw array."
+    },
+    {
+      "id": "structure-unversioned-attributes-semantic-list",
+      "fixture_id": "accessibility-list-semantic-image-labels",
+      "fixture_sha256": "5d6009b9470873b5f2708eb4647b05a73b44f8e3f7e1f2e594470d1cb9f31f1c",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"],
+      "lines": ["structure[0].children[1].attributes.ListNumbering: unexpected Go value", "structure[0].children[1].attributes.O: unexpected Go value"],
+      "playa_error": "",
+      "title": "An unversioned list attribute object is omitted",
+      "expectation": "An attribute object in an A array without a following integer has revision 0 and remains available, including the list's explicit None ListNumbering attribute.",
+      "playa_behavior": "Element.attributes returns None because the sole List attribute dictionary has no following integer revision number.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_06-List-with-semantic-images-as-bullets-correctly-tagged/README.md",
+      "reproduction": "Open `UA1_Tpdf-L_06.pdf`, find its L structure element, compare `element.props['A']` with `element.attributes`, and observe that the ListNumbering attribute is present only in the raw array."
+    },
+    {
+      "id": "structure-unversioned-attributes-inline-list",
+      "fixture_id": "accessibility-list-inline",
+      "fixture_sha256": "1ff4afaaccfade357a2bed0ae7638336417e3132ae06a8c57307ef3d0b4947e5",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"],
+      "lines": ["structure[0].children[1].children[0].attributes.ListNumbering: unexpected Go value", "structure[0].children[1].children[0].attributes.O: unexpected Go value", "structure[0].children[1].children[0].attributes.Placement: unexpected Go value"],
+      "playa_error": "",
+      "title": "Multiple unversioned inline-list attribute objects are omitted",
+      "expectation": "Multiple attribute objects in an A array remain available when their optional revision numbers are absent, including both LowerRoman ListNumbering and Inline Placement.",
+      "playa_behavior": "Element.attributes returns None because the first attribute dictionary is paired with the second as though it were a required integer revision, so both the List and Layout attributes are omitted.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_10-Inline-List-correctly-tagged/README.md",
+      "reproduction": "Open `UA1_Tpdf-L_10.pdf`, find the second L structure element, compare `element.props['A']` with `element.attributes`, and observe that the two raw attribute dictionaries are present while the property returns None."
+    },
+    {
+      "id": "tagged-list-failure-marker-numbering-absent-physical-order",
+      "fixture_id": "accessibility-list-ordered-numbering-absent",
+      "fixture_sha256": "ac135c407388ab9081492993d3505ed3be86f004f2f792241d6e5cb00ef9fbad",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"],
+      "lines": ["pages[0].extract_text_tagged: playa=1.Apple\n2.Orange\n3.LemonFAIL, go=FAIL\n1.Apple\n2.Orange\n3.Lemon"],
+      "playa_error": "",
+      "title": "Tagged extraction moves a failure marker after a numbered list with no ListNumbering",
+      "expectation": "Tagged text extraction follows the structure tree order, including the leading failure marker before the intentionally invalid ordered list.",
+      "playa_behavior": "The extractor follows content-stream painting order and appends the failure marker after the list instead of preserving the structure order.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_F03-Ordered-list-with-missing-ListNumbering-attribute/README.md",
+      "reproduction": "Open `UA1_Tpdf-L_F03.pdf`, compare the Document child order with `document.pages[0].extract_text_tagged()`, and observe that `FAIL` is emitted after the list."
+    },
+    {
+      "id": "tagged-list-failure-marker-numbering-disc-physical-order",
+      "fixture_id": "accessibility-list-ordered-numbering-disc",
+      "fixture_sha256": "122bbd5b86cae20a78f06a21fbe53a61d4842d332913ce763d2a2af0f1ba62c4",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"],
+      "lines": ["pages[0].extract_text_tagged: playa=1.Apple\n2.Orange\n3.LemonFAIL, go=FAIL\n1.Apple\n2.Orange\n3.Lemon"],
+      "playa_error": "",
+      "title": "Tagged extraction moves a failure marker after a numbered list with Disc numbering",
+      "expectation": "Tagged text extraction follows the structure tree order, including the leading failure marker before the intentionally invalid ordered list.",
+      "playa_behavior": "The extractor follows content-stream painting order and appends the failure marker after the list instead of preserving the structure order.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_F04-Ordered-list-with-ListNumbering-attribute-incorrectly-set-to-Disc/README.md",
+      "reproduction": "Open `UA1_Tpdf-L_F04.pdf`, compare the Document child order with `document.pages[0].extract_text_tagged()`, and observe that `FAIL` is emitted after the list."
+    },
+    {
+      "id": "tagged-list-failure-marker-nested-list-physical-order",
+      "fixture_id": "accessibility-list-nested-under-li",
+      "fixture_sha256": "3e1ff571cc9866e706cac08618f77650dfdf38fa0351b9d6624cd39c07cec4e8",
+      "spaces": ["page", "screen", "default"],
+      "sections": ["structure", "content.marked", "content.extract_text.tagged"],
+      "lines": ["pages[0].extract_text_tagged: playa=1.Vegetables\na.Potato\nb.Onion\n2.Fruits\na.Apple\nb.Orange\nc.LemonFAIL, go=FAIL\n1.Vegetables\na.Potato\nb.Onion\n2.Fruits\na.Apple\nb.Orange\nc.Lemon"],
+      "playa_error": "",
+      "title": "Tagged extraction moves a failure marker after an incorrectly nested list",
+      "expectation": "Tagged text extraction follows the structure tree order, including the leading failure marker before the intentionally invalid nested list.",
+      "playa_behavior": "The extractor follows content-stream painting order and appends the failure marker after both list levels instead of preserving the structure order.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_F07-Multi-level-list-tags-incorrectly-nested/README.md",
+      "reproduction": "Open `UA1_Tpdf-L_F07.pdf`, compare the Document child order with `document.pages[0].extract_text_tagged()`, and observe that `FAIL` is emitted after the nested list."
+    },
+    {
+      "id": "tagged-semantic-list-heading-physical-order",
+      "fixture_id": "accessibility-list-semantic-image-labels",
+      "fixture_sha256": "5d6009b9470873b5f2708eb4647b05a73b44f8e3f7e1f2e594470d1cb9f31f1c",
+      "spaces": [
+        "page",
+        "screen",
+        "default"
+      ],
+      "sections": [
+        "structure",
+        "content.marked",
+        "content.extract_text.tagged"
+      ],
+      "lines": [
+        "pages[0].extract_text_tagged: playa= 1 cup\n 2 cups Vegetable Servings, go=Vegetable Servings\n 1 cup\n 2 cups"
+      ],
+      "playa_error": "",
+      "title": "Tagged extraction moves the semantic list heading after its list items",
+      "expectation": "Tagged text follows the Document structure children: the P containing Vegetable Servings precedes the L containing the two serving quantities.",
+      "playa_behavior": "The extractor follows content-stream painting order, returning the quantities before Vegetable Servings. This is the same physical-versus-logical ordering defect tracked by issue 242; the former terminal attribute comparison error hid this text difference.",
+      "evidence_url": "https://github.com/pdf-association/techniques-for-accessible-pdf/blob/3e31095d8aeea941eccbbb766a23369374c2e9a6/list/L_06-List-with-semantic-images-as-bullets-correctly-tagged/README.md",
+      "reproduction": "Open UA1_Tpdf-L_06.pdf, inspect the Document children P then L, and compare that order with page.extract_text_tagged(), which returns the heading after the quantities."
+    }
+  ],
+  "upstream_issues": [
+    {
+      "id": "pdf20-utf8-text-strings",
+      "difference_ids": [
+        "utf8-outline-decoded-as-legacy-text",
+        "utf8-annotation-decoded-as-legacy-text"
+      ],
+      "state": "submitted",
+      "repository": "dhdaines/playa",
+      "checked_commit": "9496dfea5150343c9dc05544d9c004bbcccf17e6",
+      "checked_at": "2026-09-05",
+      "url": "https://github.com/dhdaines/playa/issues/230",
+      "title": "PDF 2.0 UTF-8 text strings with a BOM are decoded as PDFDocEncoding",
+      "summary": "PDF 2.0 text strings beginning with the UTF-8 BOM (`EF BB BF`) are decoded as PDFDocEncoding. This leaves the BOM as mojibake and corrupts non-ASCII text.\n\nThe issue affects several kinds of PDF text strings, including page-label prefixes, outline titles, and annotation contents.",
+      "reproduction": "```python\nimport playa\n\nwith playa.open(\"pdf20-utf8-test.pdf\") as document:\n    print(repr(document.pages[0].label))\n    print([repr(item.title) for item in document.outline])\n\nwith playa.open(\"PDF 2.0 UTF-8 string and annotation.pdf\") as document:\n    annotation = next(iter(document.pages[0].annotations))\n    print(repr(annotation.contents))\n```",
+      "actual_behavior": "The first file produces values including:\n\n```text\n'ï»¿Prefixi'\n'ï»¿PDF 2.0 with UTF-8 test file'\n```\n\nThe annotation contents are also mojibake and contain an embedded NUL:\n\n```text\n'ï»¿à¹—à¸®à¹—à¸¥à¸Łà¹„à¸‡à¹›à¸\\x00à¸—à¸§à¸²à¸¡'\n```",
+      "expected_behavior": "The UTF-8 BOM should be removed and the remaining bytes decoded as UTF-8. Representative values should be:\n\n```text\n'Prefixi'\n'PDF 2.0 with UTF-8 test file'\n'ไฮไลต์ข้อความ'\n```",
+      "relevant_implementation": "`playa.utils.decode_text()` currently recognizes UTF-16 BOMs before falling back to PDFDocEncoding, but does not recognize the PDF 2.0 UTF-8 BOM."
+    },
+    {
+      "id": "unknown-filter-linearization",
+      "difference_ids": [
+        "unknown-filter-linearization-error"
+      ],
+      "state": "submitted",
+      "repository": "dhdaines/playa",
+      "checked_commit": "9496dfea5150343c9dc05544d9c004bbcccf17e6",
+      "checked_at": "2026-09-05",
+      "url": "https://github.com/dhdaines/playa/issues/231",
+      "title": "Unknown filter in optional linearization data prevents normal document processing",
+      "summary": "A PDF whose optional Linearization data uses an unknown stream filter cannot be processed normally. Accessing the page list aborts with `NotImplementedError`, even though the main cross-reference information and ordinary page contents remain usable when the optional Linearization data is ignored.",
+      "reproduction": "```python\nimport playa\n\nwith playa.open(\"UnknownFilter-Linearized.pdf\") as document:\n    print(len(document.pages))\n    print(document.pages[0].extract_text())\n```",
+      "actual_behavior": "Accessing `document.pages` aborts while loading the cross-reference data:\n\n```text\nNotImplementedError: Unsupported filter: /'XXXDecode'\n```\n\nThe exception originates while decoding a stream from the cross-reference loading path, before normal page processing can proceed.",
+      "expected_behavior": "Because the stream belongs to optional Linearization data, it should be possible to ignore that data and use the main cross-reference information. The document should remain available for page enumeration and ordinary content extraction.",
+      "relevant_implementation": "The failure occurs along `Document._read_xrefs_into()` → `XRefStream._load()` → `ContentStream.decode()` while the optional Linearization cross-reference stream is decoded."
+    },
+    {
+      "id": "unknown-filter-outline-object-stream",
+      "difference_ids": [
+        "unknown-filter-outline-object-stream-error"
+      ],
+      "state": "submitted",
+      "repository": "dhdaines/playa",
+      "checked_commit": "9496dfea5150343c9dc05544d9c004bbcccf17e6",
+      "checked_at": "2026-09-06",
+      "url": "https://github.com/dhdaines/playa/issues/239",
+      "title": "Unknown filter in optional outline object stream prevents page access",
+      "summary": "A hybrid-reference PDF cannot expose its page list when an unknown stream filter affects only an incremental-update object stream containing optional outline objects. Hybrid cross-reference parsing falls back to object scanning, which eagerly expands that unrelated object stream and aborts before the original page tree can be used.",
+      "reproduction": "```python\nimport playa\n\nwith playa.open(\"UnknownFilter-OutlineObjStm.pdf\") as document:\n    print(len(document.pages))\n    print(document.pages[0].extract_text())\n    print(len(list(document.pages[0].images)))\n```",
+      "actual_behavior": "Accessing `document.pages` first reports a hybrid cross-reference parsing failure, enters fallback object scanning, and then aborts while eagerly expanding the outline object stream:\n\n```text\nNotImplementedError: Unsupported filter: /'XXXDecode'\n```\n\nPage enumeration, text extraction, and image extraction never run.",
+      "expected_behavior": "The unknown filter affects only the object stream containing three optional outline objects. The existing page tree and its ordinary contents should remain available for page enumeration, text extraction, and image extraction; the outline itself may be unavailable with a warning or scoped error.",
+      "relevant_implementation": "`Document._read_xrefs()` enters `XRefFallback` after hybrid cross-reference parsing raises `PDFSyntaxError`. `XRefFallback._load()` then expands every discovered `/ObjStm` immediately via `stream.buffer`, so an unsupported filter in an optional object stream aborts reconstruction globally."
+    },
+    {
+      "id": "dct-png-polyglot-image-extraction",
+      "difference_ids": [
+        "dct-png-polyglot-wine-accepted",
+        "dct-png-polyglot-oil-accepted"
+      ],
+      "state": "submitted",
+      "repository": "dhdaines/playa",
+      "checked_commit": "9496dfea5150343c9dc05544d9c004bbcccf17e6",
+      "checked_at": "2026-09-06",
+      "url": "https://github.com/dhdaines/playa/issues/240",
+      "title": "DCTDecode image extraction writes PNG polyglot bytes with a JPEG extension",
+      "summary": "Image extraction trusts the declared `/DCTDecode` filter when choosing a `.jpg` suffix, but does not validate that the stream is JPEG data. In two PDF Association real-world samples, the affected stream begins with a PNG signature and contains polyglot data that different decoders can interpret as different visible images.",
+      "reproduction": "```python\nfrom playa.image import get_image_suffix_and_writer\nimport playa\n\nfiles = (\n    \"382252277877c00a92f3bb54daef1413bafe5557e2f5f7c32c23e800cd9bdcd4.pdf\",\n    \"4387ba480c6f935b8e97749d40b3c001ad584b7bda66ca2c040be67337669497.pdf\",\n)\nfor filename in files:\n    with playa.open(filename) as document:\n        image = next(image for image in document.pages[0].images if image.xobjid == \"Ig2\")\n        suffix, _ = get_image_suffix_and_writer(image.stream)\n        print(filename, suffix, image.stream.buffer[:8].hex())\n```",
+      "actual_behavior": "For both files the selected suffix is `.jpg`, while the reported leading bytes are the PNG signature:\n\n```text\n.jpg 89504e470d0a1a0a\n```\n\nThe CLI consequently writes PNG polyglot bytes to a file whose extension is `.jpg` without warning or error.",
+      "expected_behavior": "A stream declared as `/DCTDecode` should be validated as JPEG data before it is exported as `.jpg`. If the stream does not begin with the JPEG SOI marker, extraction should report a scoped decoding error or omit the invalid image rather than writing or format-sniffing the polyglot payload.",
+      "relevant_implementation": "`playa.image.get_image_suffix_and_writer()` returns `.jpg` and a raw writer as soon as it sees a DCTDecode filter. The writer receives `stream.buffer` without checking that the bytes are a JPEG stream."
+    },
+    {
+      "id": "indexed-color-index-normalization",
+      "difference_ids": [
+        "indexed-color-indices-not-normalized"
+      ],
+      "state": "submitted",
+      "repository": "dhdaines/playa",
+      "checked_commit": "9496dfea5150343c9dc05544d9c004bbcccf17e6",
+      "checked_at": "2026-09-06",
+      "url": "https://github.com/dhdaines/playa/issues/241",
+      "title": "Indexed color-space indices are not rounded or clamped",
+      "summary": "Interpreted graphics-state colors preserve out-of-range and fractional components for Indexed color spaces. This exposes values that do not represent the effective palette index required by the PDF color-space rules.",
+      "reproduction": "```python\nimport playa\n\nwith playa.open(\"IndexedCS_negative_and_high.pdf\") as document:\n    indices = [\n        path.gstate.ncolor.values[0]\n        for path in document.pages[0].paths\n        if path.gstate.ncs.name == \"Cs1\"\n    ]\n    print(indices)\n```",
+      "actual_behavior": "For the Indexed color space with `hival=7`, the interpreted path colors are:\n\n```text\n[-17, 0, 1, 2, 3, 4, 5, 6, 7, 6.5, 17]\n```\n\nThe negative, fractional tie, and high values remain unchanged.",
+      "expected_behavior": "Indexed color components are rounded to the nearest integer, with 0.5 ties rounded upward, and then clamped to the range from zero through `hival`. The effective indices should therefore be:\n\n```text\n[0, 0, 1, 2, 3, 4, 5, 6, 7, 7, 7]\n```",
+      "relevant_implementation": "`ColorSpace.make_color()` converts operands with `num_value()` but does not inspect an Indexed color space's `spec` or `hival`; `PDFPageInterpreter.do_SCN()` and `do_scn()` therefore store the raw component unchanged."
+    },
+    {
+      "id": "page-path-userunit",
+      "difference_ids": [
+        "page-paths-ignore-userunit"
+      ],
+      "state": "submitted",
+      "repository": "dhdaines/playa",
+      "checked_commit": "9496dfea5150343c9dc05544d9c004bbcccf17e6",
+      "checked_at": "2026-09-06",
+      "url": "https://github.com/dhdaines/playa/issues/233",
+      "title": "Page and screen path coordinates ignore the page UserUnit",
+      "summary": "When a page declares `/UserUnit 10`, interpreted path segments returned in `page` and `screen` device spaces retain their unscaled default-user-space coordinates. The resulting device-space path geometry is ten times smaller than the scale declared by the page.",
+      "reproduction": "```python\nimport playa\n\nfor space in (\"page\", \"screen\"):\n    with playa.open(\"LineCap-Degenerate.pdf\", space=space) as document:\n        path = next(iter(document.pages[0].paths))\n        raw = path.raw_segments[0].points[0]\n        device = next(path.segments).points[0]\n        print(space, raw, device)\n```",
+      "actual_behavior": "The first path starts at X=10 in default user space. In both tested device spaces, its interpreted X coordinate is also 10. The remaining paths likewise keep their raw X coordinates.",
+      "expected_behavior": "The page declares `/UserUnit 10`, so the initial transform for `page` and `screen` space should include that scale. The first interpreted path X coordinate should therefore be 100, while the raw segment remains at X=10. The `default` space can remain the identity transform.",
+      "relevant_implementation": "`Page.set_initial_ctm()` builds the page and screen transforms from the MediaBox and rotation, but does not include the page's inherited `UserUnit` value."
+    },
+    {
+      "id": "structure-element-actualtext",
+      "difference_ids": [
+        "structure-actualtext-ignored"
+      ],
+      "state": "submitted",
+      "repository": "dhdaines/playa",
+      "checked_commit": "9496dfea5150343c9dc05544d9c004bbcccf17e6",
+      "checked_at": "2026-09-06",
+      "url": "https://github.com/dhdaines/playa/issues/232",
+      "title": "Structure element ActualText is ignored during text extraction",
+      "summary": "When `/ActualText` is attached to a structure element rather than the marked-content property list, the replacement is available through `Element.actual_text` but is not used by `Element.text` or `Page.extract_text_tagged()`. As a result, erroneous invisible OCR text is returned instead of the intended replacement.",
+      "reproduction": "```python\nimport playa\n\nwith playa.open(\"UA1_Tpdf-G2_06.pdf\") as document:\n    page = document.pages[0]\n    span = page.structure.find(\"Span\")\n    print(repr(span.actual_text))\n    print(repr(span.text))\n    print(repr(page.extract_text_tagged()))\n```",
+      "actual_behavior": "The structure property is decoded correctly, but the two extraction paths return the OCR errors:\n\n```text\n'Available 24/7, you can book an appointment online.'\n'Availal;!e 24/7, you c;m book an appointroP.nt online.'\n'Availal;!e 24/7, you c;m book an appointroP.nt online.'\n```",
+      "expected_behavior": "Both `span.text` and `page.extract_text_tagged()` should use the structure element's replacement text:\n\n```text\n'Available 24/7, you can book an appointment online.'\n```",
+      "relevant_implementation": "`Element.actual_text` reads the structure element property, but `Element.text` joins `ContentItem.text`, while both `ContentItem.text` and `Page.extract_text_tagged()` only inspect `ActualText` on the marked-content property list."
+    },
+    {
+      "id": "document-fonts-nested-resources",
+      "difference_ids": [
+        "document-fonts-miss-nested-type3-resources",
+        "document-fonts-miss-pattern-resources"
+      ],
+      "state": "submitted",
+      "repository": "dhdaines/playa",
+      "checked_commit": "9496dfea5150343c9dc05544d9c004bbcccf17e6",
+      "checked_at": "2026-09-08",
+      "url": "https://github.com/dhdaines/playa/issues/234",
+      "title": "Document.fonts misses fonts nested in Type 3 and Pattern resources",
+      "summary": "`Document.fonts` only discovers fonts directly listed in each page's Font resources. Fonts reachable through nested resource dictionaries are omitted, including fonts inside Type 3 fonts and Pattern resources.",
+      "reproduction": "```python\nimport playa\n\nfor path in (\n    \"FontinsideType3insideType3.pdf\",\n    \"PatternTextInsideText.pdf\",\n):\n    with playa.open(path) as document:\n        print(path, list(document.fonts))\n```",
+      "actual_behavior": "The nested Type 3 fixture reports only `['FType3A']`; it omits FType3B and Helvetica. The Pattern fixture reports only `['Helvetica']`; it omits Times-Italic.",
+      "expected_behavior": "Document-wide font discovery should recursively traverse reachable resource dictionaries. The nested Type 3 fixture should report FType3A, FType3B, and Helvetica, while the Pattern fixture should report Helvetica and Times-Italic.",
+      "relevant_implementation": "`document.FontMapping._iteritems()` builds its mapping exclusively from `page.fonts.values()`. It does not traverse resource dictionaries reachable through Type 3 fonts, Patterns, or other nested resources."
+    },
+    {
+      "id": "type3-explicit-encoding-fallback",
+      "difference_ids": [
+        "type3-explicit-encoding-replaced-by-standard"
+      ],
+      "state": "submitted",
+      "repository": "dhdaines/playa",
+      "checked_commit": "9496dfea5150343c9dc05544d9c004bbcccf17e6",
+      "checked_at": "2026-09-06",
+      "url": "https://github.com/dhdaines/playa/issues/235",
+      "title": "Type 3 explicit Encoding is replaced by StandardEncoding when glyph names are unrecognized",
+      "summary": "A Type 3 font with an explicit Encoding Differences array using non-AGL glyph names has its entire mapping replaced by StandardEncoding. This invents Unicode text for codes that the font did not map and changes the meaning of explicitly mapped codes.",
+      "reproduction": "```python\nimport playa\n\nwith playa.open(\"FontinsideType3insideType3.pdf\") as document:\n    font = document.fonts[\"FType3A\"]\n    print(font.encoding)\n    print(list(font.decode(bytes((32, 65, 97, 98)))))\n```",
+      "actual_behavior": "The explicit encoding is `{97: 'rect', 98: 'triangle'}`, but decoding returns a space, `A`, `a`, and `b` for codes 32, 65, 97, and 98. The replacement therefore maps both unspecified codes and explicitly named glyphs through StandardEncoding.",
+      "expected_behavior": "A Type 3 font's mapping is entirely defined by its required Encoding entry. Codes 32 and 65 are unspecified and should remain unmapped; the non-AGL glyph names at 97 and 98 also have no justified Unicode text mapping.",
+      "relevant_implementation": "`SimpleFont.__init__()` replaces an empty `_cid2unicode` map with `LITERAL_STANDARD_CID2UNICODE`. For Type 3 fonts, this fallback overrides an explicit Encoding whose glyph names are valid for painting but absent from the Adobe Glyph List. This is related to, but narrower than, the heuristic introduced for issue #120."
+    },
+    {
+      "id": "content-stream-indirect-references",
+      "difference_ids": [
+        "content-stream-indirect-references-accepted"
+      ],
+      "state": "submitted",
+      "repository": "dhdaines/playa",
+      "checked_commit": "9496dfea5150343c9dc05544d9c004bbcccf17e6",
+      "checked_at": "2026-09-06",
+      "url": "https://github.com/dhdaines/playa/issues/236",
+      "title": "Indirect object references are accepted in content streams",
+      "summary": "The content-stream parser accepts indirect object references even though the content-stream object grammar excludes them. The references may appear as direct operands or inside dictionaries and arrays without producing a syntax error.",
+      "reproduction": "```python\nimport playa\n\nwith playa.open(\"Dialect-ContentStreamsWithIndirectRefs.pdf\") as document:\n    print(list(document.pages[0].contents))\n```",
+      "actual_behavior": "Page content enumeration completes and yields content objects containing or following the indirect references. No invalid-content-stream syntax error is reported.",
+      "expected_behavior": "Encountering an indirect reference directly or recursively inside a content-stream object should report invalid content-stream syntax.",
+      "relevant_implementation": "The generic object parser recognizes `integer integer R` as an object reference in content streams without a content-specific grammar check that rejects references, including references nested in arrays and dictionaries."
+    },
+    {
+      "id": "stream-dictionary-object-kind",
+      "difference_ids": [
+        "stream-object-kind-mismatch-recovered",
+        "dictionary-object-kind-mismatch-recovered"
+      ],
+      "state": "submitted",
+      "repository": "dhdaines/playa",
+      "checked_commit": "9496dfea5150343c9dc05544d9c004bbcccf17e6",
+      "checked_at": "2026-09-06",
+      "url": "https://github.com/dhdaines/playa/issues/238",
+      "title": "Stream and dictionary object-kind mismatches are recovered as empty content",
+      "summary": "Stream objects and plain dictionaries are syntactically distinct in PDF, but object-kind mismatches in page structures are downgraded to warnings and hidden by recovery. A dictionary used as page Contents becomes empty content, while a stream used as a page dictionary becomes a synthesized empty page.",
+      "reproduction": "```python\nimport playa\n\nfor path in (\n    \"Dialect-StreamIsDict.pdf\",\n    \"Dialect-DictIsStream.pdf\",\n):\n    with playa.open(path) as document:\n        page = document.pages[0]\n        print(path, page.mediabox, list(page.contents), repr(page.extract_text()))\n```",
+      "actual_behavior": "For `Dialect-StreamIsDict.pdf`, Playa logs `Found non-stream in contents` and returns an empty contents sequence without raising an error.\n\nFor `Dialect-DictIsStream.pdf`, Playa logs `Missing or invalid page object 4`, substitutes an empty 612 by 792 page, and returns empty contents and text without raising an error.",
+      "expected_behavior": "The missing `stream`/`endstream` delimiters in the first file and the unexpected stream wrappers in the second file are PDF syntax errors. The object-kind mismatch should remain observable to callers as a type or syntax error. If recovery is retained, it should not silently replace the malformed objects without an error channel.",
+      "relevant_implementation": "`ContentParser.__init__()` catches `TypeError` from `stream_value()` and initializes an empty parser buffer; `Page.streams` catches the same error and skips the object. In the inverse case, `Pages._get_pages()` catches `TypeError` from `dict_value()` and creates a synthetic empty page."
+    },
+    {
+      "id": "utf16le-text-string-decoding",
+      "difference_ids": [
+        "utf16le-accepted-as-text-encoding"
+      ],
+      "state": "submitted",
+      "repository": "dhdaines/playa",
+      "checked_commit": "9496dfea5150343c9dc05544d9c004bbcccf17e6",
+      "checked_at": "2026-09-06",
+      "url": "https://github.com/dhdaines/playa/issues/237",
+      "title": "UTF-16LE text strings are decoded as Unicode despite being excluded by PDF",
+      "summary": "Text strings beginning with `FF FE` are decoded as UTF-16LE. ISO 32000-2 only defines PDFDocEncoding, UTF-16BE, and UTF-8 for text strings, so accepting the little-endian form changes the observable values of malformed strings and creates a parser differential.",
+      "reproduction": "```python\nimport playa\n\nwith playa.open(\"utf16LE-test.pdf\") as document:\n    print(repr(document.pages[0].label))\n    print([repr(item.title) for item in document.outline])\n```",
+      "actual_behavior": "The `FF FE` prefix is treated as a UTF-16 byte-order marker. The page-label prefix decodes as `∰`, and the three outline titles decode as `∰㉐⑊`, `∰✴㉐`, and `㉐入⑊`.",
+      "expected_behavior": "Because UTF-16LE is not a permitted PDF text-string encoding, `FF FE` should not select Unicode decoding. The bytes should remain distinguishable under the PDFDocEncoding fallback used for text strings without a recognized permitted encoding marker.",
+      "relevant_implementation": "`playa.utils.decode_text()` explicitly accepts both `FE FF` and `FF FE`, then passes the bytes to Python's BOM-sensitive `UTF-16` decoder. The `FF FE` branch is the behavior exercised by this test."
+    },
+    {
+      "id": "clipping-path-state",
+      "difference_ids": [
+        "overlapping-glyph-text-clipping-ignored",
+        "text-clipping-mode-changes-ignored"
+      ],
+      "state": "existing",
+      "repository": "dhdaines/playa",
+      "checked_commit": "9496dfea5150343c9dc05544d9c004bbcccf17e6",
+      "checked_at": "2026-09-08",
+      "url": "https://github.com/dhdaines/playa/issues/114",
+      "title": "Expose the clipping path, somehow",
+      "summary": "Path clipping and text clipping are not represented in the interpreted graphics state, so content painted after a clipping operation cannot expose that the clipping path changed.",
+      "reproduction": "```python\nimport playa\n\nfor filename in (\n    \"OverlappingGlyphClipping.pdf\",\n    \"TextClippingModeChanges.pdf\",\n):\n    with playa.open(filename) as document:\n        print(filename, [path.gstate.clipping_path for path in document.pages[0].paths])\n```",
+      "actual_behavior": "Every printed value is `None`. Glyphs shown in clipping rendering modes are discarded at ET instead of updating the clipping path carried by subsequent path graphics states.",
+      "expected_behavior": "The accumulated glyph outlines should intersect the current clipping path at ET. Subsequent content should expose a non-empty clipping path until Q restores the prior graphics state.",
+      "relevant_implementation": "`GraphicState.clipping_path` is still declared as `None` with a TODO, while `PDFPageInterpreter.do_W()`, `do_W_a()`, and `do_ET()` have empty bodies on current main."
+    },
+    {
+      "id": "tagged-text-logical-order",
+      "difference_ids": [
+        "tagged-marked-content-order-physical-order",
+        "tagged-order-incorrect-physical-order",
+        "tagged-sidebar-precedes-heading",
+        "tagged-semantic-heading-failure-marker-physical-order",
+        "tagged-semantic-figure-physical-order",
+        "tagged-heading-failure-marker-physical-order",
+        "tagged-graphics-failure-marker-physical-order",
+        "tagged-decorative-figure-failure-marker-physical-order",
+        "tagged-decorative-unmarked-failure-marker-physical-order",
+        "tagged-list-failure-marker-numbering-absent-physical-order",
+        "tagged-list-failure-marker-numbering-disc-physical-order",
+        "tagged-list-failure-marker-nested-list-physical-order",
+        "tagged-semantic-list-heading-physical-order"
+      ],
+      "state": "submitted",
+      "repository": "dhdaines/playa",
+      "checked_commit": "9496dfea5150343c9dc05544d9c004bbcccf17e6",
+      "checked_at": "2026-09-08",
+      "url": "https://github.com/dhdaines/playa/issues/242",
+      "title": "Tagged text extraction follows content-stream order instead of structure-tree order",
+      "summary": "`Page.extract_text_tagged()` emits marked text in content-stream painting order. When a tagged PDF's structure tree deliberately defines a different logical order, extraction ignores that order; correctly tagged sidebar placement is changed, while intentionally invalid order samples can appear visually repaired.",
+      "reproduction": "```python\nimport playa\n\nfor filename in (\n    \"UA1_Tpdf-G4_04.pdf\",\n    \"UA1_Tpdf-G4_F01.pdf\",\n    \"UA1_Tpdf-G4_F02.pdf\",\n):\n    with playa.open(filename) as document:\n        print(filename)\n        print(document.pages[0].extract_text_tagged())\n```",
+      "actual_behavior": "For `UA1_Tpdf-G4_04.pdf`, the sidebar is emitted before the H1 because it is painted first, although the structure tree places it after the H1. For `UA1_Tpdf-G4_F01.pdf`, extraction emits the visually ordered H1 and paragraphs rather than the deliberately invalid structure order beginning with `FAIL` and the second paragraph. For `UA1_Tpdf-G4_F02.pdf`, the two paragraphs are emitted in painting order rather than the explicit marked-content order inside their structure elements.",
+      "expected_behavior": "Tagged text extraction should follow the structure tree's `/K` order both between elements and between marked-content references within an element. The correctly tagged sidebar sample should emit the H1 before the sidebar, and the intentionally invalid samples should preserve their invalid logical order so that each failure remains observable.",
+      "relevant_implementation": "`Page.extract_text_tagged()` iterates `self.flatten(...)` and groups consecutive text objects by marked-content section. It does not traverse `document.structure` or use structure-element content order when deciding the output sequence."
+    },
+    {
+      "id": "structure-unversioned-attribute-arrays",
+      "difference_ids": [
+        "structure-unversioned-attributes-visible-figure",
+        "structure-unversioned-attributes-decorative-figure",
+        "structure-unversioned-attributes-split-figure",
+        "structure-unversioned-attributes-text-figure",
+        "structure-unversioned-attributes-semantic-list",
+        "structure-unversioned-attributes-inline-list"
+      ],
+      "state": "submitted",
+      "repository": "dhdaines/playa",
+      "checked_commit": "9496dfea5150343c9dc05544d9c004bbcccf17e6",
+      "checked_at": "2026-09-07",
+      "url": "https://github.com/dhdaines/playa/issues/244",
+      "title": "Element.attributes drops structure attribute arrays without explicit revision numbers",
+      "summary": "`Element.attributes` treats every structure attribute array as strict attribute-object/revision-number pairs. PDF revision numbers are optional, so valid arrays containing unversioned attribute dictionaries return `None` and hide attributes such as `BBox`, `ListNumbering`, and `Placement`.",
+      "reproduction": "```python\nimport playa\n\nfor filename in (\n    \"UA1_Tpdf-L_06.pdf\",\n    \"UA1_Tpdf-L_10.pdf\",\n):\n    with playa.open(filename) as document:\n        print(filename)\n        for element in document.structure.find_all(\"L\"):\n            print(element.props.get(\"A\"), element.attributes)\n```",
+      "actual_behavior": "For `UA1_Tpdf-L_06.pdf`, the raw `A` value contains one List attribute dictionary with `ListNumbering=None`, but `element.attributes` returns `None`. For the ordered inline list in `UA1_Tpdf-L_10.pdf`, the raw array contains both a List dictionary with `ListNumbering=LowerRoman` and a Layout dictionary with `Placement=Inline`, but `element.attributes` again returns `None`. The same pattern hides unversioned `BBox` attributes on the referenced Figure samples.",
+      "expected_behavior": "Every attribute object in the array should remain accessible. An attribute object not followed by an integer has revision 0; consecutive unversioned dictionaries must not be interpreted as an invalid object/revision pair. The API may expose the objects individually or as a documented combined view, but it should preserve attributes from all of them.",
+      "relevant_implementation": "`Element.attributes` iterates `for attrdict, revision in choplist(2, attrs)` and rejects each pair unless the second value is an integer. This assumes revision numbers are mandatory and also prevents multiple unversioned attribute objects from being represented."
+    }
+  ]
+}
