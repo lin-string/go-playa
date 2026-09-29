@@ -151,9 +151,10 @@ hashes. Before a real run, the launcher additionally opens each selected PDF
 with the pinned oracle in an untimed preflight to verify its parsed page count.
 Oracle sample launches use `uv run --offline --frozen --project compat` so
 measurement does not resolve or download dependencies.
-`make verify` and CI run all benchmark Python contract tests and offline
-corpus/matrix metadata checks. These gates inspect only manifests and checked-in
-fixture identities; they never download benchmark inputs or execute a benchmark.
+Benchmark execution and its contract suite remain local gates. `make verify`
+runs the benchmark Python contract tests and offline corpus/matrix metadata
+checks; these inspect only manifests and checked-in fixture identities and do
+not download benchmark inputs or execute a benchmark.
 
 The following commands reproduce the procedure. Choose a new empty directory
 for every run:

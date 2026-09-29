@@ -132,9 +132,9 @@ make bench-corpus-check
 验证 metadata 和本地 fixture hash。真实运行前，launcher 还会在不计时的
 preflight 中使用固定 oracle 打开每份选中文档，验证解析页数。oracle sample
 使用 `uv run --offline --frozen --project compat`，避免测量期间解析或下载依赖。
-`make verify` 和 CI 接入全部 benchmark Python 合同测试及离线 corpus/matrix
-metadata 检查。这些门禁仅检查清单和已检入 fixture 身份，不下载 benchmark
-输入，也不执行 benchmark。
+benchmark 执行及其合同测试只作为本地门禁。`make verify` 运行全部 benchmark
+Python 合同测试及离线 corpus/matrix metadata 检查；这些检查仅验证清单和已检入
+fixture 身份，不下载 benchmark 输入，也不执行 benchmark。
 
 以下命令可复现执行流程。每次运行选用新的空目录：
 

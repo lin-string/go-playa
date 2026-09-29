@@ -382,9 +382,15 @@ race tests, and the public API audit. Use `make corpus-test` for malformed-input
 recovery, or cross-domain changes. Resource tables must be refreshed through
 their source synchronizers and generators, never by editing generated Go files.
 
+GitHub Actions runs `make ci-basic`, a single low-cost job covering release
+metadata, formatting, module tidiness, engineering rules, vet, lint, ordinary
+tests, and the API audit. Full verification, compatibility comparisons, corpus
+checks, resource checks, benchmarks, race tests, and vulnerability scans are
+local gates.
+
 `make vuln-check` is a separate network-dependent release gate. It checks Go
 code and the locked Python compatibility environment against current advisory
-databases; CI runs these checks as well.
+databases.
 
 Small generated PDF fixtures under `testdata/files` are ordinary Git files.
 Large public PDFs are downloaded separately into `.compat-cache/public-corpus`
@@ -393,7 +399,7 @@ licenses, sizes, and SHA-256 digests. The PDFs are not bundled into the Go
 module. `make public-fixtures-check` verifies the local copies without network
 access. Ordinary `go test ./...` and `make verify` do not download them.
 Tests using an absent optional large fixture report a skip; run the pull and
-check commands before `make verify` for that additional coverage, as CI does.
+check commands before `make verify` for that additional local coverage.
 `make module-archive-check` guards the source archive size, while
 `make module-source-test` verifies the public source-only path; both are
 included in `make verify`.

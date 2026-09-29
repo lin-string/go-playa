@@ -65,8 +65,8 @@ package 测试和 Make 目标使用同一个替代目录。每个公开 PDF 路�
 运行 release 比较，覆盖所有配置的坐标空间，不需要下载出版方 PDF。
 `make compat` 和 `make compat-release` 默认同时包含这组本地语料和公开清单中的
 全部 PDF。显式设置 `COMPAT_PDFS` 时只选择指定文件，不会再追加公开语料。
-CI 使用 `compat-local`
-覆盖完整本地语料，并通过 PDF/space 矩阵覆盖公开文档。
+兼容性比较仅作为本地门禁：使用 `compat-local` 覆盖完整检入语料，使用
+`compat-public` 或 `compat` 覆盖公开文档。
 
 严格比较仍可能发现有独立证据支持的差异：Go 字体清单包含嵌套资源字典中的字体，
 保留实际 clipping state，并采用 Adobe AFM 与 ITC Zapf Dingbats 映射。固定 oracle
@@ -99,7 +99,7 @@ make compat-pdfa
 默认 checkout 位于同级目录 `../pdf-association-fixtures`；可用
 `GO_PLAYA_PDFA_FIXTURE_DIR` 或 `PDFA_FIXTURE_DIR` 改变位置。checkout 不存在时，
 普通 `go test` 会明确跳过并提示 pull 命令。`make corpus-test`、
-`make pdfa-corpus-test`、`make compat-pdfa` 和 CI 是硬门禁：它们会校验仓库身份、
+`make pdfa-corpus-test` 和 `make compat-pdfa` 是显式本地门禁：它们会校验仓库身份、
 干净且固定的 HEAD 以及文件 digest，缺少任何源或 fixture 都会失败。设置
 `GO_PLAYA_FETCH_PDFA_FIXTURES=1` 可让单个 PDF Association fixture 测试显式拉取它声明的源。
 
@@ -114,7 +114,7 @@ RoleMap、Unicode、结构与标记内容顺序、标题、跨页列表、Artifa
 `ActualText`，以及分栏阅读顺序和侧栏在逻辑内容顺序中的位置。
 
 加密的公开 fixture 可以在清单中声明其公开测试密码。兼容环境安装 Playa 的
-`crypto` extra，使固定 oracle 能在本地和 CI 中实际处理这些文件。文档明确要求某个
+`crypto` extra，使固定 oracle 能在本地比较中实际处理这些文件。文档明确要求某个
 密码失败的 fixture 会单独记录该预期，并且只参加 corpus 行为测试，不进入兼容投影。
 
 PDF Association 的用例说明是正确性依据；固定 Playa release 仍是兼容性依据。
@@ -147,7 +147,7 @@ release、tag 和源码 commit，引用原始测试文件和预期，且不提�
 中的 issue group 会记录关联的全部差异 ID、最后核查的上游 commit 和日期，以及
 `candidate`、`existing`、`submitted` 三种状态之一。`existing` 或 `submitted`
 记录必须包含 GitHub issue URL，并会阻止草稿命令再次生成该 issue。由同一个上游
-缺陷造成的多个差异共享一个 group 和 URL。CI 会离线验证登记表，但每次实际提交
+缺陷造成的多个差异共享一个 group 和 URL。本地验证会离线检查登记表，但每次实际提交
 之前仍须实时搜索上游 open/closed issue。当前
 `UnknownFilter-PageContentStream.pdf` 的字节在 stream 字典应为 `>>` 处只有一个
 `>`；因此其行为测试要求显式报告解析失败，而不是静默接受为空内容。
@@ -385,9 +385,8 @@ go build -o /tmp/go-playa-compat ./cmd/playa-compat
   --pdf .compat-cache/public-corpus/riscv-unprivileged.pdf
 ```
 
-比较耗时和峰值 RSS 之前，先核对计数与 section 结果。`make compat` 运行配置的
-检入及公开语料；CI 不依赖私有 checkout 或 secret，就能在 `page`、`screen`、
-`default` 中检查 required 投影。库的 workload benchmark 见
+比较耗时和峰值 RSS 之前，先核对计数与 section 结果。`make compat` 在 `page`、
+`screen`、`default` 中检查配置的检入及公开语料。库的 workload benchmark 见
 [`benchmark.zh-CN.md`](benchmark.zh-CN.md)。
 
 ## 扩展投影

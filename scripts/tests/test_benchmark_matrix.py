@@ -161,7 +161,7 @@ class MatrixTests(unittest.TestCase):
             self.assertEqual(second['source_sha256'], third['source_sha256'])
             self.assertNotEqual(second['binary']['sha256'], third['binary']['sha256'])
 
-    def test_offline_contract_gates_are_wired_to_verify_and_ci(self):
+    def test_offline_contract_gates_are_wired_to_local_verify_only(self):
         makefile = (ROOT / 'Makefile').read_text()
         verify = next(line for line in makefile.splitlines() if line.startswith('verify:'))
         self.assertIn('bench-contract-test', verify)
@@ -179,7 +179,8 @@ class MatrixTests(unittest.TestCase):
         self.assertNotIn('run_matrix.py', result.stdout)
         self.assertNotIn(' pull', result.stdout)
         ci = (ROOT / '.github/workflows/ci.yml').read_text()
-        self.assertIn('make bench-contract-test bench-contract-check', ci)
+        self.assertNotIn('bench-contract-test', ci)
+        self.assertNotIn('bench-contract-check', ci)
 
 
 if __name__ == '__main__':

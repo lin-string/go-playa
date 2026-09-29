@@ -76,8 +76,9 @@ small PDF in `COMPAT_LOCAL_PDFS`, in all configured coordinate spaces. It does
 not require the publisher PDF download. `make compat` and `make compat-release`
 include both that local corpus and all PDFs in the public manifest by default.
 Setting `COMPAT_PDFS` explicitly selects only the supplied files and does not
-append the public corpus. CI uses `compat-local`
-for the complete local corpus and a PDF/space matrix for the public documents.
+append the public corpus. Compatibility comparisons are local gates: use
+`compat-local` for the complete checked-in corpus and `compat-public` or
+`compat` for the public documents.
 
 Strict comparisons can still report independently supported differences:
 the Go inventory includes fonts in nested resource dictionaries, preserves
@@ -118,8 +119,8 @@ make compat-pdfa
 The default checkout is the sibling `../pdf-association-fixtures`; set
 `GO_PLAYA_PDFA_FIXTURE_DIR` or `PDFA_FIXTURE_DIR` to use another location.
 Ordinary `go test` reports a skip with the pull command when the checkout is
-absent. `make corpus-test`, `make pdfa-corpus-test`, `make compat-pdfa`, and CI
-are hard gates: they verify repository identity, clean pinned HEADs, and file
+absent. `make corpus-test`, `make pdfa-corpus-test`, and `make compat-pdfa` are
+explicit local gates: they verify repository identity, clean pinned HEADs, and file
 digests and fail if any source or fixture is unavailable. Setting
 `GO_PLAYA_FETCH_PDFA_FIXTURES=1` lets an individual PDF Association fixture test fetch its declared
 source explicitly.
@@ -140,7 +141,7 @@ sidebar placement in logical content order.
 
 Encrypted public fixtures may declare their published test password in the
 manifest. The compatibility environment installs Playa's `crypto` extra so
-the pinned oracle exercises those files in local and CI runs. A fixture whose
+the pinned oracle exercises those files in local comparisons. A fixture whose
 documented password must fail records that expectation explicitly and remains
 outside compatibility projection, while still participating in corpus tests.
 
@@ -187,8 +188,8 @@ the fixture manifest record all associated difference IDs, the last upstream
 commit and date checked, and one of three states: `candidate`, `existing`, or
 `submitted`. An `existing` or `submitted` record includes the GitHub issue URL
 and prevents the draft command from generating the issue again. Multiple
-differences caused by one upstream defect share one issue group and URL. CI
-validates this registry without depending on live GitHub access; a live search
+differences caused by one upstream defect share one issue group and URL. Local
+verification validates this registry without live GitHub access; a live search
 of open and closed upstream issues is still required immediately before any
 submission. The current
 `UnknownFilter-PageContentStream.pdf` bytes contain a single `>` where the
@@ -479,9 +480,8 @@ go build -o /tmp/go-playa-compat ./cmd/playa-compat
 ```
 
 Compare counts and reported section results before comparing elapsed time and
-peak RSS. `make compat` runs the configured checked-in and public corpus; CI
-checks required projections in `page`, `screen`, and `default` space without a
-private checkout or secret. The library workload benchmark is documented in
+peak RSS. `make compat` runs the configured checked-in and public corpus across
+the required `page`, `screen`, and `default` spaces. The library workload benchmark is documented in
 [`benchmark.md`](benchmark.md).
 
 ## Extending the projection

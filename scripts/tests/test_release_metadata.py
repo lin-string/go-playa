@@ -286,14 +286,54 @@ class ReleaseMetadataTests(unittest.TestCase):
                 self.assertNotIn("Playa multi-process RSS sums observed per-process\nlifetime peaks", text)
                 self.assertNotIn("Playa 多进程 RSS 求和各已观测进程的生命周期峰值", text)
 
-    def test_verify_runs_engineering_check_and_ci_runs_verify(self) -> None:
+    def test_ci_is_one_basic_job_and_full_verification_stays_local(self) -> None:
         makefile = (ROOT / "Makefile").read_text()
         verify = re.search(r"(?m)^verify:\s*([^\n]*)$", makefile)
         self.assertIsNotNone(verify)
-        self.assertIn("engineering-check", verify.group(1).split())
+        self.assertIn("test-race", verify.group(1).split())
+        self.assertIn("public-corpus-test", verify.group(1).split())
+        self.assertIn("bench-contract-test", verify.group(1).split())
         self.assertRegex(makefile, r"(?m)^engineering-check:\s*\n\t\$\(GO\) run ./cmd/playa-engineering-check(?:\s|$)")
+        basic = re.search(r"(?m)^ci-basic:\s*([^\n]*)$", makefile)
+        self.assertIsNotNone(basic)
+        self.assertEqual(
+            basic.group(1).split(),
+            ["release-metadata-test", "check-fmt", "tidy-check", "engineering-check",
+             "vet", "lint", "test", "api-audit"],
+        )
         workflow = (ROOT / ".github/workflows/ci.yml").read_text()
-        self.assertRegex(workflow, r"(?m)^\s*- run: make verify\s*$")
+        self.assertEqual(
+            re.findall(r"(?m)^  ([A-Za-z0-9_-]+):\s*$", workflow.split("jobs:\n", 1)[1]),
+            ["basic"],
+        )
+        self.assertRegex(workflow, r"(?m)^\s*- run: make ci-basic\s*$")
+        self.assertRegex(
+            workflow,
+            r"(?m)^\s*- uses: golangci/golangci-lint-action@0a35821d5c230e903fcfe077583637dea1b27b47\s+# v9\.0\.0\s*$",
+        )
+        self.assertRegex(workflow, r"(?m)^\s+install-only:\s+true\s*$")
+        forbidden = (
+            "setup-python", "setup-uv", "actions/cache", "make verify",
+            "public-fixtures", "pdfa-fixtures", "corpus-test", "compat-",
+            "resources-check", "bench-contract", "test-race", "vuln-",
+        )
+        for value in forbidden:
+            with self.subTest(forbidden=value):
+                self.assertNotIn(value, workflow)
+        documentation = {
+            "README.md": "GitHub Actions runs `make ci-basic`",
+            "README.zh-CN.md": "GitHub Actions 运行 `make ci-basic`",
+            ".github/CONTRIBUTING.md": "GitHub Actions runs only `make ci-basic`",
+            "docs/engineering.md": "Online CI runs only `make ci-basic`",
+            "docs/engineering.zh-CN.md": "在线 CI 只运行 `make ci-basic`",
+            "docs/compatibility.md": "Compatibility comparisons are local gates",
+            "docs/compatibility.zh-CN.md": "兼容性比较仅作为本地门禁",
+            "docs/benchmark.md": "Benchmark execution and its contract suite remain local gates",
+            "docs/benchmark.zh-CN.md": "benchmark 执行及其合同测试只作为本地门禁",
+        }
+        for filename, required in documentation.items():
+            with self.subTest(document=filename):
+                self.assertIn(required, (ROOT / filename).read_text())
 
     def test_pre_commit_uses_one_non_mutating_verify_gate(self) -> None:
         config = (ROOT / ".pre-commit-config.yaml").read_text()

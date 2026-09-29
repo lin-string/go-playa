@@ -39,7 +39,7 @@ RSYNC_RELEASE_EXCLUDES := --exclude '.git/' --exclude '.compat-cache/' \
 	--exclude 'coverage.*' --exclude '*.coverprofile' --exclude 'profile.cov' \
 	--exclude '/docs/superpowers/' --exclude '/.superpowers/'
 
-.PHONY: fmt check-fmt lint test test-race vet tidy-check module-archive-check module-source-test pdfa-fixtures-check pdfa-fixtures-pull pdfa-corpus-test pdfa-issue-draft pdfa-issue-status public-fixtures-pull public-fixtures-check public-corpus-test compat-public api-audit verify resources-check recovery-fixtures recovery-test security-fixtures security-test acceptance-fixtures acceptance-test corpus-test compat compat-pdfa compat-fonts compat-recovery compat-one compat-release compat-cache-prune bench bench-sequential bench-concurrent bench-compare bench-profile go-cache-status go-cache-clean go-module-cache-clean
+.PHONY: fmt check-fmt lint test test-race vet tidy-check module-archive-check module-source-test pdfa-fixtures-check pdfa-fixtures-pull pdfa-corpus-test pdfa-issue-draft pdfa-issue-status public-fixtures-pull public-fixtures-check public-corpus-test compat-public api-audit ci-basic verify resources-check recovery-fixtures recovery-test security-fixtures security-test acceptance-fixtures acceptance-test corpus-test compat compat-pdfa compat-fonts compat-recovery compat-one compat-release compat-cache-prune bench bench-sequential bench-concurrent bench-compare bench-profile go-cache-status go-cache-clean go-module-cache-clean
 .PHONY: compat-local
 .PHONY: release-metadata-test
 .PHONY: engineering-check
@@ -164,6 +164,8 @@ vuln-python:
 
 vuln-check: vuln-go vuln-python
 
+ci-basic: release-metadata-test check-fmt tidy-check engineering-check vet lint test api-audit
+
 verify: release-metadata-test check-fmt tidy-check engineering-check module-archive-check vet lint test module-source-test test-race api-audit public-corpus-test bench-contract-test bench-contract-check
 
 public-fixtures-pull:
@@ -176,7 +178,7 @@ public-corpus-test:
 	python3 -m unittest scripts/tests/test_public_corpus.py
 
 # Check checked-in upstream font/CMap inputs and generated Go tables without
-# modifying the working tree. CI runs this against the live public sources.
+# modifying the working tree. Run this local gate against the live public sources.
 resources-check:
 	python3 -m unittest scripts/tests/test_generate_ccitt_tables.py scripts/tests/test_encoding_sources.py
 	python3 scripts/sync_glyphlist_sources.py --check --output-dir scripts/data

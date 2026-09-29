@@ -79,8 +79,8 @@ python3 -m unittest scripts/tests/test_release_metadata.py -v
 
 Before a release or after dependency changes, also run `make vuln-check`.
 It separately checks Go code and the locked Python compatibility environment
-against current advisory databases and requires network access. CI runs both
-scans independently of `make verify`.
+against current advisory databases and requires network access. GitHub Actions runs only `make ci-basic`;
+vulnerability scans remain an explicit local gate.
 
 For extraction, page-model, projection, or other oracle-visible changes, run
 the full relevant compatibility gate. `make compat-one` is for iteration only:
@@ -95,7 +95,7 @@ The pull command explicitly downloads the manifest-pinned public corpus into
 the ignored `.compat-cache/public-corpus` directory; it is not bundled in the Go
 module. Ordinary tests and `make verify` do not download it and may skip optional
 large-fixture tests if it is absent. Pull and check it before verification to
-include that coverage, as CI does. Missing checked-in fixtures are failures.
+include that local coverage. Missing checked-in fixtures are failures.
 
 For malformed-input, recovery, security, or cross-domain acceptance changes,
 prepare the separately pinned PDF Association corpus and run:

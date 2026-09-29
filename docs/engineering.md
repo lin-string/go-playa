@@ -12,6 +12,10 @@ English | [简体中文](engineering.zh-CN.md)
 - Run `make verify` before every commit. It checks formatting, module tidiness
   without rewriting modules, engineering contracts, `go vet`, `golangci-lint`,
   normal tests, and race tests.
+- Online CI runs only `make ci-basic`: release metadata, formatting, module
+  tidiness, engineering contracts, vet, lint, ordinary tests, and API audit.
+  Full verification and all compatibility, corpus, resource, benchmark, race,
+  and vulnerability gates run locally when relevant.
 - Go build and module caches are global to the user, not owned by this
   repository. Use `make go-cache-status` to inspect them and
   `make go-cache-clean` to remove build/test artifacts. Module cleanup is
@@ -25,8 +29,8 @@ English | [简体中文](engineering.zh-CN.md)
   them offline. The PDFs are not bundled into the source archive or Go module.
   A missing checked-in fixture fails its test. Ordinary package tests and
   `make verify` do not download large PDFs; tests using an unavailable optional
-  public fixture report a skip. CI explicitly pulls and checks the public corpus
-  before `make verify`. `make module-archive-check` guards
+  public fixture report a skip. Pull and check the public corpus explicitly for
+  local compatibility work. `make module-archive-check` guards
   the public source size, and `make module-source-test` verifies tests in a
   source-only tree; both are included in `make verify`.
 - Public PDF Association fixtures are cloned directly from their original
@@ -35,17 +39,16 @@ English | [简体中文](engineering.zh-CN.md)
   the manifest-pinned commits; `make pdfa-fixtures-check` is offline and
   verifies origin URLs, clean HEADs, and every selected file digest. Ordinary
   package tests skip with a pull hint when this optional checkout is absent,
-  while `make pdfa-corpus-test`, `make corpus-test`, `make compat-pdfa`, and CI
-  require it and fail hard.
+  while `make pdfa-corpus-test`, `make corpus-test`, and `make compat-pdfa`
+  require it and fail hard when run locally.
 - `make verify` also runs `make api-audit`, which prevents repository-only
   compatibility adapter types from leaking into public packages.
 - Run `make vuln-check` before a release or after dependency changes. This
   separate network-dependent gate checks Go code and the locked Python
-  compatibility environment against current advisory databases. CI uses the
-  patched Go toolchain pinned in [`.go-version`](../.go-version).
+  compatibility environment against current advisory databases.
 - Run `pre-commit install` once per clone. Its single hook runs `make verify`,
-  the same non-mutating source checks used by CI, and is intentionally not
-  bypassed. Fix reported formatting explicitly with `make fmt` and module
+  the full non-mutating local gate, and is intentionally not bypassed. Fix
+  reported formatting explicitly with `make fmt` and module
   changes with `go mod tidy`; verification does not rewrite source files.
 - `make engineering-check` scans non-generated production Go files, including
   untracked sources. It rejects nil comparisons of `context.Context`
@@ -67,8 +70,8 @@ English | [简体中文](engineering.zh-CN.md)
   drift.
 - Run `make compat` for extraction, page-model, or public-domain behavior
   changes. Use `make compat-one` while iterating, but include the full
-  compatibility result before requesting review. CI runs the configured spaces
-  and corpus independently of local caches.
+  compatibility result before requesting review. Compatibility comparisons are
+  local gates and must use the configured spaces and required corpus.
 - Run `make corpus-test` for malformed-input, recovery, or cross-domain
   acceptance changes; use `make compat-fonts` and `make compat-recovery` for
   their Playa oracle projections.

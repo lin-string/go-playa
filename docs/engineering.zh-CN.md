@@ -11,6 +11,9 @@
   toolchain 到共享 module cache。只有在测试另一套已安装 toolchain 时才显式覆盖。
 - 每次提交前运行 `make verify`。它检查格式、module tidiness（不重写模块文件）、
   工程契约、`go vet`、`golangci-lint`、普通测试和 race 测试。
+- 在线 CI 只运行 `make ci-basic`：发布 metadata、格式、module tidiness、工程契约、
+  vet、lint、普通测试和 API 审计。完整验证以及兼容性、corpus、资源、benchmark、
+  race 和漏洞门禁按需在本地运行。
 - Go build 和 module cache 是用户全局资源，不归本仓库所有。用
   `make go-cache-status` 查看，用 `make go-cache-clean` 删除 build/test 产物。
   module 清理单独使用 `make go-module-cache-clean`，因为它还会删除其他仓库使用的
@@ -21,22 +24,21 @@
   忽略目录 `.compat-cache/public-corpus`；`make public-fixtures-check` 离线校验。
   这些 PDF 不随源码归档或 Go module 分发。检入 fixture 缺失会使测试失败。普通
   package 测试与 `make verify` 不下载大型 PDF，可选公开 fixture 缺失时相关测试明确
-  跳过。CI 在 `make verify` 前显式 pull 并 check 公开语料。`make module-archive-check` 保护
+  跳过。本地兼容性工作应显式 pull 并 check 公开语料。`make module-archive-check` 保护
   公开源码体积，`make module-source-test` 验证纯公开源码测试路径；二者均包含在
   `make verify` 中。
 - 公开 PDF Association fixture 默认由 `make pdfa-fixtures-pull` 从原始仓库直接
   clone 到 `../pdf-association-fixtures`，也可用 `GO_PLAYA_PDFA_FIXTURE_DIR` 指定
   目录。`make pdfa-fixtures-check` 离线校验 origin URL、干净且固定的 HEAD，以及
   每个所选文件的 digest。可选 checkout 缺失时普通 package 测试会提示 pull 并跳过；
-  `make pdfa-corpus-test`、`make corpus-test`、`make compat-pdfa` 和 CI 则要求
-  语料库存在并严格失败。
+  本地运行 `make pdfa-corpus-test`、`make corpus-test` 和 `make compat-pdfa` 时
+  要求语料库存在并严格失败。
 - `make verify` 还会运行 `make api-audit`，防止仓库专用兼容 adapter 类型泄漏到
   公开包。
 - 发布前或依赖变化后运行 `make vuln-check`。这个单独运行、需要网络的门禁根据
-  当前漏洞数据库检查 Go 代码及锁定的 Python 兼容环境。CI 使用
-  [`.go-version`](../.go-version) 固定的已更新安全补丁的 Go 工具链。
-- 每个 clone 运行一次 `pre-commit install`。唯一 hook 执行 `make verify`，与 CI
-  使用同一套不修改源码的检查，不能绕过。格式问题显式使用 `make fmt` 修复，模块
+  当前漏洞数据库检查 Go 代码及锁定的 Python 兼容环境。
+- 每个 clone 运行一次 `pre-commit install`。唯一 hook 执行完整的本地
+  `make verify`，不能绕过。格式问题显式使用 `make fmt` 修复，模块
   问题使用 `go mod tidy` 修复；验证不会重写源码。
 - `make engineering-check` 扫描非生成的生产 Go 文件，包含尚未加入 Git 的源码。
   它禁止对 `context.Context` 参数、导出 API 的必需函数参数、导出指针 receiver
@@ -51,8 +53,8 @@
   比较检入输入，在临时目录重新生成 Go
   表，并在真源或生成结果漂移时失败。
 - 提取、页面模型或公开领域行为发生变化时运行 `make compat`。迭代期间可使用
-  `make compat-one`，请求评审前必须包含完整兼容结果。CI 会独立于本地缓存运行
-  配置的坐标空间和 corpus。
+  `make compat-one`，请求评审前必须包含完整兼容结果。兼容性比较仅作为本地门禁，
+  必须覆盖配置的坐标空间和所需 corpus。
 - 异常输入、恢复或跨领域 acceptance 变更运行 `make corpus-test`；字体和恢复的
   Playa oracle 投影分别运行 `make compat-fonts` 和 `make compat-recovery`。
 - 定向 corpus 目标会先运行生成器漂移检查：

@@ -337,8 +337,12 @@ make bench-compare COMPAT_PDFS=testdata/files/form_simple.pdf
 公开 API 审计。异常输入、恢复或跨领域变更使用 `make corpus-test`。资源表必须
 通过真源同步器和生成器更新，不能直接编辑生成的 Go 文件。
 
+GitHub Actions 运行 `make ci-basic`，以单个低成本作业检查发布 metadata、格式、
+module tidiness、工程规则、vet、lint、普通测试和 API 审计。完整验证、兼容性比较、
+corpus、资源、benchmark、race 测试和漏洞扫描均作为本地门禁执行。
+
 `make vuln-check` 是单独运行、需要网络的发布门禁。它根据当前漏洞数据库检查 Go
-代码及锁定的 Python 兼容环境；CI 同样执行这些检查。
+代码及锁定的 Python 兼容环境。
 
 `testdata/files` 只保留普通 Git 管理的小型生成 PDF fixture。大型公开 PDF
 需要显式运行 `make public-fixtures-pull`，下载到 `.compat-cache/public-corpus`；清单
@@ -346,8 +350,8 @@ make bench-compare COMPAT_PDFS=testdata/files/form_simple.pdf
 `make public-fixtures-check` 离线校验本地文件。普通 `go test ./...` 和 `make
 verify` 不会下载这些文件。`make module-archive-check` 检查源码归档体积，`make
 module-source-test` 验证公开源码模式；二者均包含在 `make verify` 中。
-可选的大型 fixture 缺失时，相关测试会明确跳过；要运行这部分覆盖，应像 CI 一样
-先执行 pull 和 check，再执行 `make verify`。
+可选的大型 fixture 缺失时，相关测试会明确跳过；要运行这部分本地覆盖，应先执行
+pull 和 check，再执行 `make verify`。
 
 详细维护约定：
 
