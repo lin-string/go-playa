@@ -45,8 +45,6 @@ type Options struct {
 	PageStructureBytes         int
 	PageStructureErrorBytes    int
 	AnnotationBytes            int
-	AnnotationErrorBytes       int
-	AnnotationRootErrorBytes   int
 	OutlineBytes               int
 	FormFieldBytes             int
 	PageBytes                  int

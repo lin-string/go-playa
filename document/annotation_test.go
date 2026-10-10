@@ -6,7 +6,6 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/lin-string/go-playa/cacheconfig"
 	"github.com/lin-string/go-playa/documentdata"
 )
 
@@ -71,28 +70,34 @@ func TestAnnotationsEmpty(t *testing.T) {
 	}
 }
 
-func TestAnnotationsReportMalformedRoot(t *testing.T) {
+func TestAnnotationsSkipMalformedRoot(t *testing.T) {
 	d := &Document{}
 	p := Page{dict: Dict{Name("Annots"): Number(1)}}
 
-	if _, err := d.CollectAnnotations(p); err == nil {
-		t.Fatal("malformed Annots root was silently treated as empty")
+	annotations, err := d.CollectAnnotations(p)
+	if err != nil || annotations != nil {
+		t.Fatalf("malformed Annots root = %#v, %v; want empty", annotations, err)
 	}
 }
 
-func TestAnnotationsReportMalformedEntries(t *testing.T) {
+func TestAnnotationsSkipMalformedEntriesAndContinue(t *testing.T) {
 	d := &Document{}
-	p := Page{dict: Dict{Name("Annots"): Array{Dict{Name("Rect"): Array{Number(0), Number(0), Number(1), Number(1)}}}}}
-	if _, err := d.CollectAnnotations(p); err == nil {
-		t.Fatal("malformed annotation was silently skipped")
+	p := Page{dict: Dict{Name("Annots"): Array{
+		Dict{Name("Rect"): Array{Number(0), Number(0), Number(1), Number(1)}},
+		Dict{Name("Subtype"): Name("Text"), Name("Rect"): Array{Number(0), Number(0), Number(1), Number(1)}},
+	}}}
+	annotations, err := d.CollectAnnotations(p)
+	if err != nil || len(annotations) != 1 || annotations[0].Subtype() != "Text" {
+		t.Fatalf("annotations = %#v, %v; want trailing valid annotation", annotations, err)
 	}
 }
 
-func TestAnnotationsRequireRectangle(t *testing.T) {
+func TestAnnotationsSkipEntriesWithoutRectangle(t *testing.T) {
 	d := &Document{}
 	p := Page{dict: Dict{Name("Annots"): Array{Dict{Name("Subtype"): Name("Text")}}}}
-	if _, err := d.CollectAnnotations(p); err == nil {
-		t.Fatal("annotation without Rect was accepted")
+	annotations, err := d.CollectAnnotations(p)
+	if err != nil || annotations != nil {
+		t.Fatalf("annotations without Rect = %#v, %v; want empty", annotations, err)
 	}
 }
 
@@ -107,55 +112,32 @@ func TestAnnotationRelationsFollowMultiLevelIndirectErrorReferences(t *testing.T
 	}
 }
 
-func TestAnnotationsCacheTerminalErrors(t *testing.T) {
+func TestAnnotationsDoNotCacheRejectedEntries(t *testing.T) {
 	ref := Ref{Object: 6}
 	d := &Document{objects: map[Ref]Object{
 		ref: Dict{Name("Subtype"): String("invalid")},
 	}}
 	p := Page{dict: Dict{Name("Annots"): Array{ref}}}
-	_, firstErr := d.CollectAnnotations(p)
-	if firstErr == nil {
-		t.Fatal("malformed annotation produced no error")
+	first, firstErr := d.CollectAnnotations(p)
+	if firstErr != nil || first != nil {
+		t.Fatalf("rejected annotation = %#v, %v; want empty", first, firstErr)
 	}
-	d.objects[ref] = Dict{Name("Subtype"): Name("Text")}
-	_, secondErr := d.CollectAnnotations(p)
-	if secondErr == nil || secondErr.Error() != firstErr.Error() {
-		t.Fatalf("cached annotation error = %v, want %v", secondErr, firstErr)
-	}
-}
-
-func TestAnnotationErrorCachesHonorBudgets(t *testing.T) {
-	itemRef := Ref{Object: 6}
-	d := &Document{
-		cacheOptionsConfigured: true,
-		cacheOptions:           cacheconfig.Options{AnnotationErrorBytes: 0, AnnotationRootErrorBytes: 0},
-		objects:                map[Ref]Object{itemRef: Dict{Name("Subtype"): String("invalid")}},
-	}
-	p := Page{ref: Ref{Object: 7}, dict: Dict{Name("Annots"): Array{itemRef}}}
-	_, firstItemErr := d.CollectAnnotations(p)
-	_, secondItemErr := d.CollectAnnotations(p)
-	if firstItemErr == nil || secondItemErr == nil || firstItemErr == secondItemErr {
-		t.Fatalf("annotation item errors = %v/%v, want uncached independent errors", firstItemErr, secondItemErr)
-	}
-	rootPage := Page{ref: Ref{Object: 8}, dict: Dict{Name("Annots"): Number(1)}}
-	_, firstRootErr := d.CollectAnnotations(rootPage)
-	_, secondRootErr := d.CollectAnnotations(rootPage)
-	if firstRootErr == nil || secondRootErr == nil || firstRootErr == secondRootErr {
-		t.Fatalf("annotation root errors = %v/%v, want uncached independent errors", firstRootErr, secondRootErr)
-	}
-	if len(d.annotationErrors) != 0 || len(d.annotationRootErrors) != 0 {
-		t.Fatalf("annotation error caches retained entries with zero budget: item=%#v root=%#v", d.annotationErrors, d.annotationRootErrors)
+	d.objects[ref] = Dict{Name("Subtype"): Name("Text"), Name("Rect"): Array{Number(0), Number(0), Number(1), Number(1)}}
+	second, secondErr := d.CollectAnnotations(p)
+	if secondErr != nil || len(second) != 1 || second[0].Subtype() != "Text" {
+		t.Fatalf("annotations after repair = %#v, %v", second, secondErr)
 	}
 }
 
-func TestAnnotationsRejectRectanglesWithWrongLength(t *testing.T) {
+func TestAnnotationsSkipRectanglesWithWrongLength(t *testing.T) {
 	d := &Document{}
 	p := Page{dict: Dict{Name("Annots"): Array{Dict{
 		Name("Subtype"): Name("Link"),
 		Name("Rect"):    Array{Number(0), Number(0), Number(1), Number(1), Number(2)},
 	}}}}
-	if _, err := d.CollectAnnotations(p); err == nil {
-		t.Fatal("annotation rectangle with five values was accepted")
+	annotations, err := d.CollectAnnotations(p)
+	if err != nil || annotations != nil {
+		t.Fatalf("annotations with wrong rectangle length = %#v, %v; want empty", annotations, err)
 	}
 }
 
@@ -166,8 +148,9 @@ func TestAnnotationsRejectNonFiniteRectangles(t *testing.T) {
 			Name("Subtype"): Name("Link"),
 			Name("Rect"):    Array{value, Number(0), Number(1), Number(1)},
 		}}}}
-		if _, err := d.CollectAnnotations(p); err == nil {
-			t.Fatalf("annotation accepted non-finite rectangle value %v", value)
+		annotations, err := d.CollectAnnotations(p)
+		if err != nil || annotations != nil {
+			t.Fatalf("annotations with non-finite rectangle value %v = %#v, %v; want empty", value, annotations, err)
 		}
 	}
 }
@@ -178,8 +161,9 @@ func TestAnnotationsRejectNonFiniteQuadPoints(t *testing.T) {
 		Name("Subtype"):    Name("Highlight"),
 		Name("QuadPoints"): q,
 	}}}}
-	if _, err := (&Document{}).CollectAnnotations(p); err == nil {
-		t.Fatal("annotation accepted non-finite QuadPoints")
+	annotations, err := (&Document{}).CollectAnnotations(p)
+	if err != nil || annotations != nil {
+		t.Fatalf("annotations with non-finite QuadPoints = %#v, %v; want empty", annotations, err)
 	}
 }
 
@@ -312,19 +296,6 @@ func TestAnnotationDoesNotRetainOversizedCacheValues(t *testing.T) {
 	}
 	if len(d.annotationCache) != 0 || d.annotationCacheBytes != 0 {
 		t.Fatalf("oversized annotation entered cache: entries=%d bytes=%d", len(d.annotationCache), d.annotationCacheBytes)
-	}
-}
-
-func TestAnnotationErrorsHaveBoundedCache(t *testing.T) {
-	d := &Document{}
-	const attempts = 4096
-	for i := 1; i <= attempts; i++ {
-		if _, err := d.annotationSequenceItem(Ref{Object: i}); err == nil {
-			t.Fatalf("annotation %d unexpectedly resolved", i)
-		}
-	}
-	if len(d.annotationErrors) >= attempts {
-		t.Fatalf("annotation error cache retained every failure: entries=%d", len(d.annotationErrors))
 	}
 }
 

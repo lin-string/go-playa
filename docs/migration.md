@@ -100,7 +100,9 @@ Laziness is public behavior. A sequence corresponding to a Playa generator:
 2. starts a fresh traversal on every range;
 3. performs no work for an item the consumer does not request;
 4. stops immediately when the consumer breaks;
-5. yields an advancing error once and then stops.
+5. yields an advancing fatal error once and then stops. A direct Playa mapping
+   may instead skip a malformed candidate when Playa does so; Go-only
+   diagnostic sequences document any non-terminal errors explicitly.
 
 Document pages, objects, tokens, annotations, forms, outline nodes, structure
 nodes, and page content/resources use this contract. Collecting helpers such as
@@ -109,7 +111,7 @@ nodes, and page content/resources use this contract. Collecting helpers such as
 They do not replace the primary sequence APIs.
 
 Tests for generator-shaped behavior cover order, repeatability, early stop,
-and a malformed later item whose error must remain deferred.
+and the pinned Playa recovery behavior for malformed later items.
 
 ## Ownership and stability
 

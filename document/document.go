@@ -220,10 +220,6 @@ type Document struct {
 	annotationCache           map[Ref]Annotation
 	annotationCacheBytes      int
 	annotationCacheSizes      map[Ref]int
-	annotationErrors          map[Ref]error
-	annotationErrorBytes      int
-	annotationRootErrors      map[Ref]error
-	annotationRootErrorBytes  int
 	outlineCache              map[Ref]OutlineNode
 	outlineCacheBytes         int
 	outlineCacheSizes         map[Ref]int
@@ -290,7 +286,7 @@ func defaultCacheOptions() cacheconfig.Options {
 		ObjectBytes: 64 << 20, ObjectErrorBytes: objectErrorCacheByteLimit, ObjectStreamErrorBytes: objectStreamErrorCacheLimit, ImageBytes: 32 << 20, InlineImageBytes: 32 << 20, DecodedStreamBytes: 32 << 20, DecodedErrorBytes: 64 << 10,
 		FontBytes: 32 << 20, FontErrorBytes: fontErrorCacheLimit, CFFPathBytes: cffPathCacheLimit, TrueTypePathBytes: trueTypePathCacheLimit, Type1PathBytes: type1PathCacheLimit, Type3Bytes: type3CacheLimit, PageFontBytes: 32 << 20, PagePropertyBytes: 32 << 20, PagePropertyErrorBytes: pagePropErrorCacheLimit, PageResourceBytes: 32 << 20, PageResourceErrorBytes: pageResourceErrorCacheLimit, XObjectResourceBytes: 32 << 20, XObjectResourceErrorBytes: xobjectResourceErrorCacheLimit, PageUserUnitBytes: pageUserUnitCacheLimit, PageUserUnitErrorBytes: pageUserUnitErrorCacheLimit, PageRotationBytes: pageRotationCacheLimit, PageRotationErrorBytes: pageRotationErrorCacheLimit, PageBoxBytes: pageBoxCacheLimit, ContentRootErrorBytes: contentRootErrorLimit, NameTreeBytes: nameTreeCacheLimit, NameTreeErrorBytes: nameTreeErrorCacheLimit,
 		DestinationBytes: destinationCacheLimit, DestinationErrorBytes: destinationErrorCacheLimit, DestinationsRootErrorBytes: destinationsRootErrorCacheLimit, ActionScriptBytes: actionScriptCacheLimit, ActionBytes: actionCacheLimit, ActionErrorBytes: actionErrorCacheLimit, MetadataBytes: 32 << 20,
-		MetadataXMLBytes: 32 << 20, ParentTreeBytes: parentTreeCacheLimit, ParentTreeErrorBytes: parentTreeErrorCacheLimit, PageStructureBytes: pageStructureCacheLimit, PageStructureErrorBytes: pageStructureErrorCacheLimit, AnnotationBytes: 32 << 20, AnnotationErrorBytes: annotationErrorCacheLimit, AnnotationRootErrorBytes: annotationRootErrorCacheLimit,
+		MetadataXMLBytes: 32 << 20, ParentTreeBytes: parentTreeCacheLimit, ParentTreeErrorBytes: parentTreeErrorCacheLimit, PageStructureBytes: pageStructureCacheLimit, PageStructureErrorBytes: pageStructureErrorCacheLimit, AnnotationBytes: 32 << 20,
 		OutlineBytes: outlineCacheLimit, FormFieldBytes: formTopCacheLimit, PageBytes: 32 << 20, PagesBytes: 32 << 20,
 		PageLabelRuleBytes: pageLabelCacheLimit, PageLabelsValuesBytes: pageLabelsValuesLimit, LookupBytes: 32 << 20, MissingPageBytes: 32 << 20,
 	}
@@ -537,10 +533,6 @@ func (d *Document) Close() error {
 	d.annotationCache = nil
 	d.annotationCacheBytes = 0
 	d.annotationCacheSizes = nil
-	d.annotationErrors = nil
-	d.annotationErrorBytes = 0
-	d.annotationRootErrors = nil
-	d.annotationRootErrorBytes = 0
 	d.outlineCache = nil
 	d.outlineCacheBytes = 0
 	d.outlineCacheSizes = nil
@@ -737,10 +729,6 @@ func (d *Document) ReleaseTransientCaches() {
 	d.annotationCache = nil
 	d.annotationCacheBytes = 0
 	d.annotationCacheSizes = nil
-	d.annotationErrors = nil
-	d.annotationErrorBytes = 0
-	d.annotationRootErrors = nil
-	d.annotationRootErrorBytes = 0
 	d.outlineCache = nil
 	d.outlineCacheBytes = 0
 	d.outlineCacheSizes = nil

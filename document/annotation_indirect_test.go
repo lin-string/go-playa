@@ -2,27 +2,25 @@ package document
 
 import "testing"
 
-func TestAnnotationsReportUnresolvedIndirectRoot(t *testing.T) {
+func TestAnnotationsSkipUnresolvedIndirectRoot(t *testing.T) {
 	d := &Document{objects: map[Ref]Object{}}
 	page := Page{ref: Ref{Object: 7}, dict: Dict{Name("Annots"): Ref{Object: 99}}}
 
-	if _, err := d.CollectAnnotations(page); err == nil || err.Error() != "playa: annotations root could not be resolved" {
-		t.Fatalf("unresolved Annots root error = %v", err)
-	}
-	_, firstErr := d.CollectAnnotations(page)
-	if firstErr == nil || d.annotationRootErrors[page.ref] == nil || d.annotationRootErrors[page.ref] != firstErr {
-		t.Fatalf("cached Annots root error = %v, want %v", d.annotationRootErrors[page.ref], firstErr)
+	annotations, err := d.CollectAnnotations(page)
+	if err != nil || annotations != nil {
+		t.Fatalf("unresolved Annots root = %#v, %v; want empty", annotations, err)
 	}
 }
 
-func TestAnnotationsReportUnresolvedIndirectEntry(t *testing.T) {
+func TestAnnotationsSkipUnresolvedIndirectEntry(t *testing.T) {
 	d := &Document{objects: map[Ref]Object{
 		{Object: 1}: Array{Ref{Object: 99}},
 	}}
 	page := Page{dict: Dict{Name("Annots"): Ref{Object: 1}}}
 
-	if _, err := d.CollectAnnotations(page); err == nil || err.Error() != "playa: annotation could not be resolved" {
-		t.Fatalf("unresolved annotation entry error = %v", err)
+	annotations, err := d.CollectAnnotations(page)
+	if err != nil || annotations != nil {
+		t.Fatalf("unresolved annotation entry = %#v, %v; want empty", annotations, err)
 	}
 }
 

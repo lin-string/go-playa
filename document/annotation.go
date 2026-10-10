@@ -9,8 +9,6 @@ import (
 )
 
 const annotationCacheLimit = 32 << 20
-const annotationRootErrorCacheLimit = 64 << 10
-const annotationErrorCacheLimit = 64 << 10
 
 type Annotation struct {
 	data        documentdata.Annotation
@@ -372,56 +370,28 @@ func (a Annotation) ParentWithError(d *Document) (*StructElement, error) {
 
 // Annotations returns page annotations in array order.
 //
-// A missing Annots entry is empty; an explicitly malformed root or entry is
-// reported through the sequence. The sequence can be traversed more than once
-// and stops as soon as the consumer stops yielding.
+// A missing or malformed Annots entry is empty. Malformed array members are
+// skipped so later valid annotations retain their source order, matching
+// Playa's Page.annotations recovery behavior. The sequence can be traversed
+// more than once and stops as soon as the consumer stops yielding.
 func (d *Document) Annotations(p Page) iter.Seq2[Annotation, error] {
 	return func(yield func(Annotation, error) bool) {
-		pageRef, hasPageRef := p.ref, p.ref != (Ref{})
-		if hasPageRef {
-			d.cacheMu.RLock()
-			cachedErr, cached := d.annotationRootErrors[pageRef]
-			d.cacheMu.RUnlock()
-			if cached {
-				yield(Annotation{}, cachedErr)
-				return
-			}
-		}
-		cacheRootError := func(err error) error {
-			if hasPageRef && len(err.Error()) <= d.cacheLimits().AnnotationRootErrorBytes {
-				d.cacheMu.Lock()
-				if d.annotationRootErrors == nil {
-					d.annotationRootErrors = map[Ref]error{}
-				}
-				if cachedErr, cached := d.annotationRootErrors[pageRef]; cached {
-					err = cachedErr
-				} else if cacheFits(d.annotationRootErrorBytes, len(err.Error()), d.cacheLimits().AnnotationRootErrorBytes) {
-					d.annotationRootErrors[pageRef] = err
-					d.annotationRootErrorBytes += len(err.Error())
-				}
-				d.cacheMu.Unlock()
-			}
-			return err
-		}
 		raw, present := p.dict[Name("Annots")]
 		if !present {
 			return
 		}
 		resolved, ok := d.resolveIndirectChain(raw)
 		if !ok {
-			yield(Annotation{}, cacheRootError(fmt.Errorf("playa: annotations root could not be resolved")))
 			return
 		}
 		a, ok := resolved.(Array)
 		if !ok {
-			yield(Annotation{}, cacheRootError(fmt.Errorf("playa: annotations root is not an array")))
 			return
 		}
 		for _, x := range a {
 			annotation, err := d.annotationSequenceItem(x)
 			if err != nil {
-				yield(Annotation{}, err)
-				return
+				continue
 			}
 			annotation.data = annotation.data.WithPage(p.ref, p.ref != (Ref{}))
 			if !yield(annotation, nil) {
@@ -432,59 +402,36 @@ func (d *Document) Annotations(p Page) iter.Seq2[Annotation, error] {
 }
 
 func (d *Document) annotationSequenceItem(o Object) (Annotation, error) {
-	ref, hasRef := d.finalIndirectRef(o)
-	if hasRef {
-		d.cacheMu.RLock()
-		cachedErr, cached := d.annotationErrors[ref]
-		d.cacheMu.RUnlock()
-		if cached {
-			return Annotation{}, cachedErr
-		}
-	}
-	cacheError := func(err error) (Annotation, error) {
-		if hasRef && len(err.Error()) <= d.cacheLimits().AnnotationErrorBytes {
-			d.cacheMu.Lock()
-			defer d.cacheMu.Unlock()
-			if d.annotationErrors == nil {
-				d.annotationErrors = map[Ref]error{}
-			}
-			if _, exists := d.annotationErrors[ref]; !exists && cacheFits(d.annotationErrorBytes, len(err.Error()), d.cacheLimits().AnnotationErrorBytes) {
-				d.annotationErrors[ref] = err
-				d.annotationErrorBytes += len(err.Error())
-			}
-		}
-		return Annotation{}, err
-	}
 	resolvedObject, ok := d.resolveIndirectChain(o)
 	if !ok {
-		return cacheError(fmt.Errorf("playa: annotation could not be resolved"))
+		return Annotation{}, fmt.Errorf("playa: annotation could not be resolved")
 	}
 	v, ok := resolvedObject.(Dict)
 	if !ok {
-		return cacheError(fmt.Errorf("playa: annotation is not a dictionary"))
+		return Annotation{}, fmt.Errorf("playa: annotation is not a dictionary")
 	}
 	subtypeValue, _ := d.resolveIndirectChain(v[Name("Subtype")])
 	if _, ok := subtypeValue.(Name); !ok {
-		return cacheError(fmt.Errorf("playa: annotation has invalid Subtype"))
+		return Annotation{}, fmt.Errorf("playa: annotation has invalid Subtype")
 	}
 	rawRect, present := v[Name("Rect")]
 	if !present {
-		return cacheError(fmt.Errorf("playa: annotation has invalid Rect"))
+		return Annotation{}, fmt.Errorf("playa: annotation has invalid Rect")
 	}
 	resolvedRect, _ := d.resolveIndirectChain(rawRect)
 	r, ok := resolvedRect.(Array)
 	if !ok || len(r) != 4 {
-		return cacheError(fmt.Errorf("playa: annotation has invalid Rect"))
+		return Annotation{}, fmt.Errorf("playa: annotation has invalid Rect")
 	}
 	for i := 0; i < 4; i++ {
 		item, _ := d.resolveIndirectChain(r[i])
 		if _, ok := finiteNumberValue(item); !ok {
-			return cacheError(fmt.Errorf("playa: annotation has invalid Rect"))
+			return Annotation{}, fmt.Errorf("playa: annotation has invalid Rect")
 		}
 	}
 	annotation, ok := d.annotation(o)
 	if !ok {
-		return cacheError(fmt.Errorf("playa: annotation could not be resolved"))
+		return Annotation{}, fmt.Errorf("playa: annotation could not be resolved")
 	}
 	return annotation, nil
 }
