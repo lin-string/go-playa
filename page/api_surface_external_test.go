@@ -408,6 +408,7 @@ func TestPublicPageSequences(t *testing.T) {
 	assertSeq2[page.PropertiesObject](p.Properties(d))
 	assertSeq2[page.XObjectObject](p.XObjects(d))
 	assertSeq2[page.Annotation](p.Annotations(d))
+	assertSeq2[page.Annotation](p.AnnotationsWithErrors(d))
 	_ = p.CollectAnnotations
 	assertSeq2[page.TagObject](p.Tags(d))
 	assertSeq2[page.PageStructureEntry](p.StructureSeq(d))

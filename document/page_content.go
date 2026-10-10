@@ -676,6 +676,15 @@ func (p Page) Annotations(d *Document) iter.Seq2[Annotation, error] {
 	return d.Annotations(p)
 }
 
+// AnnotationsWithErrors reports malformed annotation roots and members while
+// allowing callers to continue to later valid annotations.
+func (p Page) AnnotationsWithErrors(d *Document) iter.Seq2[Annotation, error] {
+	if d == nil {
+		return func(yield func(Annotation, error) bool) { yield(Annotation{}, errNilDocument) }
+	}
+	return d.AnnotationsWithErrors(p)
+}
+
 // CollectAnnotations materializes the page annotation sequence for callers
 // that explicitly need a complete snapshot.
 func (p Page) CollectAnnotations(d *Document) ([]Annotation, error) {

@@ -375,6 +375,18 @@ func (a Annotation) ParentWithError(d *Document) (*StructElement, error) {
 // Playa's Page.annotations recovery behavior. The sequence can be traversed
 // more than once and stops as soon as the consumer stops yielding.
 func (d *Document) Annotations(p Page) iter.Seq2[Annotation, error] {
+	return d.annotations(p, false)
+}
+
+// AnnotationsWithErrors returns annotations in array order and reports each
+// malformed root or member through the sequence. A caller that continues after
+// a member error receives later valid annotations. This Go diagnostic extension
+// does not alter the Playa-compatible recovery behavior of Annotations.
+func (d *Document) AnnotationsWithErrors(p Page) iter.Seq2[Annotation, error] {
+	return d.annotations(p, true)
+}
+
+func (d *Document) annotations(p Page, reportErrors bool) iter.Seq2[Annotation, error] {
 	return func(yield func(Annotation, error) bool) {
 		raw, present := p.dict[Name("Annots")]
 		if !present {
@@ -382,15 +394,24 @@ func (d *Document) Annotations(p Page) iter.Seq2[Annotation, error] {
 		}
 		resolved, ok := d.resolveIndirectChain(raw)
 		if !ok {
+			if reportErrors {
+				yield(Annotation{}, fmt.Errorf("playa: annotations root could not be resolved"))
+			}
 			return
 		}
 		a, ok := resolved.(Array)
 		if !ok {
+			if reportErrors {
+				yield(Annotation{}, fmt.Errorf("playa: annotations root is not an array"))
+			}
 			return
 		}
 		for _, x := range a {
 			annotation, err := d.annotationSequenceItem(x)
 			if err != nil {
+				if reportErrors && !yield(Annotation{}, err) {
+					return
+				}
 				continue
 			}
 			annotation.data = annotation.data.WithPage(p.ref, p.ref != (Ref{}))

@@ -92,6 +92,30 @@ func TestAnnotationsSkipMalformedEntriesAndContinue(t *testing.T) {
 	}
 }
 
+func TestAnnotationsWithErrorsReportsMalformedEntriesAndContinues(t *testing.T) {
+	d := &Document{}
+	p := Page{dict: Dict{Name("Annots"): Array{
+		Dict{Name("Rect"): Array{Number(0), Number(0), Number(1), Number(1)}},
+		Dict{Name("Subtype"): Name("Text"), Name("Rect"): Array{Number(0), Number(0), Number(1), Number(1)}},
+	}}}
+
+	var errors []error
+	var annotations []Annotation
+	for annotation, err := range d.AnnotationsWithErrors(p) {
+		if err != nil {
+			errors = append(errors, err)
+			continue
+		}
+		annotations = append(annotations, annotation)
+	}
+	if len(errors) != 1 || errors[0].Error() != "playa: annotation has invalid Subtype" {
+		t.Fatalf("errors = %v", errors)
+	}
+	if len(annotations) != 1 || annotations[0].Subtype() != "Text" {
+		t.Fatalf("annotations = %#v, want trailing valid annotation", annotations)
+	}
+}
+
 func TestAnnotationsSkipEntriesWithoutRectangle(t *testing.T) {
 	d := &Document{}
 	p := Page{dict: Dict{Name("Annots"): Array{Dict{Name("Subtype"): Name("Text")}}}}
