@@ -1179,16 +1179,8 @@ func (e StructElement) ParentElementWithError(d *Document) (*StructElement, erro
 		return nil, nil
 	}
 	roleMap := d.structureRoleMap()
-	seen := map[Ref]bool{}
-	for _, err := range d.structElementChildrenSeq(e.Parent(), seen, roleMap) {
-		if err != nil {
-			return nil, err
-		}
-	}
-	for _, err := range d.structElementContentsSeq(e.Parent(), Ref{}, false, map[Ref]bool{}) {
-		if err != nil {
-			return nil, err
-		}
+	if err := d.validateStructureParent(e.Parent(), roleMap); err != nil {
+		return nil, err
 	}
 	elements := d.structKidsLazy(e.Parent(), map[Ref]bool{}, roleMap)
 	if len(elements) == 0 {
@@ -1196,6 +1188,46 @@ func (e StructElement) ParentElementWithError(d *Document) (*StructElement, erro
 	}
 	element := elements[0]
 	return &element, nil
+}
+
+// Cache only successful validations. Each caller still gets a fresh lazy
+// element and resolves marked content in its own stream context.
+func (d *Document) validateStructureParent(ref Ref, roleMap map[string]string) error {
+	d.cacheMu.RLock()
+	_, validated := d.validatedParents[ref]
+	epoch := d.parentValidationEpoch
+	d.cacheMu.RUnlock()
+	if validated {
+		return nil
+	}
+	seen := map[Ref]bool{}
+	for _, err := range d.structElementChildrenSeq(ref, seen, roleMap) {
+		if err != nil {
+			return err
+		}
+	}
+	for _, err := range d.structElementContentsSeq(ref, Ref{}, false, map[Ref]bool{}) {
+		if err != nil {
+			return err
+		}
+	}
+	d.cacheMu.Lock()
+	defer d.cacheMu.Unlock()
+	if epoch == d.parentValidationEpoch && cacheFits(d.parentTreeBytesUsed(), parentValidationBytes, d.cacheLimits().ParentTreeBytes) {
+		if d.validatedParents == nil {
+			d.validatedParents = make(map[Ref]struct{})
+		}
+		d.validatedParents[ref] = struct{}{}
+	}
+	return nil
+}
+
+// Estimated bytes per validation marker, including map overhead.
+const parentValidationBytes = 32
+
+// Caller holds cacheMu. Validation markers share the parent-tree budget.
+func (d *Document) parentTreeBytesUsed() int {
+	return addCacheSize(d.parentTreeCacheBytes, len(d.validatedParents)*parentValidationBytes)
 }
 
 // BBoxValue returns an explicit structure BBox or the union of descendant
@@ -1527,7 +1559,7 @@ func (d *Document) cacheParentTreeValue(key int, value Object) {
 	if _, exists := d.parentTreeCache[key]; exists {
 		return
 	}
-	if !cacheFits(d.parentTreeCacheBytes, valueBytes, limit) {
+	if !cacheFits(d.parentTreeBytesUsed(), valueBytes, limit) {
 		return
 	}
 	d.parentTreeCache[key] = value

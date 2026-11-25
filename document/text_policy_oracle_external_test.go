@@ -3,6 +3,7 @@ package document_test
 import (
 	"bytes"
 	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/lin-string/go-playa/document"
@@ -86,5 +87,44 @@ func TestTaggedTextLogicalReorderingRetainsArtifactOrigin(t *testing.T) {
 			t.Fatalf("text=%q err=%v want CBA", text, err)
 		}
 		d.ReleaseTransientCaches()
+	}
+}
+
+func BenchmarkSharedStructureParent(b *testing.B) {
+	var content, kids strings.Builder
+	for sect := range 4 {
+		kids.WriteString("<< /Type /StructElem /S /Sect /P 7 0 R /K [")
+		for i := range 64 {
+			mcid := sect*64 + i
+			fmt.Fprintf(&content, "/Span << /MCID %d >> BDC BT /F1 10 Tf (A) Tj ET EMC\n", mcid)
+			fmt.Fprintf(&kids, "%d ", mcid)
+		}
+		kids.WriteString("] >> ")
+	}
+	d, err := document.OpenBytes(taggedPolicyPDF(content.String(), kids.String()))
+	if err != nil {
+		b.Fatal(err)
+	}
+	defer func() { _ = d.Close() }()
+	tree, err := d.StructureTree()
+	if err != nil || len(tree) != 1 {
+		b.Fatalf("structure roots=%d err=%v", len(tree), err)
+	}
+	var sections []document.StructElement
+	for section, err := range tree[0].ChildrenSeq() {
+		if err != nil {
+			b.Fatal(err)
+		}
+		sections = append(sections, section)
+	}
+	if len(sections) != 4 {
+		b.Fatalf("got %d sections", len(sections))
+	}
+	i := 0
+	for b.Loop() {
+		if p, err := sections[i].ParentElementWithError(d); err != nil || p == nil {
+			b.Fatalf("parent=%v err=%v", p, err)
+		}
+		i = (i + 1) % len(sections)
 	}
 }

@@ -207,6 +207,8 @@ type Document struct {
 	structureRoleMapErr       error
 	structureRootErr          error
 	structureRootErrReady     bool
+	validatedParents          map[Ref]struct{}
+	parentValidationEpoch     uint64
 	parentTreeCache           map[int]Object
 	parentTreeCacheBytes      int
 	parentTreeMissing         map[int]bool

@@ -24,6 +24,10 @@ const pageMissingCacheLimit = 32 << 20
 const objectErrorCacheLimit = 4096
 
 func (d *Document) resetLookupIndexLocked() {
+	// Releasing caches or rebuilding xrefs can invalidate a subtree checked
+	// against the previous object index, including a check still in progress.
+	d.validatedParents = nil
+	d.parentValidationEpoch++
 	d.lookupCache = nil
 	d.lookupFound = nil
 	d.lookupCacheBytes = 0

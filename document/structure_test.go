@@ -2005,3 +2005,40 @@ func TestPageStructureParentTreeKeepsDirectElementsOnly(t *testing.T) {
 		t.Fatalf("parent tree direct elements = %#v", got)
 	}
 }
+
+func TestSharedParentSubtreeValidation(t *testing.T) {
+	ref := Ref{Object: 1}
+	branch := Ref{Object: 2}
+	leaf := Ref{Object: 3}
+	// Two marked-content elements share a parent with a deeper sibling branch.
+	child := func(mcid int) StructElement {
+		return newStructElementValue(structuredata.ElementSpec{HasParent: true, Parent: ref, HasMCID: true, MCID: mcid})
+	}
+	d := &Document{scannedObjects: true, objects: map[Ref]Object{
+		ref:    Dict{"Type": Name("StructElem"), "K": Array{Number(0), Number(1), branch}},
+		branch: Dict{"Type": Name("StructElem"), "K": leaf},
+		leaf:   Number(2),
+	}}
+	if p, err := child(0).ParentElementWithError(d); p == nil || err != nil {
+		t.Fatalf("first parent = %v, %v", p, err)
+	}
+	// A missing grandchild makes a second validation observable.
+	delete(d.objects, leaf)
+	if p, err := child(1).ParentElementWithError(d); p == nil || err != nil {
+		t.Fatalf("shared parent revalidated its subtree: %v", err)
+	}
+	d.ReleaseTransientCaches()
+	if p, err := child(1).ParentElementWithError(d); p != nil || err == nil {
+		t.Fatalf("missing grandchild after cache release: parent=%v err=%v", p, err)
+	}
+	// Clear the independent object-resolution error for the missing leaf.
+	d.ReleaseTransientCaches()
+	d.objects[leaf] = leaf
+	if p, err := child(1).ParentElementWithError(d); p != nil || err == nil {
+		t.Fatalf("cyclic indirect reference: parent=%v err=%v", p, err)
+	}
+	d.objects[leaf] = ref // A /K back edge is skipped by the contents walker.
+	if p, err := child(0).ParentElementWithError(d); p == nil || err != nil {
+		t.Fatalf("structure back edge: parent=%v err=%v", p, err)
+	}
+}
